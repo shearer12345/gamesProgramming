@@ -51,7 +51,12 @@
 - Can be something completely fresh
 - Can be a game you've designed previously
 - CANNOT be a game you've already built!
+
+
+
   
+#Submission
+
 ###Submission
 
 - these are **NOT finalized** yet
@@ -98,6 +103,8 @@
   - unless you have evidenced circumstances, or an extension
 - Showcasing your work is standard industry practice
 
+
+
 #Lectures
 
 ###Lecture content
@@ -115,6 +122,7 @@
 - Lectures will be more discursive, and provide good opportunities to ask questions, get support
 - If there are specific Games Programming aspects that you want covered - **let me know**
   - I can add new material, or re-order things
+
 
 
 #Workshops
@@ -136,6 +144,9 @@
     - that does not mean you should be writing code for each other
     - but helping advise, debug, structure, etc
   - to see what other people are doing
+
+  
+  
 
 #Technical Games Programming Features
 
@@ -166,6 +177,9 @@
 - sound track
 - sound effects
   
+  
+  
+
 #Tooling
 
 ###Programming Languages
@@ -191,6 +205,9 @@ Including, but not restricted to:
 - Android
 - ios
 - PSVita
+
+
+
 
 #Toolkits
 
@@ -230,7 +247,11 @@ Including, but not restricted to these
 - Essentially any tool that lets you AVOID doing programming
   - either by doing it for you
   - or by likely distracting you into spending too much time on assets
-  
+
+
+
+
+
   
 #Recommendations
 
