@@ -4,7 +4,7 @@
 #pandoc - http://johnmacfarlane.net/pandoc/
 #TODO should rewrite the path to reveal for markdown files further down the hierarchy
 
-pdfReveal = True
+pdfReveal = False
 purePdf   = False
 
 import os
