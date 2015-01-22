@@ -1,6 +1,4 @@
-#Games Programming
-
-- Lecture 01
+#Games Programming - Lecture 01
 
 ##Slide
 
