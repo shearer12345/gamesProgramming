@@ -107,18 +107,21 @@
 - Part A's - with Demonstrator
 - Part B's - write notes
 
+- target platform(s)?
+- development tools
+  - language
+  - libraries? engines? frameworks?
+
 ##Slot 8 (10 minutes)
 
 - Part A's - write notes
 - Part B's - with Demonstrator
 
-
-
-
 - target platform(s)?
 - development tools
   - language
   - libraries? engines? frameworks?
+
 
 #Continuing
 
