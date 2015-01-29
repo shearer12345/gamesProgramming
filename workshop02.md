@@ -2,9 +2,9 @@
 
 ##If you didn't get a chance last week - example Games and Video are shared at
 
-- \\192.168.0.202\gamesDev
-- \\192.168.0.143\gamesDev
-- \\192.168.0.194\gamesDev
+- `\\192.168.0.202\gamesDev`
+- `\\192.168.0.143\gamesDev`
+- `\\192.168.0.194\gamesDev`
 
 ##Activities
 
