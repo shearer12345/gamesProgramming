@@ -2,12 +2,10 @@
 
 ###Overview of Today
 
-- Deep dive and discussion around Monogame
-
+- Deep dive and discussion around Monogame 
 ![MonoGame](http://www.monogame.net/wp-content/themes/monogame/images/monogamelogo46px.png)
-- Student as producer http://studentasproducer.lincoln.ac.uk/
 
-![StudentAsProducer](http://studentasproducer.blogs.lincoln.ac.uk/files/2010/10/StudentasProducer.png)
+- Student as producer http://studentasproducer.lincoln.ac.uk/ - ![StudentAsProducer](http://studentasproducer.blogs.lincoln.ac.uk/files/2010/10/StudentasProducer.png)
 
 
 #Deep dive and discussion around Monogame
