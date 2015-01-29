@@ -2,19 +2,19 @@
 
 ##Examples Games and Video are shared from this PC at
 
-- \\192.168.0.202\gamesDev
-- \\192.168.0.143\gamesDev
-- \\192.168.0.194\gamesDev
+    \\192.168.0.202\gamesDev
+    \\192.168.0.143\gamesDev
+    \\192.168.0.194\gamesDev
 
 ##Activities
 
 1) Watch the videos (individually, or in groups)
 
 2) Try out some of the working Games
-  - in the "gamesDev\exampleGames\___working" folder
+  - in the `gamesDev\exampleGames\___working` folder
 
 3) Try a couple of the Games that don't working
-  - in the "gamesDev\exampleGames\___notWorking" folder
+  - in the `gamesDev\exampleGames\___notWorking` folder
   - have a look at the errors
   - WHY are you trying this
 
