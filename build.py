@@ -55,6 +55,7 @@ def clearDirectory(dir):
 
 def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
 
+    pandocBin = 'C:/Users/shearer/AppData/Local/Pandoc/pandoc.exe'
     #process md files
     for file in os.listdir(dir):
         if file.endswith(fileSuffix):
@@ -69,10 +70,10 @@ def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
             webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
             
             if reveal:
-                os.system('pandoc ' + '-s --mathjax=MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=sky --base-header-level=1 --section-divs --slide-level=2')
+                os.system(pandocBin + ' ' + '-s --mathjax=MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=sky --base-header-level=1 --section-divs --slide-level=2')
                 
             if purePdf:
-                os.system('pandoc ' + '-s ' + file + ' -o ' + purePdfFileName + ' -t latex')
+                os.system(pandocBin + ' ' + '-s ' + file + ' -o ' + purePdfFileName + ' -t latex')
             
             #pdf of reveal
             if pdfReveal:
