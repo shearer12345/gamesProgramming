@@ -12,7 +12,7 @@
   - with your options
   - put "LEVEL 3 OPTIONS" in the subject
 
-<a HREF="mailto:jshearer@lincoln.ac.uk?subject=LEVEL 3 OPTIONS&body=Hi John, For my Level 3 Options I would like to choose X and Y">mailto:jshearer@lincoln.ac.uk?subject=LEVEL 3 OPTIONS&body=Hi John, For my Level 3 Options I would like to choose X and Y</a>
+<a HREF="mailto:jshearer@lincoln.ac.uk?subject=LEVEL 3 OPTIONS&body=Hi John, For my Level 3 Options I would like to choose X and Y. From YOURNAME. Student Number: YOURSTUDENT NUMBER.">mailto:jshearer@lincoln.ac.uk?subject=LEVEL 3 OPTIONS&body=Hi John, For my Level 3 Options I would like to choose X and Y.  From YOURNAME. Student Number: YOURSTUDENT NUMBER.</a>
 
 ###Summary
 
