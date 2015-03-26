@@ -6,7 +6,13 @@
 
 - there is a default option, if you **don't** choose, you will be given this option
 
+###Emailing
+
 - if you want any other options, you **must** email me (jshearer@lincoln.ac.uk)
+  - with your options
+  - put "LEVEL 3 OPTIONS" in the subject
+
+<a HREF="mailto:jshearer@lincoln.ac.uk?subject=LEVEL 3 OPTIONS&body=Hi John, For my Level 3 Options I would like to choose X and Y">mailto:jshearer@lincoln.ac.uk?subject=LEVEL 3 OPTIONS&body=Hi John, For my Level 3 Options I would like to choose X and Y</a>
 
 ###Summary
 
