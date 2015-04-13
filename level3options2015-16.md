@@ -50,8 +50,8 @@
 - (15, B) Entrepreneurship and Innovation 2
 - (15, A) Image Processing
 - (30, A&B) Mobile Computing
-- **(15, A) Parallel Computing (default**)
-- **(15, B) Software Engineering (default**)
+- **(15, A) Software Engineering (default**)
+- **(15, B) Parallel Computing (default**)
 
 ###Details on modules
 
@@ -91,12 +91,12 @@
 
 - (30, A&B)
 
-###Parallel Computing
+###Software Engineering
 
 - (15, A)
 - **default**
 
-###Software Engineering
+###Parallel Computing
 
 - (15, B)
 - **default**
