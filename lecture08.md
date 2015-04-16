@@ -272,6 +272,7 @@ f = c - 0/c + 1.4c f0 = 0.42 f0
 #Libraries
 
 - FMod
+- WWise
 - OpenAL
 - HTML5 Audio
 - SDL, SDL_mixer
