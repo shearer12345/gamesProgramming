@@ -4,6 +4,16 @@
 
 - Audio
 
+- An example, state of the art, research (2010)
+  - Precomputed Wave Simulation for Real-time Sound Propagation of Dynamic Sources in Complex Scenes
+  - https://www.youtube.com/watch?v=MQt1jtDBNK4
+
+- Another example, state of the art, game (2010)
+  - Red Dead Redemption - Launch Trailer
+  - https://www.youtube.com/watch?v=3gBctl1h_2o
+
+
+
 # Audio
 
 ###Types Audio we're interested in
@@ -85,8 +95,7 @@
 - Privacy (voice chat)
 
 
-
-#Recording, Representation, and Reproduction
+#What is Sound?
 
 ###What is Sound?
 
@@ -217,10 +226,48 @@ f = c - 0/c + 1.4c f0 = 0.42 f0
 
 ###These are **some** of things an audio library helps you with
 
+- i.e. let's not do this ourselves
+
+#Recording, Representation, and Reproduction
+
+###Recording
+
+- We're not going to focus on this much
+- Real-world audio/sound is **ANALOGUE**
+- We need to convert it to a **DIGITAL** representation
+  - this is **sampling**
+  - converting a signal (for example, a function of continuous time and/or space) into a numeric sequence (a function of discrete time and/or space
 
 
-http://en.wikipedia.org/wiki/Sound_recording_and_reproduction
 
+###Representation
+
+-  Nyquist Theorem and Aliasing
+
+- ```Intuitively we expect that when one reduces a continuous function to a discrete sequence (called samples) and interpolates back to a continuous function, the fidelity of the result depends on the density (or sample-rate) of the original samples```
+<cite>http://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem</cite>
+
+- the highest reproducible frequency of a digital system will be less than one-half the sampling rate. From the opposite point of view, the sampling rate must be greater than twice the highest frequency we wish to reproduce
+<cite>http://www.indiana.edu/~emusic/etext/digital_audio/chapter5_nyquist.shtml</cite>
+
+- 44,100 standard
+- often 96kHz for high quality
+- usually sampled at 16-bits per sample,
+- usually represented using 32-bit floating point
+  - to allow effects
+- output
+  - For digital audio, if an HDMI device has audio, it is required to implement the baseline format: stereo (uncompressed) PCM. Other formats are optional, with HDMI allowing up to 8 channels of uncompressed audio at sample sizes of 16-bit, 20-bit and 24-bit, with sample rates of 32 kHz, 44.1 kHz, 48 kHz, 88.2 kHz, 96 kHz, 176.4 kHz and 192 kHz.
+  - <cite>http://en.wikipedia.org/wiki/HDMI#Audio.2Fvideo</cite>
+
+###Reproduction
+
+- Speakers
+- Headphones
+- ...
+
+#Challenges
+
+- ...
 
 #Libraries
 
@@ -241,11 +288,3 @@ http://en.wikipedia.org/wiki/Sound_recording_and_reproduction
 - TeamSpeak (voice chat)
 - Ventrilo (voice chat)
 - do it yourself!!
-
-#Audio Sound libraries
-
-- ...
-
-#Resources (some)
-
--
