@@ -1,8 +1,6 @@
-#Games Programming - Lecture 08
+#Games Programming - Lecture 08 - Audio
 
-###Overview of Today
-
-- Audio
+###Examples
 
 - An example, state of the art, research (2010)
   - Precomputed Wave Simulation for Real-time Sound Propagation of Dynamic Sources in Complex Scenes
@@ -12,6 +10,9 @@
   - Red Dead Redemption - Launch Trailer
   - https://www.youtube.com/watch?v=3gBctl1h_2o
 
+###History
+
+- http://www.gamessound.com/
 
 
 # Audio
@@ -289,3 +290,11 @@ f = c - 0/c + 1.4c f0 = 0.42 f0
 - TeamSpeak (voice chat)
 - Ventrilo (voice chat)
 - do it yourself!!
+
+#Links
+
+- http://www.gameaudio101.com/articles.php
+- http://www.gameaudio101.com/Game-Audio-Programming.php
+- http://www.aiwisdom.com/audio_all.html
+- https://wiki.libsdl.org/Books
+- https://www.packtpub.com/game-development
