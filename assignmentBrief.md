@@ -93,6 +93,8 @@ Make a complete game showcasing technical games programming features
   - using a screen capture tool
     - recommended Open Broadcaster Software (OBS)
     - other are available
+  - you should not add a music soundtrack to your video, the audio should all be from in-game
+    - though you can voice-over if you like (no need to though)
   - your video can ALSO be on YouTube if you like, but you should download it to submit
 
  **WARNING: PLAN AHEAD - uploading to blackboard can be slow. Don't leave the zip upload to the last minute - you work will very likely be late**
