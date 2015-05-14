@@ -8,24 +8,23 @@ Make a complete game showcasing technical games programming features
 
 - 100% coursework (assignment) based
 
-
 - There is a single assignment due towards the end of the Semester
   - check BB for the date
 
-
-- **Make a complete game showcasing technical games programming features**
+- **Clone (approximately) a provided game showcasing technical games programming features**
   - The assessment can be summarised as this
   - There are a few (small) restrictions
-
-
+  - game to clone to be specified. May be a choice between a few (2-3) games
+  
 - As part of the Games Computing programme the assignment is strongly focused on **complete** games that showcase technical features, rather than just technical demos.
 
 ##Overview 2
 
-- Any type / genre of game is ok
-- The game can be written in any language you like
-- You MUST do software development for your game (the module is games **programming**)
+- The game must be written in using OpenGL and C/C++
+  - You **MUST** do software development for your game (the module is games **programming**)
+  - You **CAN** use an of the example code in your solution
 - Marks are attributed on the **quality** and **challenge** of the games programming features you demonstrate
+  - see detailed list
 - Asset development is NOT the focus for your game
   - there is not allocation in the marks for assets development
   - it is recommended to find sources for 3D assets
@@ -34,96 +33,94 @@ Make a complete game showcasing technical games programming features
 
 ##The LEVEL of work
 
-- You are NOT expected to produce the new AAA game!
-- This is one 15 CAT module ...
-- Focus on 1-3 features
-- Can be a CLONE of a game
-- Can be a remix of two games
-- Can be something completely fresh
-- Can be a game you've designed previously
-- CANNOT be a game you've already built!
+- You are NOT expected to produce a AAA level game!
+- This is one 15 CAT module ... and you are one developer ...
 
 ##Demo
 
-- The assignment will be assessed through **showcase event demonstration**
+- The assignment will be assessed through **demonstration**
 - This will take place **after the submission deadline**
-  - **Tuesday May 5th 2015**
+  - Date to be confirmed
   - Times to be confirmed
 - Unless you have an extension or circumstances, you **MUST** demonstrate your assignment
-- The showcase events will be a semi-public evening demo
-  - Level 1 (Games Programming) students will be invited
-    - they're doing this module next year
-  - Staff will be invited
-  - Representatives from the local Games Industry will be invited
-  - Drinks and Nibbles (in the corridor, of course)
 
 #Submission
 
-###Submission
+###Submission Parts
 
-- three submission parts
-  - in single zip to Blackboard
+- two submission parts to Blackboard
+  - a pdf of the features you've implemented and a brief reflection on the development and learning process in this module
+  - a zip containing support materials
 
-###All game source, and assets, and preferably binaries
+###PDF
 
-- **OR** a link to an online hosting service
-- not marked directly, but this is the evidence chain
-  - and plagiarism check
+- list of features implemented (you can just copy the list provided here, and cut those you haven't done)
+- reflection - see [http://en.wikipedia.org/wiki/Reflective_practice#Gibbs_1988](http://en.wikipedia.org/wiki/Reflective_practice#Gibbs_1988) - following Gibbs 1988, summarised as
+  - Description
+    - ```What happened?```
+    - Don't make judgements yet or try to draw conclusions; simply describe.
+  - Feelings
+    - ```What were your reactions and feelings?```
+    -  Again don't move on to analysing these yet.
+  - Evaluation
+    - ```What was good or bad about the experience?```
+    - Make value judgements.
+  - Analysis
+    - ```What sense can you make of the situation?```
+    - Bring in ideas from outside the experience to help you.
+    - ```What was really going on?```
+    - ```Were different people's experiences similar or different in important ways?```
+  - Conclusions (general)
+    - ```What can be concluded, in a general sense, from these experiences and the analyses you have undertaken?```
+  - Conclusions (specific)
+    - ```What can be concluded about your own specific, unique, personal situation or way of working?```
+  - Personal action plans
+    - ```What are you going to do differently in this type of situation next time?```
+    - ```What steps are you going to take on the basis of what you have learnt?```
 
-###A list of the technical features developed and technologies used
 
-- what technical features have you **programmed**
-- which technologies have you **used**
-- what technical features have the technologies provided for you
-  - that you had to **program** to use
-- any other technical work you've done
+###Zip
 
-###A video (or videos) of your game in action
+- All game source, and assets, and preferably binaries
+  - can be a zip directly download from github or similar
+    - if so a link to github would also be nice, but not required
+  - not marked directly, but this is the evidence chain and plagiarism check
 
-- at least 30 seconds long
-- at least 640x480
-- using a screen capture tool (e.g. Open Broadcaster Software (OBS), Fraps), or a video camera/phone
-- **OR** a link to an online hosting service
-  - e.g. YouTube
+- A video (or videos) of your game in action
+  - showing each of the implemented features
+  - at least 640x480
+  - only showing the game window (not the whole desktop)
+  - using a screen capture tool
+    - recommended Open Broadcaster Software (OBS)
+    - other are available
+  - your video can ALSO be on YouTube if you like, but you should download it to submit
 
-###A development diary
+ **WARNING: PLAN AHEAD - uploading to blackboard can be slow. Don't leave the zip upload to the last minute - you work will very likely be late**
+   - I recommend uploading the zip early, then working on the PDF document
 
-- marks for this, specifically the linear nature
-  - the linear nature will also be evidenced by **workshop attendance**
-- online blog (provide a link)
-  - can be **private** if you prefer
-- or video diary (provide a link)
-  - can be **private** if you prefer
-- INCLUDING:
-  - features working on (including planning, storyboard, prototyping, testing)
-  - screenshots
-  - reflection
-
-####Some development diary examples
-
-  - Just a quick google search
-  - **if you find good ones, please send me links and I'll share with the class**
-  - <http://www.reprisalthegame.com/>
-  - <https://www.gameacademy.com/starting-developer-diary/>
-  - <http://jessefreeman.com/category/dev-diary/>
-  - <http://roboticshed.com/>
+#Demo
 
 ###Demonstration during the showcase session
 
 - This is **NOT** optional
   - unless you have evidenced circumstances, or an extension
-  - Showcasing your work is standard industry practice
+  - demoing your work is standard industry practice
+  - you video should also show each feature implemented, your demo should also
+    - make sure you can easily show each features
+      - put in cheats (e.g. on keypress) to trigger if needs be
 
-##Feedback
+#Feedback
+
+###Feedback
 
 - you will receive both:
-    - in-class feedback (when you demonstrate)
-    - an audio recording of the in-class feedback for further reflection
-
+  - in-class feedback (when you demonstrate)
+  - an audio recording of the in-class feedback for further reflection
+  - the checksheet for each feature
 
 #Technical Games Programming Features
 
-- An non-complete lists
+**TODO - restrict**
 
 ##Tech Features - Visual
 
@@ -137,15 +134,12 @@ Make a complete game showcasing technical games programming features
 ##Tech Features - Simulation / Game Logic
 
 - Artificial Intelligence (AI)
-- liquid volume simulation
 - collision detection / physics (acceleration)
 - movement
 - score / health /currency
-- anti-spam
 - game logic (buttons, collect stuff)
 - timers
 - multiplayer (local)
-- multiple levels
 
 ##Tech Features - Audio
 
@@ -154,18 +148,6 @@ Make a complete game showcasing technical games programming features
 
 #Tooling
 
-##Programming Languages
-
-Including, but not restricted to:
-
-- C
-- C++
-- C#
-- Java
-- Python
-- PHP
-- JavaScript
-
 ##Platforms
 
 Including, but not restricted to:
@@ -173,12 +155,7 @@ Including, but not restricted to:
 - Windows
 - Linux
 - Mac
-- Web-server
-- Android
-- ios
-- PSVita
-
-#Toolkits
+- Web - using [emscripten](https://github.com/kripken/emscripten)
 
 ##Toolkits - check if not on the list
 
@@ -189,36 +166,21 @@ Including, but not restricted to these
 
 ##Toolkits - Graphics
 
+**TODO - add more**
+
 - OpenGL (C/C++ Graphics)
 - SDL2 / GLFW / SFML / GLUT (C/C++ Graphics support)
-- LWJGL (Java wrapper for OpenGL)
-- Slick (Sprite Animation library for LWJGL)
-- Ogre3D (C++ Graphics Engine)
+- GLEW
+- GLM
+- ASSIMP
 
 ##Toolkits - Audio
+
+**TODO - add more**
 
 - OpenAL (Audio library - deprecated)
 - FMod (http://www.fmod.org/)
 - irrKlang
-
-##Toolkits - Games Engines
-
-- XNA / MonoGame (C# Games Framework)
-- Panda3D (Python and C++ Games Engine) <https://www.panda3d.org/>
-- Blender Games Engine(3D Modelling + Games Engine) <http://wiki.blender.org/index.php/Doc:2.6/Manual/Game_Engine>
-- JMonkeyEngine (Java Games Engine) <http://jmonkeyengine.org/>
-- PyGame (Python Games Engine - a bit dated) <http://pygame.org/news.html>
-- Unreal Engine 4 - though you need to do programming - not just using blueprints
-
-##Toolkits - Games Engines you CANNOT use
-
-- Unity (NO NO NO) <http://unity3d.com/>
-- GameMaker Studio (NO NO NO) <https://www.yoyogames.com/studio>
-- RPG Creator (NO NO NO) <http://rpgcreator.net/>
-- Essentially any tool that lets you AVOID doing programming
-  - either by doing it for you
-  - or by likely distracting you into spending too much time on assets
-
 
 #Recommendations
 
@@ -228,7 +190,7 @@ Including, but not restricted to these
 - versioning
 - attending
 - asking for help (us and each other)
-- lots of screenshots
-- aim sensibly
-- tools that you **already** know or **WANT** to learn or **VALUE** learning
-  - a good opportunity to upskill ...
+
+#Feature table
+
+**TODO**
