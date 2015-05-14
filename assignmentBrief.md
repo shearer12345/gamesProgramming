@@ -15,7 +15,7 @@ Make a complete game showcasing technical games programming features
   - The assessment can be summarised as this
   - There are a few (small) restrictions
   - game to clone to be specified. May be a choice between a few (2-3) games
-  
+
 - As part of the Games Computing programme the assignment is strongly focused on **complete** games that showcase technical features, rather than just technical demos.
 
 ##Overview 2
@@ -178,9 +178,20 @@ Including, but not restricted to these
 
 **TODO - add more**
 
-- OpenAL (Audio library - deprecated)
+- SDL2_Mixer
+- SoLoud (https://github.com/jarikomppa/soloud)
 - FMod (http://www.fmod.org/)
 - irrKlang
+- OpenAL (Audio library - deprecated)
+
+##UI
+
+**TODO - add more**
+
+- CEGUI - http://cegui.org.uk/
+- CEF - https://bitbucket.org/chromiumembedded/cef
+- begui - https://code.google.com/p/begui/
+- BlendInt - https://github.com/zhanggyb/BlendInt
 
 #Recommendations
 
