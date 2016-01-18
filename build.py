@@ -1,12 +1,6 @@
 #! /usr/bin/env python3
 
-#REQUIRES pandoc 
-#pandoc - http://johnmacfarlane.net/pandoc/
-#TODO should rewrite the path to reveal for markdown files further down the hierarchy
-
-pdfReveal = False
-purePdf   = False
-
+import subprocess
 import os
 import sys
 import errno
@@ -14,32 +8,9 @@ import time
 
 from threading import Thread
 
-import http.server
-import socketserver
+fileSuffix = '.asciidoc'
+clearTuple = ('.html')
 
-fileSuffix = '.md'
-clearTuple = ('.html', '.docx', '.pdf')
-
-PORT = 8000
-if pdfReveal:
-    Handler = http.server.SimpleHTTPRequestHandler
-    httpd = socketserver.TCPServer(("", PORT), Handler)
-
-def serverThread(port=8000):
-    print( 'Starting httpServer at port', PORT);
-    httpd.serve_forever()
-
-def startServer(port=8000):
-    t = Thread(target=serverThread, args=(port,))
-    t.daemon = True
-    t.start()
-
-def make_sure_path_exists(path):
-    try:
-        os.makedirs(path)
-    except OSError as exception:
-        if exception.errno != errno.EEXIST:
-            raise
 
 def silentremove(filename):
     try:
@@ -55,32 +26,37 @@ def clearDirectory(dir):
 
 def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
 
-    pandocBin = 'C:/Users/shearer/AppData/Local/Pandoc/pandoc.exe'
-    #process md files
-    for file in os.listdir(dir):
+    #process files
+    for file in reversed(os.listdir(dir)):
         if file.endswith(fileSuffix):
             print('Working on', file)
             fileNameWithoutSuffix = file[:-len(fileSuffix)]
             file = os.path.join(dir, file)
             revealFileName = os.path.join(dir, fileNameWithoutSuffix + '.html')
             html5FileName = os.path.join(dir, fileNameWithoutSuffix + '_html5.html' )
-            docxFileName = os.path.join(dir, fileNameWithoutSuffix + '.docx')
-            pdfFileName = os.path.join(dir, fileNameWithoutSuffix + '.pdf')
-            purePdfFileName = os.path.join(dir, fileNameWithoutSuffix + '_pure.pdf')
-            webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
+            #docxFileName = os.path.join(dir, fileNameWithoutSuffix + '.docx')
+            #pdfFileName = os.path.join(dir, fileNameWithoutSuffix + '.pdf')
+            #purePdfFileName = os.path.join(dir, fileNameWithoutSuffix + '_pure.pdf')
+            #webtexFileName = os.path.join(dir, fileNameWithoutSuffix + '_webtex.html')
             
             if reveal:
-                os.system(pandocBin + ' ' + '-s --mathjax=MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML ' + file + ' -o ' + revealFileName + ' -t revealjs' + ' -V theme=sky --base-header-level=1 --section-divs --slide-level=2')
+                #os.system('asciidoctor -T asciidoctor-reveal.js/templates/slim/ ' + file)
+                proc = subprocess.Popen(['asciidoctor -T asciidoctor-reveal.js/templates/slim/ ' + file], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                (out, err) = proc.communicate()
+
+                if len(out) > 0:
+                    print "program output:", out
+                if len(err) > 0:
+#                    print "program errors:", err
+                    pass
                 
-            if purePdf:
-                os.system(pandocBin + ' ' + '-s ' + file + ' -o ' + purePdfFileName + ' -t latex')
-            
-            #pdf of reveal
-            if pdfReveal:
-                phantomString = 'phantomjs ./reveal.js/plugin/print-pdf/print-pdf.js ' + 'http://localhost:8000/' + fileNameWithoutSuffix + '.html' + '?print-pdf#/ ' + pdfFileName
-                os.system(phantomString)
+#            if purePdf:
+#                os.system(pandocBin + ' ' + '-s ' + file + ' -o ' + purePdfFileName + ' -t latex')
+#            
+#            #pdf of reveal
+#            if pdfReveal:
+#                phantomString = 'phantomjs ./reveal.js/plugin/print-pdf/print-pdf.js ' + 'http://localhost:8000/' + fileNameWithoutSuffix + '.html' + '?print-pdf#/ ' + pdfFileName
+#                os.system(phantomString)
                 
 clearDirectory('.')
-if pdfReveal:
-    startServer()
-buildDirectory('.', pdfReveal=pdfReveal, purePdf=purePdf)
+buildDirectory('.')
