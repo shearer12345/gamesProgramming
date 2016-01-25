@@ -1,0 +1,91 @@
+= Sprite Animation
+
+:imagesdir: ./assets/
+
+image::kenny/platformerPack/sample.png[]
+
+== Overview
+
+* TODO
+* Sprites
+  ** Sprite Animation
+  * Texture Animation
+  * Video Textures
+
+== What are Sprites
+
+* A Sprite is a 2D image, usually used within a video game.
+
+[Kenny Platformer Pack - p1_front]
+image::kenny/platformerPack/Player/p1_front.png[caption="Kenny Platformer Pack: ", title="p1_front", alt="Kenny Platformer Pack: p1_front", height="300", link="http://open.commonly.cc/"]
+
+
+== What is sprite animation
+
+* Changing between a set of sprites over time, to give the impression of change
+  ** movement
+  ** shape change
+  ** ...
+
+[Kenny Platformer Pack - p1 walk cycle]
+image::kenny/platformerPack/Player/p1_walk/PNG/p1_walk.apng[caption="Kenny Platformer Pack: ", title="p1 walk cycle", alt="Kenny Platformer Pack: p1 walk cycle", height="200", link="http://open.commonly.cc/"]
+
+=== What is sprite animation
+
+(for platforms not supporting apng)
+
+* Changing between a set of sprites over time, to give the impression of change
+  ** movement
+  ** shape change
+  ** ...
+
+[Kenny Platformer Pack - p1 walk cycle]
+image::kenny/platformerPack/Player/p1_walk/PNG/p1_walk.gif[caption="Kenny Platformer Pack: ", title="p1 walk cycle", alt="Kenny Platformer Pack: p1 walk cycle", height="150", link="http://open.commonly.cc/"]
+
+== What are sprite sheets
+
+* Single images containing multiple sprites and/or multiple frames of sprite animation
+
+[Kenny Platformer Pack - p1_walk spritesheet]
+image::kenny/platformerPack/Player/p1_walk/p1_walk.png[caption="Kenny Platformer Pack: ", title="p1_walk spritesheet", alt="Kenny Platformer Pack: p1_walk spritesheet", height="300", link="http://open.commonly.cc/"]
+
+== Challenges in sprite animation
+
+. Sprites within sprite sheets
+  - selecting the right set of pixels for each sprite
+. Animation Cycles
+  - selecting the right sprite at the right time
+  - smoothing the transitions
+  - animation frame rate != render frame rate
+. Multiple Animation Cycles
+  - when to transition from one cycle to another
+
+== Sprites within sprite sheets
+
+* selecting the right set of pixels for each sprite
+
+== Animation Cycles
+
+* selecting the right sprite at the right time
+* smoothing the transitions
+* animation frame rate != render frame rate
+
+== Multiple Animation Cycles
+
+* when to transition from one cycle to another
+
+
+== Sprite files
+
+* the imagery
+* meta-data
+
+=== Sprite files - imagery
+
+What file formats is the image data stored in?
+
+Most image formats are, or can be, used.
+
+[%step%]
+
+=== Sprite files - meta-data
