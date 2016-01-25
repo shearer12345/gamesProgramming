@@ -1,0 +1,16 @@
+{
+ _comment: "This is a json file for Wavedrom diagrams - see wavedrom.com or https://github.com/drom/wavedrom",
+ signal: [
+  {name: 'renderFrame', wave: 'LLLLLLLLLLLLLLLLLLLL', period: 1.0, phase: 0.0},
+  {name: 'animationFrame', wave: '333333', data: ['sprite 0', 'sprite 1', 'sprite 2', 'sprite 3', 'sprite 5', 'sprite 5', 'sprite 6'], period: 3.5, phase: 0.9},
+  
+],
+ head:{
+   tick:0,
+ },
+  config: { hscale: 1.0 }
+
+
+
+}
+
