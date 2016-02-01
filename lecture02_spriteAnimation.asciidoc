@@ -2,9 +2,7 @@
 shearer12345
 
 :imagesdir: ./assets/
-:revealjs_slideNumber: true
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
-:revealjs_history: true
 
 image::kenny/platformerPack/sample.png[]
 
