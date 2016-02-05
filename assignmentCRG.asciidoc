@@ -1,0 +1,87 @@
+= Games Programming Assignment CRG 2015-16
+shearer12345
+
+:imagesdir: ./assets/
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== Learning Outcomes
+
+1. Apply appropriate programming and algorithmic techniques for deployment of 2D and 3D graphics in games
+2. Design and develop interactive games using an appropriate API
+3. Implement efficient algorithms for computer games programming development e.g. collision detection, camera movement, interaction
+4. Design and develop games software using appropriate games and graphics programming techniques and standard graphics libraries
+
+* All Learning Outcomes apply to each CRG element
+
+== Coursework assignment CRG
+
+[options="header", cols="15s,10s,15,15,15,15,15"]
+|===
+| Criterion | Weight | Pass (40%) | 2.2 (50%) | 2.1 (60%) | 1st (70%) | 1st+ (80%+)
+
+
+| Code quality / structure
+| 10%
+| Code is somewhat clear/structured, but is hard to follow
+| As for 2:1, code is well structured OR well written
+| As for 2.2, code is well structured AND well written
+| As for 2.1, Efficient algorithms are used throughout
+| As 1st, plus the code is excellent throughout
+
+
+| Complete Game features
+| 20%
+| There is some kind of loading screen and some kind of on-screen display with text (e.g. score)
+| As for Pass, plus the window can be resized effectively and can be full-screen
+| As for 2.2, some kind of on-screen menu (with text) that allows players to (at least) exit the game and restart it
+| As for 2.1, a high-score display, with the high-score stored persistently
+| As for 1st, extra game-play features. e.g. Save/Load game, key remapping
+
+
+| Good clone (of game features) (doesn't have to use the original assets, or levels)
+| 10%
+| The clone has some of the features from the original game
+| As for Pass, has many of the features from the original game
+| As for 2.2, most of the features from the original game
+| As for 2.1, follows the original fairly accurately/excellently
+| As for 1st, very accurate game-play cloning
+
+
+| Animation (Sprites etc)
+| 20%
+| There are sprites and some sprite animations
+| As for Pass, but there are many animated sprites in the scene
+| As for 2.2, there are complex, and visually effective, animation sequences - e.g. for PCs and NPCs
+  ** idle -> walk-left -> climb -> walk-right -> idle
+| As for 2.1, sprite animation for moving characters lines up with their motion (i.e. no moon-walking)
+| As for 1st, plus extra animation features
+
+
+| Movement, Physics, Collisions
+| 20%
+| Player and Non-Player Characters in the game move
+| As for Pass, the simulation accounts for real time
+| As for 2.2, simulation and collisions work fairly effectively, but there may be some odd bugs
+| As for 2.1, game simulation can be paused, but the game is still reactive (e.g. menu still works, or some animated sprites continue to animate)
+| As for 1st, movement, physics, collision is excellent
+
+
+| Audio
+| 10%
+| There is some kind of background audio
+| As for Pass, plus sound effects trigger by game events
+| As for 2.2, audio volume can controlled (in-game)
+| As for 2.1, many sound effects and background audio can be paused
+| As for 1st, extra audio features. e.g. DSP, panning sound effects with player movement
+
+
+| Multi-player
+| 10%
+| A two player mode is implemented. This can be on a single monitor, in a single window, with a shared viewport
+| As for Pass, but two viewpoints within the window (split screen), OR two separate non-overlapping windows
+| As for 2.2, two separate instances of the game, on the same machine (still two player)
+| As for 2.1, two PCs, with the game on each (still two player)
+| As for 1st, extra multi-player features
+
+|===
