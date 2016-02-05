@@ -7,12 +7,13 @@ shearer12345
 
 == Learning Outcomes
 
+* All Learning Outcomes apply to each CRG element
+
 1. Apply appropriate programming and algorithmic techniques for deployment of 2D and 3D graphics in games
 2. Design and develop interactive games using an appropriate API
 3. Implement efficient algorithms for computer games programming development e.g. collision detection, camera movement, interaction
 4. Design and develop games software using appropriate games and graphics programming techniques and standard graphics libraries
 
-* All Learning Outcomes apply to each CRG element
 
 == Coursework assignment CRG
 
@@ -26,14 +27,14 @@ shearer12345
 | Code is somewhat clear/structured, but is hard to follow
 | As for 2:1, code is well structured OR well written
 | As for 2.2, code is well structured AND well written
-| As for 2.1, Efficient algorithms are used throughout
+| As for 2.1, efficient algorithms are used throughout
 | As 1st, plus the code is excellent throughout
 
 
 | Complete Game features
 | 20%
 | There is some kind of loading screen and some kind of on-screen display with text (e.g. score)
-| As for Pass, plus the window can be resized effectively and can be full-screen
+| As for Pass, plus the window can be resized effectively and can be full-screen as well as windowed
 | As for 2.2, some kind of on-screen menu (with text) that allows players to (at least) exit the game and restart it
 | As for 2.1, a high-score display, with the high-score stored persistently
 | As for 1st, extra game-play features. e.g. Save/Load game, key remapping
@@ -54,7 +55,7 @@ shearer12345
 | As for Pass, but there are many animated sprites in the scene
 | As for 2.2, there are complex, and visually effective, animation sequences - e.g. for PCs and NPCs
   ** idle -> walk-left -> climb -> walk-right -> idle
-| As for 2.1, sprite animation for moving characters lines up with their motion (i.e. no moon-walking)
+| As for 2.1, sprite animation for moving characters matches up with their motion (i.e. no moon-walking)
 | As for 1st, plus extra animation features
 
 

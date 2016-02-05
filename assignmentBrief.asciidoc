@@ -25,15 +25,39 @@ image::Pac-man.png[height=288]
 === Assignment specifically - 2015-16
 
 * Clone an existing game
-  ** Battleships
+  ** Drones vs. Battleships
   ** Chuckie Egg
   ** PacMan / Ms PacMan
 
-=== Battleships
+=== Drones vs. Battleships
 
 * Visual design up to you (and not important for marks)
-* Logic should be a strict clone (wikipedia)
-* https://www.youtube.com/watch?v=k4kc_rqsP5I
+* Main battleships logic should be a strict clone (wikipedia)
+* The control of where to drop bombs should be with simulated drones
+  ** This introduces both real-time simulation and real-time multi-player to the game
+
+=== Drones vs. Battleships - drones
+
+* Player 1 and Player 2 each have an attack drone and a defense drone
+* Player 1's attack drone is over Player 2's ships, and vice versa
+* Defense drones are above their own player's ships
+* When it is a player's move their can move their attack drone
+  ** otherwise they can move their defense drone
+
+=== Drones vs. Battleships - drones 2
+
+* Drones bounce off each other
+* Drones bounce off world boundaries
+* Drones cannot be destroyed
+* Drones drop bombs in the nearest "cell", but can be at any point in 2-space
+  ** i.e. a drone could be at position (2.3, 4.76), but it's bomb would only impact in a single cell
+
+=== Drones vs. Battleships - battleships
+
+* How players set the positions for their battleships is up to you
+  ** you could use drones to place them
+  ** or keyboard input
+  ** or mouse input
 
 === Chuckie Egg and PacMan / Ms PacMan
 
@@ -138,7 +162,7 @@ image::Pac-man.png[height=288]
 
 === Presentation errors
 
-* Submissions not matching the PDF should list features in order of appearance)he above will be treated as submission errors
+* Submissions not matching the above will be treated as submission errors
   ** see Presentation Regulations on Blackboard for penalties
 
 == Happy working
@@ -147,6 +171,7 @@ image::Pac-man.png[height=288]
 
 * please ask for help in workshops
 * workshop activities will be feeding the assignment
+* ask for clarification for any assignment questions (earlier is better)
 
 == References
 
