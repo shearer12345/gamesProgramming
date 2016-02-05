@@ -21,7 +21,7 @@ image::Chuckie_Egg_on_BBC_Micro.jpg[]
   ** Specific Games Programming techniques we've covered in class
 * Space for personal expression and portfolio
 
-== Assembling a toolset
+=== Assembling a toolset
 
 * {cpp} (required)
 * SDL2 (required)
@@ -90,7 +90,7 @@ image::Chuckie_Egg_on_BBC_Micro.jpg[]
   . Specific Games Programming Skills
   . A set of Games Programming resources/modules/classes
 
-== Working beyond the workshops
+=== Working beyond the workshops
 
 * The workshops only start you in the directions
 * To be useful towards your assignment (and learning) you should work beyond the workshop
@@ -104,7 +104,7 @@ image::Chuckie_Egg_on_BBC_Micro.jpg[]
 == {cpp} and {cpp}11
 
 * Make CLASSES !!!!
-* Make Classes hierarchies if/when appropriate
+* Make class hierarchies if/when appropriate
 
 == Function/method signatures and reading the documentation!!
 
@@ -147,14 +147,14 @@ https://wiki.libsdl.org/SDL_GetWindowSize
 [source, cpp]
 ----
 ...
-SDL_Window * SDL_CreateWindow( "title",
+SDL_Window window* SDL_CreateWindow( "title",
   SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
   800, 600,
   SDL_WINDOW_OPENGL);
 
 int width;
 int height;
-SDL_GetWindowSize(&width, &height);
+SDL_GetWindowSize(window, &width, &height);
 // width and height will now have the appropriate values
 ----
 
