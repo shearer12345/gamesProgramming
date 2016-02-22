@@ -1,4 +1,4 @@
-= Scene Management and TimeSteps
+= Scene Management
 shearer12345
 
 :imagesdir: ./assets/
