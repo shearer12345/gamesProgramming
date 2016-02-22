@@ -147,8 +147,7 @@ If two objects bump into each other they will react by moving apart.motion when 
 * Use *SI* Units
   ** International System of Units (Système international d'unités, SI)
 * Will make your life *MUCH* easier
-  ** avoid inches, miles,
-
+  ** avoid inches, miles
 
 == Newton’s Laws of Motion
 
@@ -174,8 +173,7 @@ If two objects bump into each other they will react by moving apart.
 
 == Using acceleration in your game
 
-* Some representation of velocity in your game is vital for objects to move
-  ** as new positions are calculated from old positions, velocity and time
+* Some representation of velocity in your game is vital for objects to move (new positions calculated from old positions, velocity and time)
 * You don't have to use acceleration
   ** your game could set velocity values directly
   ** this is unrealistic (compared to real world), but frequently doesn't matter
@@ -188,6 +186,13 @@ If two objects bump into each other they will react by moving apart.
   ** stem:[\vec{p'} = \vec{p} + \vec{v} * \Delta t]
   ** this is called integration
 * This works just fine as long a stem:[\vec{v}] is constant throughout stem:[\Delta t]
+
+=== Simulation steps (simple code)
+
+[source, cpp]
+----
+position = position + velocity * dt;
+----
 
 === Smaller simulation steps
 
