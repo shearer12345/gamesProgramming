@@ -382,7 +382,7 @@ stem:[t =\ \sqrt {\frac{2d}{g}} ]
 * use std::chrono::high_resolution_clock to measure frame times
 * modify your game so that it simulates the correct amount of time per frame
 
-== Workshop activities 2
+== Workshop activities 3
 
 * make a sprite that orbits (like the Earth) around the centre of the screen (the Sun)
   ** you could also render the Sun if you like
@@ -393,7 +393,7 @@ stem:[t =\ \sqrt {\frac{2d}{g}} ]
   ** correctly inversely proportional to the square of the distance
   ** the mass of the "sprite" doesn't matter in this case - why not?
 
-== Workshop activities 2
+== Workshop activities 4
 
 * adjust the starting velocity so the Earth doesn't immediately:
   ** crash into the Sun
