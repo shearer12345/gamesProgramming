@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="shearer12345"><title>Collision Detection</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [["\\(", "\\)"]],
+  displayMath: [["\\[", "\\]"]],
+  ignoreClass: "nostem|nolatexmath"
+},
+asciimath2jax: {
+  delimiters: [["\\$", "\\$"]],
+  ignoreClass: "nostem|noasciimath"
+},
+TeX: { equationNumbers: { autoNumber: "none" } }
+});</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section><h1>Collision Detection</h1><p><small>shearer12345</small></p></section><section id="_what_is_collision_detection"><h2>What is Collision Detection?</h2><div class="ulist"><ul><li><p>Which objects are occupying the same space, partially or fully, at the same time?</p><div class="ulist"><ul><li><p>or will in the future?</p></li></ul></div></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="./assets/British-pool-table-pocket.jpg" alt="British pool table pocket" height="300"></div></div></section>
+<section><section id="_challenges_in_collision_detection_1"><h2>Challenges in Collision Detection 1</h2><div class="ulist"><ul><li><p>Is there a collision between A and B?</p></li><li><p>Where was the collision?</p></li><li><p>When was the collision? (or will be?)</p></li></ul></div></section><section id="_challenges_in_collision_detection_2"><h2>Challenges in Collision Detection 2</h2><div class="ulist"><ul><li><p>Computational cost</p><div class="ulist"><ul><li><p>Which objects can collide with each other?</p></li><li><p>How many collision tests do we need to do?</p></li><li><p>How expensive are collision tests?</p></li></ul></div></li></ul></div></section><section id="_challenges_in_collision_detection_3"><h2>Challenges in Collision Detection 3</h2><div class="ulist"><ul><li><p>When do run collision detection?</p><div class="ulist"><ul><li><p>discrete vs continuous collision detection</p></li></ul></div></li><li><p>Accuracy of collision detection</p><div class="ulist"><ul><li><p>Small objects</p></li><li><p>Fast objects</p></li><li><p>Complex objects (lots of polygons)</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_a_problem_with_simulation_rate_and_collision"><h2>A problem with simulation rate and collision</h2><div class="imageblock" style=""><div class="content"><img src="./assets/fastObjects.png" alt="fastObjects" height="300"></div></div></section><section id="_a_problem_with_simulation_rate_and_collision_2"><h2>A problem with simulation rate and collision 2</h2><div class="ulist"><ul><li><p>set a minimum size for objects</p></li><li><p>set a maximum speed for objects</p></li><li><p>consider time in collision detection</p><div class="ulist"><ul><li><p>do continuous collision detection</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_collision_objects"><h2>Collision objects</h2><div class="ulist"><ul><li><p>Collisions between objects of arbitrarily complex geometry is expensive</p><div class="ulist"><ul><li><p>use simpler geometry for objects</p></li><li><p>at least until we know we need something better</p></li><li><p>i.e. cheat, at least some of the time</p></li></ul></div></li></ul></div></section><section id="_what_objects_are_easy_to_collide"><h2>What objects are easy to collide?</h2><div class="ulist"><ul><li class="fragment"><p>Spheres</p></li><li class="fragment"><p>Boxes</p><div class="ulist"><ul><li><p>Axis-Aligned</p></li><li><p>non-Axis-Aligned</p></li></ul></div></li></ul></div></section></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: false,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
