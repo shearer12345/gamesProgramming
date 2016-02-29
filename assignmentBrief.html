@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="shearer12345"><title>Games Programming Assignment Brief 2015-16</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme"><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section><h1>Games Programming Assignment Brief 2015-16</h1><div class="openblock clearfix"><div class="content"><div class="imageblock left" style=""><div class="content"><img src="./assets//Chuckie_Egg_on_BBC_Micro.jpg" alt="Chuckie Egg on BBC Micro" height="288"></div></div>
+<div class="imageblock right" style=""><div class="content"><img src="./assets//Pac-man.png" alt="Pac man" height="288"></div></div></div></div><p><small>shearer12345</small></p></section>
+<section><section id="_overview"><h2>Overview</h2><div class="ulist"><ul><li><p>Single, 100% assignment</p></li><li><p>Build a complete game that demonstrates both:</p><div class="ulist"><ul><li><p>Games Programming capabilities (i.e. high quality code)</p></li><li><p>Specific Games Programming techniques we&#8217;ve covered in class</p></li></ul></div></li><li><p>Space for personal expression and portfolio</p></li></ul></div></section><section id="_assignment_specifically_2015_16"><h2>Assignment specifically - 2015-16</h2><div class="ulist"><ul><li><p>Clone an existing game</p><div class="ulist"><ul><li><p>Drones vs. Battleships</p></li><li><p>Chuckie Egg</p></li><li><p>PacMan / Ms PacMan</p></li></ul></div></li></ul></div></section><section id="_drones_vs_battleships"><h2>Drones vs. Battleships</h2><div class="ulist"><ul><li><p>Visual design up to you (and not important for marks)</p></li><li><p>Main battleships logic should be a strict clone (wikipedia)</p></li><li><p>The control of where to drop bombs should be with simulated drones</p><div class="ulist"><ul><li><p>This introduces both real-time simulation and real-time multi-player to the game</p></li></ul></div></li></ul></div></section><section id="_drones_vs_battleships_drones"><h2>Drones vs. Battleships - drones</h2><div class="ulist"><ul><li><p>Player 1 and Player 2 each have an attack drone and a defense drone</p></li><li><p>Player 1&#8217;s attack drone is over Player 2&#8217;s ships, and vice versa</p></li><li><p>Defense drones are above their own player&#8217;s ships</p></li><li><p>When it is a player&#8217;s move their can move their attack drone</p><div class="ulist"><ul><li><p>otherwise they can move their defense drone</p></li></ul></div></li></ul></div></section><section id="_drones_vs_battleships_drones_2"><h2>Drones vs. Battleships - drones 2</h2><div class="ulist"><ul><li><p>Drones bounce off each other</p></li><li><p>Drones bounce off world boundaries</p></li><li><p>Drones cannot be destroyed</p></li><li><p>Drones drop bombs in the nearest "cell", but can be at any point in 2-space</p><div class="ulist"><ul><li><p>i.e. a drone could be at position (2.3, 4.76), but it&#8217;s bomb would only impact in a single cell</p></li></ul></div></li></ul></div></section><section id="_drones_vs_battleships_battleships"><h2>Drones vs. Battleships - battleships</h2><div class="ulist"><ul><li><p>How players set the positions for their battleships is up to you</p><div class="ulist"><ul><li><p>you could use drones to place them</p></li><li><p>or keyboard input</p></li><li><p>or mouse input</p></li></ul></div></li></ul></div></section><section id="_chuckie_egg_and_pacman_ms_pacman"><h2>Chuckie Egg and PacMan / Ms PacMan</h2><div class="ulist"><ul><li><p>Approximately the same logic</p></li><li><p>Add logic for 2-player if you implement that</p></li><li><p>Assets</p><div class="ulist"><ul><li><p>can be from the game (won&#8217;t be able to publish)</p></li><li><p>draw your own (marks aren&#8217;t for asset quality)</p></li><li><p>find your own (many open-licensed assets sources on the web)</p></li></ul></div></li></ul></div></section><section id="_starting_point"><h2>Starting point</h2><div class="ulist"><ul><li><p>A starting point git repository will be made available to you</p></li><li><p>It will include:</p><div class="ulist"><ul><li><p>a premake script to setup your build system</p></li><li><p>the required libraries</p></li><li><p>some of the optional libraries - others you will need to obtain and configure premake for yourself</p><div class="ulist"><ul><li><p>support in workshops for this is available.</p></li></ul></div></li></ul></div></li></ul></div></section></section>
+<section><section id="_toolset_required"><h2>Toolset (required)</h2><div class="ulist"><ul><li><p>You <strong>MUST</strong> use C/C++ for this assignment (required)</p><div class="ulist"><ul><li><p>You <strong>CANNOT</strong> use code from tutorial sites, even with attribution</p></li></ul></div></li><li><p>You <strong>MUST</strong> use SDL2 for this assignment</p><div class="ulist"><ul><li><p>You <strong>CANNOT</strong> use freeGLUT, GLFW, or SFML</p></li></ul></div></li><li><p>You <strong>MUST</strong> use SDL2_image</p></li><li><p>You <strong>MUST</strong> use SDL2 OR SDL_mixer for audio (if you have audio)</p></li></ul></div></section><section id="_toolset_optional_libraries_graphics"><h2>Toolset (optional libraries - graphics)</h2><div class="ulist"><ul><li><p>You may use OpenGL and GLEW if you wish</p></li><li><p>You may use GLM if you wish</p></li><li><p>You may use SDL_ttf for font generation</p></li></ul></div></section><section id="_toolset_optional_libraries_networking"><h2>Toolset (optional libraries - networking)</h2><div class="ulist"><ul><li><p>For networking, you may use any of the following:</p><div class="ulist"><ul><li><p>SDL_net - <a href="https://www.libsdl.org/projects/SDL_net/" class="bare">https://www.libsdl.org/projects/SDL_net/</a></p></li><li><p>zeroMQ - any version - <a href="http://zeromq.org/" class="bare">http://zeromq.org/</a></p></li><li><p>netLink - <a href="https://github.com/Lichtso/netLink" class="bare">https://github.com/Lichtso/netLink</a></p></li></ul></div></li></ul></div></section><section id="_toolset_optional_libraries_serialisation"><h2>Toolset (optional libraries - serialisation)</h2><div class="ulist"><ul><li><p>For serialisation</p><div class="ulist"><ul><li><p>Any serialisation libraries from <a href="http://fffaraz.github.io/awesome-cpp/#serialization" class="bare">http://fffaraz.github.io/awesome-cpp/#serialization</a></p></li><li><p>Any json libraries from <a href="http://fffaraz.github.io/awesome-cpp/#json" class="bare">http://fffaraz.github.io/awesome-cpp/#json</a></p></li><li><p>Any XML libraries from <a href="http://fffaraz.github.io/awesome-cpp/#xml" class="bare">http://fffaraz.github.io/awesome-cpp/#xml</a></p></li></ul></div></li></ul></div></section><section id="_toolset_optional_libraries_other"><h2>Toolset (optional libraries - other)</h2><div class="ulist"><ul><li><p>Other libraries <strong>MUST</strong> be confirmed with me (Shearer)</p></li><li><p>You <strong>CANNOT</strong> use a physics library</p></li></ul></div></section><section id="_support_tools_recommended"><h2>Support Tools (recommended)</h2><div class="ulist"><ul><li><p>Build off the provided starting point (you don&#8217;t have to)</p></li><li><p>premake5 for creating a solution</p></li><li><p>Versioning - git, or other</p></li><li><p>Backup - github, gitlab, bitbucket, or other</p></li></ul></div></section></section>
+<section id="_plagiarism_etc"><h2>Plagiarism etc</h2><div class="ulist"><ul><li><p>Must be your code</p><div class="ulist"><ul><li><p>Not from tutorial sites (except from my examples)</p><div class="ulist"><ul><li><p>even if you attribute it</p></li></ul></div></li><li><p>Not from each other</p></li></ul></div></li></ul></div></section>
+<section><section id="_submission"><h2>Submission</h2><div class="ulist"><ul><li><p>Two submission parts</p><div class="olist arabic"><ol class="arabic"><li><p>a PDF to Blackboard (to Assessment Item 1 Upload)</p></li><li><p>a single ZIP to Blackboard (to Assessment Item 1 Supporting Documentation Upload)</p></li></ol></div></li></ul></div></section><section id="_pdf"><h2>PDF</h2><div class="ulist"><ul><li><p>providing a bulleted list of libraries used</p></li><li><p>providing a bulleted list of the features implemented from the CRG, in order of their appearance in the video</p><div class="ulist"><ul><li><p>Extra features should also be on this list (with a small description if needed to make the feature clear)</p></li></ul></div></li></ul></div></section><section id="_zip"><h2>ZIP</h2><div class="ulist"><ul><li><p>All game source, and assets, and binaries</p></li><li><p>A video of your game in action</p></li></ul></div></section><section id="_zip_source"><h2>ZIP (source)</h2><div class="ulist"><ul><li><p>All game source - .C++, .c, .h, .hpp</p></li><li><p>All assets - images, levels, audio, sprite description files, etc</p></li><li><p>All binaries - dlls, exe</p></li><li><p>not marked directly, but this is the evidence chain and plagiarism check</p></li></ul></div></section><section id="_zip_video"><h2>ZIP (video)</h2><div class="ulist"><ul><li><p>showing each of the features listed in your PDF (the PDF should list features in order of appearance)</p></li><li><p>at least 30 seconds long, capturing the whole screen</p></li><li><p>using a screen capture tool (e.g. Open Broadcaster Software (OBS), Fraps)</p><div class="ulist"><ul><li><p>except for multiplayer on multiple PCs - that feature can be recorded using a video/phone camera and be a separate video</p></li></ul></div></li><li><p>appropriately compressed (i.e. not 500MB+ files) (OBS will do this for you by default)</p></li></ul></div></section><section id="_presentation_errors"><h2>Presentation errors</h2><div class="ulist"><ul><li><p>Submissions not matching the above will be treated as submission errors</p><div class="ulist"><ul><li><p>see Presentation Regulations on Blackboard for penalties</p></li></ul></div></li></ul></div></section></section>
+<section id="_happy_working"><h2>Happy working</h2><div class="paragraph"><p>:-)</p></div>
+<div class="ulist"><ul><li><p>please ask for help in workshops</p></li><li><p>workshop activities will be feeding the assignment</p></li><li><p>ask for clarification for any assignment questions (earlier is better)</p></li></ul></div></section>
+<section id="_references"><h2>References</h2><div class="ulist"><ul><li><p><a href="https://en.wikipedia.org/wiki/Chuckie_Egg" class="bare">https://en.wikipedia.org/wiki/Chuckie_Egg</a></p></li><li><p><a href="https://en.wikipedia.org/wiki/Pac-Man" class="bare">https://en.wikipedia.org/wiki/Pac-Man</a></p></li><li><p><a href="https://en.wikipedia.org/wiki/Battleship_%28game%29" class="bare">https://en.wikipedia.org/wiki/Battleship_%28game%29</a></p></li></ul></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: false,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>

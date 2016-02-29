@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="shearer12345"><title>Sprite Animation</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme"><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section><h1>Sprite Animation</h1><div class="imageblock" style=""><div class="content"><img src="./assets//kenny/platformerPack/sample.png" alt="sample"></div></div><p><small>shearer12345</small></p></section>
+<section id="_overview"><h2>Overview</h2><div class="ulist"><ul><li><p>What are sprites?</p></li><li><p>What is sprite animation?</p></li><li><p>What are sprite sheets?</p></li><li><p>Challenges in sprite animation</p></li><li><p>Sprite Files</p></li><li><p>Texture Animation</p></li><li><p>Video Textures</p></li></ul></div></section>
+<section id="_what_are_sprites"><h2>What are sprites?</h2><div class="ulist"><ul><li><p>A Sprite is a 2D image, usually used within a video game.</p></li><li><p>Usually, partially transparent</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><a class="image" href="http://open.commonly.cc/"><img src="./assets//kenny/platformerPack/Player/p1_front.png" alt="Kenny Platformer Pack: p1_front" height="300"></a></div><div class="title">Kenny Platformer Pack: p1_front</div></div></section>
+<section><section id="_what_is_sprite_animation"><h2>What is sprite animation?</h2><div class="ulist"><ul><li><p>Changing between a set of sprites over time, to give the impression of change</p><div class="ulist"><ul><li><p>movement</p></li><li><p>shape change</p></li><li><p>&#8230;&#8203;</p></li></ul></div></li></ul></div><div class="imageblock" style=""><div class="content"><a class="image" href="http://open.commonly.cc/"><img src="./assets//kenny/platformerPack/Player/p1_walk/PNG/p1_walk.apng" alt="Kenny Platformer Pack: p1 walk cycle" height="200"></a></div><div class="title">Kenny Platformer Pack: p1 walk cycle</div></div></section><section id="_what_is_sprite_animation_2"><h2>What is sprite animation?</h2><div class="paragraph"><p>(for platforms not supporting apng)</p></div>
+<div class="ulist"><ul><li><p>Changing between a set of sprites over time, to give the impression of change</p><div class="ulist"><ul><li><p>movement</p></li><li><p>shape change</p></li><li><p>&#8230;&#8203;</p></li></ul></div></li></ul></div>
+<div class="imageblock" style=""><div class="content"><a class="image" href="http://open.commonly.cc/"><img src="./assets//kenny/platformerPack/Player/p1_walk/PNG/p1_walk.gif" alt="Kenny Platformer Pack: p1 walk cycle" height="150"></a></div><div class="title">Kenny Platformer Pack: p1 walk cycle</div></div></section></section>
+<section id="_what_are_sprite_sheets"><h2>What are sprite sheets?</h2><div class="ulist"><ul><li><p>Single images containing multiple sprites and/or multiple frames of sprite animation</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><a class="image" href="http://open.commonly.cc/"><img src="./assets//kenny/platformerPack/Player/p1_walk/p1_walk.png" alt="Kenny Platformer Pack: p1_walk spritesheet" height="300"></a></div><div class="title">Kenny Platformer Pack: p1_walk spritesheet</div></div></section>
+<section id="_challenges_in_sprite_animation"><h2>Challenges in sprite animation</h2><div class="olist arabic"><ol class="arabic"><li><p>Sprites within sprite sheets</p><div class="ulist"><ul><li><p>selecting the right set of pixels for each sprite</p></li></ul></div></li><li><p>Animation Cycles</p><div class="ulist"><ul><li><p>selecting the right sprite at the right time</p></li><li><p>smoothing the transitions</p></li><li><p>animation frame rate != render frame rate</p></li></ul></div></li><li><p>Multiple Animation Cycles</p><div class="ulist"><ul><li><p>when to transition from one cycle to another</p></li></ul></div></li></ol></div></section>
+<section><section id="_sprites_within_sprite_sheets"><h2>Sprites within sprite sheets</h2><div class="ulist"><ul><li><p>selecting the right set of pixels for each sprite</p></li></ul></div><div class="imageblock" style=""><div class="content"><a class="image" href="http://open.commonly.cc/"><img src="./assets//kenny/platformerPack/Player/p1_walk/p1_walk_annotated.png" alt="Kenny Platformer Pack: p1_walk_annotated spritesheet" height="500"></a></div><div class="title">Kenny Platformer Pack: p1_walk_annotated spritesheet</div></div></section><section id="_why_sprites_within_sprite_sheets"><h2>Why Sprites within sprite sheets?</h2><div class="ulist"><ul><li><p>More efficient</p><div class="ulist"><ul><li><p>in general, it is more efficient to have larger images and draw from just part of them</p></li></ul></div></li></ul></div></section><section id="_sprites_within_sprite_sheets_2"><h2>Sprites within sprite sheets</h2><div class="ulist"><ul><li><p>Somehow we have to figure out which area of the sprite sheet correspond to each sprite</p></li><li><p>we <strong>NEED</strong> more information to do this</p><div class="ulist"><ul><li><p>it might be implicit - i.e. we expect all sprite sheets to conform to some standard</p></li><li><p>we might have that information in another file (or directly in our source code) (or, in theory, embedded in the meta-data of the image)</p></li></ul></div></li></ul></div></section><section id="_sprites_within_sprite_sheets_3"><h2>Sprites within sprite sheets</h2><div class="paragraph"><p>Let&#8217;s have a closer look at the sprite sheet</p></div>
+<div class="imageblock" style=""><div class="content"><a class="image" href="http://open.commonly.cc/"><img src="./assets//kenny/platformerPack/Player/p1_walk/p1_walk_annotated.png" alt="Kenny Platformer Pack: p1_walk_annotated spritesheet" height="500"></a></div><div class="title">Kenny Platformer Pack: p1_walk_annotated spritesheet</div></div></section></section>
+<section><section id="_animation_cycles"><h2>Animation Cycles</h2><div class="ulist"><ul><li><p>animation frame rate != render frame rate</p></li><li><p>selecting the right sprite at the right time</p></li><li><p>smoothing the transitions</p></li></ul></div></section><section id="_animation_frame_rate_render_frame_rate"><h2>Animation frame rate != render frame rate</h2><div class="ulist"><ul><li><p>Our sprite frame rate is frequently lower than our render frame rate</p></li><li><p>Our render frame rate is frequently variable</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="./assets//diagrams/renderFrameVsAnimationFrame.svg" alt="Kenny Platformer Pack - p1_walk_annotated spritesheet"></div></div></section><section id="_selecting_the_right_sprite_at_the_right_time"><h2>Selecting the right sprite at the right time</h2><div class="ulist"><ul><li><p>When do we move from one sprite to another?</p></li><li><p>Usually at a fixed rate</p><div class="ulist"><ul><li><p>e.g. 10 sprite frames per second</p></li><li><p>so we need to keep track of real time, and animation time</p></li></ul></div></li><li><p>How do we represent where in the animation cycle we are?</p><div class="ulist"><ul><li><p>which frame? or a normalised float?</p></li><li><p>DISCUSS &#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="_smoothing_the_transitions"><h2>Smoothing the transitions</h2><div class="ulist"><ul><li><p>Frequently our sprites frame rate is lower than our render frame rate</p><div class="ulist"><ul><li><p>we <strong>could</strong> somehow try to smooth between images to smooth out the transitions</p></li><li><p>this is really hard</p></li><li><p>better to do offline</p></li><li><p>or use another animation techniques (e.g. skeletal animation)</p></li></ul></div></li></ul></div></section></section>
+<section id="_multiple_animation_cycles"><h2>Multiple Animation Cycles</h2><div class="ulist"><ul><li><p>when to transition from one cycle to another?</p></li></ul></div>
+<div class="imageblock" style=""><div class="content"><img src="./assets//spriteAnimation/multipleAnimationCycles.svg" alt="multipleAnimationCycles" height="300"></div></div></section>
+<section><section id="_sprite_files"><h2>Sprite files</h2><div class="ulist"><ul><li><p>the imagery</p></li><li><p>meta-data</p></li></ul></div></section><section id="_sprite_files_imagery"><h2>Sprite files - imagery</h2><div class="paragraph"><p>What file formats is the image data stored in?</p></div>
+<div class="paragraph"><p>Most image formats are, or can be, used.</p></div>
+<div class="ulist"><ul><li><p>bmp</p></li><li><p>gif</p></li><li><p>jpg</p></li><li><p>png</p></li><li><p>&#8230;&#8203;</p></li></ul></div></section><section id="_sprite_files_meta_data"><h2>Sprite files - meta-data</h2><div class="ulist"><ul><li><p>json</p></li><li><p>xml (e.g. taml)</p></li><li><p>custom</p></li><li><p>&#8230;&#8203;</p></li></ul></div></section></section>
+<section id="_texture_animation"><h2>Texture Animation</h2><div class="ulist"><ul><li><p>If we&#8217;re using OpenGL (or DirectX) we can still do sprite animation</p></li><li><p>It is straightforward with texture</p></li><li><p>Each image is a texture</p></li><li><p>the pixel coordinates become UV coordinates</p></li><li><p>SDL&#8217;s 2D renderer (usually) uses OpenGL - just like this</p></li></ul></div></section>
+<section id="_video_textures"><h2>Video Textures</h2><div class="ulist"><ul><li><p>We can also use video as a source for textures</p></li><li><p>Pros? Cons?</p></li></ul></div></section>
+<section id="_activities"><h2>Activities</h2><div class="ulist"><ul><li><p>Using C++, using SDL2&#8217;s 2D renderer - no OpenGL</p><div class="ulist"><ul><li><p>unless you want to</p></li></ul></div></li><li><p>Have an starting point at at <a href="https://github.com/shearer12345/graphicsByExample/tree/master/src/sdl_noOpenGL" class="bare">https://github.com/shearer12345/graphicsByExample/tree/master/src/sdl_noOpenGL</a></p></li></ul></div></section>
+<section><section id="_get_the_starting_point"><h2>Get the starting point</h2><div class="listingblock"><div class="title">Windows</div><div class="content"><pre class="highlight"><code>git clone --recursive https://github.com/shearer12345/graphicsByExample.git #<b>(1)</b></code></pre></div></div><div class="colist arabic"><ol><li><p>The Windows dependencies are in a separate repository, connected as a submodule. The <code>--recursive</code> flag asks git to also pull down all the submodules. If you miss it by accident, you can after do <code>git submodule init</code>, followed by <code>git submodule update</code></p></li></ol></div></section><section id="_build_the_starting_point"><h2>Build the starting point</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="bat language-bat">git checkout sdl_noOpenGL
+git pull
+./premake5.bat vs2015</code></pre></div></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Load the <code>.sln</code> file</p></li><li><p>Build and run sdl_noOpenGL you wish to explore - kbd:[F5]</p></li></ol></div></section><section id="_delete_the_other_projects_if_you_want"><h2>Delete the other projects if you want</h2><div class="ulist"><ul><li><p>i.e. the other directory in src</p><div class="ulist"><ul><li><p>run premake again after</p></li></ul></div></li></ul></div></section></section>
+<section id="_change_the_size_of_the_displayed_sprite"><h2>Change the size of the displayed sprite</h2><div class="ulist"><ul><li><p>The example uses <code>SDL_RenderCopy</code> to put the sprite on the screen</p></li><li><p>What are the two parameters that are presently NULL</p></li><li><p>Make the sprite be half the height/width of the window and centered</p></li><li><p>Make the sprite 20 pixels square</p></li><li><p>Make the sprite moveable on a key press</p></li></ul></div></section>
+<section id="_getting_more_sprites"><h2>Getting more sprites</h2><div class="ulist"><ul><li><p>There are some nice copyright free assets at <a href="http://open.commonly.cc/" class="bare">http://open.commonly.cc/</a></p></li><li><p>Get a set of sprites that you like.</p></li></ul></div></section>
+<section id="_sprite_sheet"><h2>Sprite sheet</h2><div class="ulist"><ul><li><p>Load one of the sprite sheets and show it as the whole sprite</p></li><li><p>Use the other parameter of <code>SDL_RenderCopy</code> to only show the first sprite from the sprite sheet</p></li><li><p>Make pressing a key move to the next sprite sheet</p></li></ul></div></section>
+<section id="_animated_sprites"><h2>Animated sprites</h2><div class="ulist"><ul><li><p>Make the sprite animate by moving forwards 1 sprite frame per rendered frame</p></li><li><p>make it 1 sprite frame per 10 rendered frames</p></li><li><p>make it 1 sprite frame per second</p></li></ul></div></section>
+<section id="_meta_data"><h2>Meta-data</h2><div class="ulist"><ul><li><p>Animation cycles are usually specified in separate files</p></li><li><p>Look through the assets you downloaded and figure out which files</p></li><li><p>Try to use that data in your program.</p></li></ul></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: false,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
