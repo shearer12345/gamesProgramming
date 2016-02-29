@@ -155,9 +155,8 @@ If two objects bump into each other they will react by moving apart.motion when 
 
 === Newton’s First Law of Motion
 
-* Every object in a state of uniform For every action there is an equal and opposite reaction.
-
-If two objects bump into each other they will react by moving apart.
+* Every object in a state of uniform motion tends to remain in that state of motion unless an external force is applied to it
+  ** also indicates that if an object is at rest (not moving) it will remain at rest
 
 === Newton’s Second Law of Motion
 
@@ -167,7 +166,7 @@ If two objects bump into each other they will react by moving apart.
 
 === Newton’s Third Law of Motion
 
-* For every action there is an equal and opposite reaction.
+* For every action there is an equal and opposite reaction
 * If two objects bump into each other they will react by moving apart
 
 
