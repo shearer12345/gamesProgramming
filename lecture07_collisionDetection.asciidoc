@@ -1,0 +1,62 @@
+= Collision Detection
+shearer12345
+:stem: latexmath
+
+:imagesdir: ./assets
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== What is Collision Detection?
+
+* Which objects are occupying the same space, partially or fully, at the same time?
+  ** or will in the future?
+
+image::British-pool-table-pocket.jpg[height=300]
+
+== Challenges in Collision Detection 1
+
+* Is there a collision between A and B?
+* Where was the collision?
+* When was the collision? (or will be?)
+
+=== Challenges in Collision Detection 2
+
+* Computational cost
+  ** Which objects can collide with each other?
+  ** How many collision tests do we need to do?
+  ** How expensive are collision tests?
+
+=== Challenges in Collision Detection 3
+
+* When do run collision detection?
+  ** discrete vs continuous collision detection
+* Accuracy of collision detection
+  ** Small objects
+  ** Fast objects
+  ** Complex objects (lots of polygons)
+
+== A problem with simulation rate and collision
+
+image::fastObjects.png[height=300]
+
+=== A problem with simulation rate and collision 2
+
+* set a minimum size for objects
+* set a maximum speed for objects
+* consider time in collision detection
+  ** do continuous collision detection
+
+== Collision objects
+
+* Collisions between objects of arbitrarily complex geometry is expensive
+  ** use simpler geometry for objects
+  ** at least until we know we need something better
+  ** i.e. cheat, at least some of the time
+
+=== What objects are easy to collide?
+
+[%step]
+* Spheres
+* Boxes
+  ** Axis-Aligned
+  ** non-Axis-Aligned
