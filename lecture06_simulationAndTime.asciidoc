@@ -166,7 +166,7 @@ If two objects bump into each other they will react by moving apart.motion when 
 
 === Newton’s Third Law of Motion
 
-* For every action there is an equal and opposite reaction
+* For every action there is an equal and opposite reaction`
 * If two objects bump into each other they will react by moving apart
 
 
@@ -370,18 +370,25 @@ stem:[t =\ \sqrt {\frac{2d}{g}} ]
 == Workshop activities 1
 
 * use SDL_GetTicks to measure how long each frame takes to render
+  ** what information do you need to get? when?
   ** print to console
-* disable vsync (in driver) and repeat
+
+== Workshop activities 2
+
+* disable vsync (in driver) and anywhere in your code (window creation time)
+* remove any delays in your code (check the main loop)
+* repeat your measure of how long each frame takes to render
   ** what happens to the time?
   ** what happens to CPU usage?
   ** what's going on
+* NOTE: if you don't notice an obvious change, then vsync or something else is still slowing down your program. Ask for help
 
-== Workshop activities 2
+== Workshop activities 3
 
 * use std::chrono::high_resolution_clock to measure frame times
 * modify your game so that it simulates the correct amount of time per frame
 
-== Workshop activities 3
+== Workshop activities 4
 
 * make a sprite that orbits (like the Earth) around the centre of the screen (the Sun)
   ** you could also render the Sun if you like
@@ -392,7 +399,7 @@ stem:[t =\ \sqrt {\frac{2d}{g}} ]
   ** correctly inversely proportional to the square of the distance
   ** the mass of the "sprite" doesn't matter in this case - why not?
 
-== Workshop activities 4
+== Workshop activities 5
 
 * adjust the starting velocity so the Earth doesn't immediately:
   ** crash into the Sun
