@@ -53,10 +53,137 @@ image::fastObjects.png[height=300]
   ** at least until we know we need something better
   ** i.e. cheat, at least some of the time
 
-=== What objects are easy to collide?
+=== What types of (simple) geometry are there?
 
 [%step]
-* Spheres
-* Boxes
+* Point
+* Line / Plane
+* Circle / Sphere
+* Rectangle / Cuboid (AKA: Boxes)
   ** Axis-Aligned
   ** non-Axis-Aligned
+* Triangle / ???
+* Convex Polygon / Convex Polyhedron
+* Concave Polygon / Concave Polyhedron
+
+=== What types of geometry are easy to collide with what other types?
+
+[%step]
+* Circle-Circle / Sphere-Sphere
+* Circle-Line / Sphere-Plane
+* Axis-Aligned-Box vs Axis-Aligned-Box
+* non-Axis-Aligned vs non-Axis-Aligned
+* Convex polygon / Convex polyhedron
+* Concave polygon / Concave polyhedron
+
+=== Convex polygon vs. Concave polyhedron
+
+
+image::1083px-Convex_polygon_illustration1.png[height=200]
+
+image::1024px-non-Convex_polygon_illustration2.png[height=200]
+
+=== What types of geometry are easy to collide with what other types?
+
+|===
+|       | Point | Line | Circle | AAB | Box | Convex | Concave
+
+| Point |||||||
+
+| Line |||||||
+
+| Circle |||||||
+
+| AAB |||||||
+
+| Box |||||||
+
+| Convex |||||||
+
+| Concave |||||||
+
+|===
+
+=== What types of geometry are easy to collide with what other types?
+
+
+|===
+|         | Point | Line | Circle | AAB | Box | Convex | Concave
+
+| Point   | :-)   | - |- |- |- |- |-
+
+| Line    | :-)   | :-)  |-|-|-|-|-
+
+| Circle  | :-)   | :-)  |  :-)   |-|-|-|-
+
+| AAB     | :-)   | :-)  |  :-)   | :-) |-|-|-
+
+| Box     | OK    | OK   |  :-(   | OK  | OK  |-|-
+
+| Convex  | OK    | OK   |  :-(   |  :-( |  :-( |  :-( |-
+
+| Concave | :-(   | :-(  |  HARD |  HARD |  HARD |  HARD |  HARD
+
+|===
+
+
+
+== Circle-Circle / Sphere-Sphere
+
+* Distance between centers is less than the sum of the radii
+
+=== Distance between centers
+
+* Distance between two points
+* Square-root of the sum of the squares (Pythagoras, again)
+
+=== Sum of the radii
+
+* Radius A plus Radius B
+
+== Circle-Line / Sphere-Plane
+
+* For axis-aligned line/plane, non collision if:
+  ** ???
+
+=== Circle-Line / Sphere-Plane 2
+
+* For axis-aligned line/plane, non collision if:
+  ** Circle center + radius < axisValue
+  ** Circle center - radius > axisValue
+
+=== Circle-Line / Sphere-Plane 3
+
+* Generically, use dot-product
+ ** look up "Circle-Line" intersection
+
+== Axis-Aligned-Box vs Axis-Aligned-Box
+
+* For each box, for each axis, have a minimum and a maximum value
+  ** AKA an interval
+* non-collision on ANY axis => non-collision
+* test for each axis (X, Y, Z):
+  ** ???
+
+=== Test for each axis (X, Y, Z)
+
+* All of A is lower than B
+* -- or --
+* All of B is lower than A
+
+=== Test for each axis (X, Y, Z) 2
+
+* All of A is lower than B
+  ** => Amax < Bmin
+* -- or --
+* All of B is lower than A
+  ** => Bmax < Amin
+
+
+== Workshop activities 1
+
+* Write a function to determine if two sprites are colliding?
+
+== Workshop activities 2
+
+* Continue with Coursework, or ask for more directions
