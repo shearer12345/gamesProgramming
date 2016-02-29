@@ -2,7 +2,7 @@
 shearer12345
 :stem: latexmath
 
-:imagesdir: ./assets/
+:imagesdir: ./assets
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
 :source-highlighter: highlightjs
 
