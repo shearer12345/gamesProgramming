@@ -29,7 +29,7 @@ image::sound/CPT-sound-physical-manifestation.svg.png[height=400, link="https://
 * High frequency sensitivity drops off with age
 
 
-=== What we use sound for
+== What we use sound for
 
 * Detecting contact events
 * Localization (where things are; direction; distance)
@@ -83,13 +83,14 @@ image::sound/PitchVsFrequency.jpg[height=400, link="http://www.open.edu/openlear
 == Challenges in Sound 1
 
 * Amount of data
-* Rate needed to fill buffers
+* Need to change/start sound data quickly (with low latency)
+* Rate needed to fill buffers (small buffer for low latency)
 * Storage and compression formats
 * Real-time processing for effects
 
 === Challenges in Sound 2
 
-* Real-time processing for effects (simulating how sound propagates through air)
+* Real-time processing for effects
   ** Speed of sound
   ** Attenuation
   ** Reflection
@@ -120,15 +121,19 @@ image::sound/Signal_Sampling.png[height=400, https://upload.wikimedia.org/wikipe
 * The sample rate limits the maximum frequency that can be represented/reproduced correctly (https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem[Nyquist–Shannon sampling theorem])
   ** sample rate = 2 x maximum reproducable frequency
 * Human hearing range = 20Hz-20,000Hz => audio usually sampled at at least 40,000Hz
-  ** common sample rates include: 44.1kHz (CD), 48 kHz, 88.2 kHz, or 96 kHz
-  ** lower sample rates can be used for some kinds of sounds (especially speech)
+  ** common sample rates: 44.1kHz (CD), 48 kHz, 88.2 kHz, or 96 kHz
+
+==== Sample rate
+
+* lower sample rates can be used for some kinds of sounds
+  ** especially speech
 
 === Sample bit depth
 
 * Number of bits per sample
   ** how many different amplitudes can be represented
 * Typically 8, 16 (CD) or 24-bits per sample
-  ** internally frequently represented at 32-bit precision (sometime floating point) to allow for mixing well
+  ** internally frequently represented at 32-bit precision (sometimes floating point) to allow for mixing well
   ** (sounds can have a very large dynamic range - levels from very quiet to very loud)
 
 === Channels
@@ -160,7 +165,9 @@ image::sound/Bose_Acoustimass_5_Series_1.jpg[height=400, https://upload.wikimedi
 
 == Data rate
 
-* Uncompressed audio is needed to be in RAM for rapid access, but can use a lot of space
+* Uncompressed audio is needed to be in RAM for rapid access
+  ** loading and decompression is slow
+  ** can use quite a lot of space
 * Let's do a worked example
 
 
@@ -184,20 +191,20 @@ image::sound/Bose_Acoustimass_5_Series_1.jpg[height=400, https://upload.wikimedi
 
 * Sound is usually accessed through libraries
 * We'll use SDL2 (again) for sound
-  ** specifically, the SDL extension library SDL_mixer
+  ** specifically, the SDL extension library SDL2_mixer
 
-=== SDL audio and SDL_mixer
+=== SDL audio and SDL2_mixer
 
 * The standard SDL2 library has some audio support built in
   ** This is low-level
-* SDL_mixer provides a higher level, mixer access to audio
+* SDL2_mixer provides a higher level, mixer access to audio
 * *DON'T* use both together
-  ** http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC5
+  ** http://jcatki.no-ip.org:8080/SDL2_mixer/SDL2_mixer.html#SEC5
 
 
 === Mix_Chunks vs Mix_Music
 
-* This is SDL_mixer's terminology
+* This is SDL2_mixer's terminology
   ** AKA: Sound effects vs streaming sound
 * Many sounds need to be played very tightly aligned (in time) with in-game events
   ** e.g. door slam sound should play exactly when the door slams
@@ -206,17 +213,85 @@ image::sound/Bose_Acoustimass_5_Series_1.jpg[height=400, https://upload.wikimedi
 
 === Mix_Chunks vs Mix_Music 2
 
-* SDL_mixer allows many concurrent Mix_Chunk channels
-* SDL_mixer allows only one concurrent Mix_Music
+* SDL2_mixer allows many concurrent `Mix_Chunk` channels
+* SDL2_mixer allows only one concurrent `Mix_Music`
 
+=== SDL2_mixer Channels
 
+* SDL2_mixer channels are the channels used internal before mixing
+  ** these are different from the number of output channels
+  ** we'll not do any stereo/3D audio here
+
+=== SDL2_mixer file formats
+
+* SDL2_mixer can load sound in a variety of formats, both compressed and uncompressed
+  ** WAVE, AIFF, RIFF, OGG, MP3 and VOC
 
 
 
 == Workshop activities 1
 
-* Write a function to determine if two sprites are colliding?
+* Add SDL2_mixer to your project
+  ** add the `#include`
+  ** check that `premake5.lua` is setup for SDL2_mixer
+    *** sdl2template is setup for this already
+* Make sure your program stills builds
+* We're roughly following a Lazyfoo tutorial - http://lazyfoo.net/tutorials/SDL/21_sound_effects_and_music/index.php
 
-== Workshop activities 2
+=== Workshop activities 2
 
-* Continue with Coursework, or ask for more directions
+* Find the SDL2_mixer documentation
+  ** I recommend the "One page (HTML)"
+
+=== Workshop activities 3
+
+* Add a variable for a pointer to a `Mix_Music`
+* Add variables for pointers to `Mix_Chunk` (for multiple sound effects)
+  ** we could use `unique_ptr` or `shared_ptr` do be safer
+* Make sure SDL initialises audio
+  ** the call to `SDL_Init` should include `SDL_INIT_AUDIO`
+  ** or be everything
+
+=== Workshop activities 4
+
+* Open a mixer with `Mix_OpenAudio`
+  ** look up the parameters and set them appropriately
+  ** check for errors
+
+=== Workshop activities 5
+
+* Find some audio files you can use
+  ** you could test with system sounds
+  ** get a music file and some sound effects
+
+=== Workshop activities 6
+
+* Add code using `Mix_LoadMUS` to load a music file
+  ** make sure to error check
+  ** compile and make sure it doesn't error
+  ** add code to free the music pointer when your program exits
+
+=== Workshop activities 7
+
+* Add code to start the music on a key press
+  ** using `Mix_PlayMusic`
+  ** test this
+* Add code to test if music is playing/paused/not-playing and to play/pause/stop on keypresses
+  ** using `Mix_PlayingMusic()`, `Mix_PauseMusic`, `Mix_ResumeMusic()` and `Mix_HaltMusic()`
+
+=== Workshop activities 8
+
+* Load a sound effect using `Mix_LoadWAV`
+  ** check for errors
+  ** add code to clean up
+
+=== Workshop activities 9
+
+* Make the sound effect play on a key press
+  ** using `Mix_PlayChannel()`
+  ** check the documentation to understand the parameters
+
+
+=== Create a SoundEffect and Music classes
+
+* To support the repetitive activities above
