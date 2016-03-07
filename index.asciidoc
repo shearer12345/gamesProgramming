@@ -6,7 +6,7 @@ shearer12345
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
 :source-highlighter: highlightjs
 
-== List of Lectures
+== List of Lectures 1
 
 . link:lecture01_introduction.html[Introduction]
 . link:lecture02_spriteAnimation.html[Sprite Animation]
@@ -15,3 +15,7 @@ shearer12345
 . link:lecture05_sceneManagement.html[Scene Management]
 . link:lecture06_simulationAndTime.html[Simulation and Time]
 . link:lecture07_collisionDetection.html[Collision Detection]
+
+== List of Lectures 2
+
+. link:lecture08_sound.html[Sound]
