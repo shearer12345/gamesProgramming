@@ -1,0 +1,222 @@
+= Sound
+shearer12345
+:stem: latexmath
+
+:imagesdir: ./assets
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== What is Sound?
+
+image::sound/CPT-sound-physical-manifestation.svg.png[height=400, link="https://upload.wikimedia.org/wikipedia/commons/8/82/CPT-sound-physical-manifestation.svg"]
+
+=== What is Sound?
+
+* Pressure waves in a medium
+  ** usually in air
+
+
+=== Sound for humans
+
+* Humans can hear sound with their ears
+  ** but only a restricted frequency range
+
+=== Frequency range of human hearing
+
+* ~20Hz -> ~20,000Hz
+  ** Hz = cycles per second
+* http://plasticity.szynalski.com/tone-generator.htm
+* High frequency sensitivity drops off with age
+
+
+=== What we use sound for
+
+* Detecting contact events
+* Localization (where things are; direction; distance)
+* Speed
+* Kind of room/space
+* Kind of surfaces
+
+=== What we use sound for 2
+
+* Kind of sound source (e.g. car engine)
+* Features of sound sound (e.g. speed of car engine)
+* Music
+* Speech
+
+=== What we use sound for 3
+
+* Sound directs attention
+  ** we don't have to listen in a direction
+  ** unlike vision
+* We hear all around us
+
+
+
+== The Sound of music
+
+image::sound/soundOfMusic.jpg[height=400, link="https://en.wikipedia.org/wiki/The_Sound_of_Music_%28film%29"]
+
+=== The Sound of music (very briefly)
+
+* Musical notes have a https://en.wikipedia.org/wiki/Fundamental_frequency[fundamental frequency] (stem:[f_0])
+  ** measured in Hz
+* we perceive an equal distance between neighbouring notes or octaves
+  ** when the actual frequency doubles per octave
+
+=== Pitch and Frequency
+
+* For music, we perceive "pitch" as roughly the logarithm of frequency
+  ** For example, from A4 (the 'A' above middle C) to A5 (an octave higher)
+  ** The frequency doubles from 440Hz to 880Hz
+
+=== Frequency Vs Pitch
+
+image::sound/FrequencyVsPitch.jpg[height=400, link="http://www.erhuphysics.net78.net/images/Pitch%20Vs%20Frequency.jpg"]
+
+=== Pitch Vs Frequency
+
+image::sound/PitchVsFrequency.jpg[height=400, link="http://www.open.edu/openlearn/ocw/pluginfile.php/75828/mod_oucontent/oucontent/645/55d982ed/2f93a322/ta212_1_024i.jpg"]
+
+
+
+== Challenges in Sound 1
+
+* Amount of data
+* Rate needed to fill buffers
+* Storage and compression formats
+* Real-time processing for effects
+
+=== Challenges in Sound 2
+
+* Real-time processing for effects (simulating how sound propagates through air)
+  ** Speed of sound
+  ** Attenuation
+  ** Reflection
+  ** Refraction
+  ** Effect of ears/head
+
+=== Challenges in Sound 3
+
+* Movement of objects and sound
+  ** Doppler effect
+* Synchronisation of sound with in-game events
+
+
+== Representing sound
+
+* Sound (in the real world) is *continuous*
+  ** both in amplitude and in time
+* Sound is digitally represented by sampling (reducing) those continuous values into discrete values
+
+
+=== Sampling
+
+image::sound/Signal_Sampling.png[height=400, https://upload.wikimedia.org/wikipedia/commons/5/50/Signal_Sampling.png]
+
+=== Sample rate
+
+* Number of samples per second
+* The sample rate limits the maximum frequency that can be represented/reproduced correctly (https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem[Nyquist–Shannon sampling theorem])
+  ** sample rate = 2 x maximum reproducable frequency
+* Human hearing range = 20Hz-20,000Hz => audio usually sampled at at least 40,000Hz
+  ** common sample rates include: 44.1kHz (CD), 48 kHz, 88.2 kHz, or 96 kHz
+  ** lower sample rates can be used for some kinds of sounds (especially speech)
+
+=== Sample bit depth
+
+* Number of bits per sample
+  ** how many different amplitudes can be represented
+* Typically 8, 16 (CD) or 24-bits per sample
+  ** internally frequently represented at 32-bit precision (sometime floating point) to allow for mixing well
+  ** (sounds can have a very large dynamic range - levels from very quiet to very loud)
+
+=== Channels
+
+* Multiple channels of sound can be pre-mixed to provide the aural illusion of multi-directional sound
+  ** works well with headphones, sets of speakers
+  ** 2 channels is most common (for music)
+  ** More channels may be pre-mixed for games, films, etc
+    *** e.g. 5.1 (5 channels of positional audio, and 1 extra channel for a sub-woofer)
+
+=== Channels 2
+
+* Sound effect audio is usually just mono (single channel)
+  ** mixed in real-time to produce multiple channels
+  ** to provide for multi-directional sound etc.
+
+=== .1 sound
+
+  * Humans can't detect direction of low frequencies well
+  * Low frequency sound is expensive to generate
+    ** need large speakers (generally)
+    ** use more power
+  * For positional audio to low frequencies a mixed to a separate special speakers (sub-woofer)
+
+=== .1 sound (sub-woofer)
+
+image::sound/Bose_Acoustimass_5_Series_1.jpg[height=400, https://upload.wikimedia.org/wikipedia/commons/b/b0/Bose_Acoustimass_5_Series_1.jpg]
+
+
+== Data rate
+
+* Uncompressed audio is needed to be in RAM for rapid access, but can use a lot of space
+* Let's do a worked example
+
+
+=== Data rate 2
+
+* Let's assume:
+[%step]
+  ** CD quality audio, sample rate = 44,100Hz
+  ** CD quality audio, sample depth = 16 bit == 2 bytes
+  ** CD quality audio, channels = 2 (stereo)
+
+=== Data rate 3
+
+[%step]
+* => bytes per second = 44,100 x 2 x 2 == 176,400
+* => bytes per minute = 10,584,000 =~ 10MB per minute
+* => one CD can hold 74–80 minutes of audio
+
+
+== Sound in Games Programming
+
+* Sound is usually accessed through libraries
+* We'll use SDL2 (again) for sound
+  ** specifically, the SDL extension library SDL_mixer
+
+=== SDL audio and SDL_mixer
+
+* The standard SDL2 library has some audio support built in
+  ** This is low-level
+* SDL_mixer provides a higher level, mixer access to audio
+* *DON'T* use both together
+  ** http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC5
+
+
+=== Mix_Chunks vs Mix_Music
+
+* This is SDL_mixer's terminology
+  ** AKA: Sound effects vs streaming sound
+* Many sounds need to be played very tightly aligned (in time) with in-game events
+  ** e.g. door slam sound should play exactly when the door slams
+  ** sound must be immediately available to play
+* File-loading and decompression is SLOW
+
+=== Mix_Chunks vs Mix_Music 2
+
+* SDL_mixer allows many concurrent Mix_Chunk channels
+* SDL_mixer allows only one concurrent Mix_Music
+
+
+
+
+
+== Workshop activities 1
+
+* Write a function to determine if two sprites are colliding?
+
+== Workshop activities 2
+
+* Continue with Coursework, or ask for more directions
