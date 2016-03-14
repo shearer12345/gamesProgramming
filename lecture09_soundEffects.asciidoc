@@ -1,0 +1,206 @@
+= Sound Effects
+shearer12345
+:stem: latexmath
+
+:imagesdir: ./assets
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== Beyond just playing sound
+
+* last week, our workshop activities focused on just playing sounds
+* today we'll look at adding various effects to them
+* we covered quite a lot of theory/concepts about sound last week
+  ** today will be mostly a hands-on session/lecture
+  ** volume; fading; panning; distance; position
+
+== Demo of audio from last week.
+
+* ...
+
+=== Number of mixer channels
+
+* Demo of the limitation (default)
+* Setting the number of mixer channels
+  ** http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC26[`Mix_AllocateChannels()`]
+
+== Other features in SDL2
+
+* `chunk` (sample) looping
+* playing a `chunk` (sample) for a limited amount of time
+* pausing/resuming channels
+
+== SDL2_mixer callback functions
+
+* You can register functions that SDL2_mixer will call when certain things happen
+  ** generically, this is called event driven programming
+  ** some alternative game libraries (e.g. freeGLUT) are event-driven
+
+=== SDL2_mixer callback functions 2
+
+* Allows your functions to run without you checking for things in your main-loop
+  ** especially important for some audio functions that may need to:
+    *** call very frequently
+    *** be handled *NOW* (rather then in the next loop iteration)
+
+=== Mix_ChannelFinished
+
+* Register your own function to call when a Channel has finished playing
+  ** might be useful if you want to not play a sample concurrently
+    *** i.e. not try to play sample X if it is still playing
+  ** or to start another sample when one is finished
+  ** http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC37[Mix_ChannelFinished()]
+
+=== Mix_HookMusic
+
+* Allows you to give audio data directly to the music player
+  ** SDL2_mixer calls your function when it needs data
+  ** with information of how much data to put where
+  ** will happen very frequently
+    *** sampleRate / chunksize  times per second
+  **  http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC60[Mix_HookMusic()]
+
+=== Mix_HookMusicFinished
+
+* Register a callback function for when music playback halts
+  ** http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC69[Mix_HookMusicFinished()]
+
+=== Effect processors
+
+* You can register functions to be called on each channel (http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC76[Mix_RegisterEffect()]) or the postmix (http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC79[Mix_SetPostMix])
+* to apply some effect to that channel (or the postmix)
+  ** e.g. show it on the screen, save it, apply echo, etc ...
+* SDL2_mixer provides some effects by default
+  ** we'll not look at doing these ourselves
+
+== SDL2_mixer's effects
+
+* SDL2_mixer provides some basic sound effects
+  ** these are not very realistic (especially the position)
+  ** but allow for some effects
+* other libraries provide more features
+  ** we'll discuss some later in this lecture
+
+== Volume
+
+* both `chunk` s and channels have a volume
+* these are applied in the mix automatically by SDL2_mixer
+  ** you *could* do this yourself in with an "effect"
+
+=== Volume (`chunk`)
+
+* Each `chunk` has a volume
+  ** an `int`, from 0 to `MIX_MAX_VOLUME` (=128)
+  ** can be set with http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC23[Mix_VolumeChunk()]
+  ** can also `get`
+  ** default is `MIX_MAX_VOLUME`(maximum volume)
+
+=== Volume (channel)
+
+* Each `channel` has a volume
+  ** an `int`, from 0 to `MIX_MAX_VOLUME` (=128)
+  ** can be set with http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC27[Mix_Volume()]
+  ** can also `get`
+  ** default is `MIX_MAX_VOLUME`(maximum volume)
+
+== Fading
+
+* Channels can be faded in, and faded out, over time
+  ** just like a real mixer
+  ** SDL2_mixer takes care of updating the volume over time for you
+  ** FYI: the audio runs on a different thread (partially) to support this
+  ** you could also do this yourself, with an "effect"
+
+=== An audio mixer in the real world
+
+image::sound\Mark_III_radio_desk.jpg[height=400, link="https://commons.wikimedia.org/wiki/File:Mark_III_radio_desk.jpg"]
+
+=== Fade in
+
+* Fade in is used instead of `Mix_PlayChannel `
+  ** the function is http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC30[Mix_FadeInChannel()]
+  ** as with `Mix_PlayChannel `, the `chunk` can be looped, or time limited
+
+=== Fade out
+
+* A playing channel can be faded out
+  ** the function is http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC36[Mix_FadeOutChannel()]
+  ** you can also ask a channel if it is present fading - http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC40[Mix_FadingChannel()]
+
+== Panning
+
+* A built-in effect - http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC80[Mix_SetPanning()]
+* Only works on *stereo* audio
+  ** i.e. you called `Mix_OpenAudio` with 2 channels
+* Is just setting the volume for the `left` and `right` channels
+  ** from 0-255
+
+=== Panning2
+
+* usually want something like `Mix_SetPanning(channel, left, 254 - left)`
+  ** effectively halves the volume (no way around this)
+* I would control panning with a normalised value
+  ** from -1 to 1
+
+== Distance
+
+* A built-in effect - http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC81[Mix_SetDistance()]
+* Simulates distance-based attenuation
+  ** 0 for near/close/loud
+  ** 255 for far/quiet
+  ** is non-linear (volume never quite reaches zero)Only works on *stereo* audio
+
+== Position
+
+* A built-in effect - http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC82[Mix_SetPosition]
+* simulates simple 3D audio
+  ** sound source at some angle and some distance
+  ** effectively the same as using panning and distance
+* Doesn't simulate delays, or doppler
+
+== Other sound libraries
+
+* There are many, many alternatively sound/audio libraries
+* This is an incomplete list
+
+=== Open sources
+
+* OpenAL
+  ** OpenAL itself is ancient, and unsupported
+  ** use http://kcat.strangesoft.net/openal.html[OpenAL Soft]
+* https://github.com/R4stl1n/cAudio[cAudio]
+  ** open source 3D Audio Engine Based on OpenAL
+* http://www.sfml-dev.org/[SFML]
+  ** similar to SDL2, but supports 3D audio
+
+=== Commercial (though perhaps no cost)
+
+* http://www.ambiera.com/irrklang/[irrKlang]
+* http://www.fmod.org/[FMOD]
+* http://www.un4seen.com/bass.html[BASS]
+* http://www.audiokinetic.com/[Wwise]
+* http://www.radgametools.com[Miles Sound System]
+* ...
+
+
+== Workshop activities 1
+
+* Look up the documentation for `Mix_VolumeChunk()`
+* Set the volume of one of your samples
+
+=== Workshop activities 2
+
+* Make one of your samples fade-in or out over time
+
+=== Workshop activities 3
+
+* Make one of your samples play fully "left"
+
+=== Workshop activities 4
+
+* Make a looping sample, that pans left-right with one of your sprites
+  ** perhaps the player
+
+=== Add features to your SoundEffect and Music classes
+
+* To support some of the activities from above
