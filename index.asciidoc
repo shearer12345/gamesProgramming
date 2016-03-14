@@ -19,3 +19,4 @@ shearer12345
 == List of Lectures 2
 
 . link:lecture08_sound.html[Sound]
+. link:lecture09_sound.html[Sound Effects]
