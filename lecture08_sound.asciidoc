@@ -227,7 +227,13 @@ image::sound/Bose_Acoustimass_5_Series_1.jpg[height=400, https://upload.wikimedi
 * SDL2_mixer can load sound in a variety of formats, both compressed and uncompressed
   ** WAVE, AIFF, RIFF, OGG, MP3 and VOC
 
+=== SDL2_mixer issues
 
+* File loading can lead to errors, whether due to bad files, non-compliant files, library bugs, or inaccessible paths
+  ** SDL2_mixer is a bit fussy
+  ** silent fails
+  ** errors raised (error codes)
+  ** library crashes
 
 == Workshop activities 1
 
