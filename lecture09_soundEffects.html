@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="author" content="shearer12345"><title>Sound Effects</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [["\\(", "\\)"]],
+  displayMath: [["\\[", "\\]"]],
+  ignoreClass: "nostem|nolatexmath"
+},
+asciimath2jax: {
+  delimiters: [["\\$", "\\$"]],
+  ignoreClass: "nostem|noasciimath"
+},
+TeX: { equationNumbers: { autoNumber: "none" } }
+});</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script><link href="reveal.js/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section><h1>Sound Effects</h1><p><small>shearer12345</small></p></section><section id="_beyond_just_playing_sound"><h2>Beyond just playing sound</h2><div class="ulist"><ul><li><p>last week, our workshop activities focused on just playing sounds</p></li><li><p>today we&#8217;ll look at adding various effects to them</p></li><li><p>we covered quite a lot of theory/concepts about sound last week</p><div class="ulist"><ul><li><p>today will be mostly a hands-on session/lecture</p></li><li><p>volume; fading; panning; distance; position</p></li></ul></div></li></ul></div></section>
+<section><section id="_demo_of_audio_from_last_week"><h2>Demo of audio from last week.</h2><div class="ulist"><ul><li><p>&#8230;&#8203;</p></li></ul></div></section><section id="_number_of_mixer_channels"><h2>Number of mixer channels</h2><div class="ulist"><ul><li><p>Demo of the limitation (default)</p></li><li><p>Setting the number of mixer channels</p><div class="ulist"><ul><li><p><a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC26"><code>Mix_AllocateChannels()</code></a></p></li></ul></div></li></ul></div></section></section>
+<section id="_other_features_in_sdl2"><h2>Other features in SDL2</h2><div class="ulist"><ul><li><p><code>chunk</code> (sample) looping</p></li><li><p>playing a <code>chunk</code> (sample) for a limited amount of time</p></li><li><p>pausing/resuming channels</p></li></ul></div></section>
+<section><section id="_sdl2_mixer_callback_functions"><h2>SDL2_mixer callback functions</h2><div class="ulist"><ul><li><p>You can register functions that SDL2_mixer will call when certain things happen</p><div class="ulist"><ul><li><p>generically, this is called event driven programming</p></li><li><p>some alternative game libraries (e.g. freeGLUT) are event-driven</p></li></ul></div></li></ul></div></section><section id="_sdl2_mixer_callback_functions_2"><h2>SDL2_mixer callback functions 2</h2><div class="ulist"><ul><li><p>Allows your functions to run without you checking for things in your main-loop</p><div class="ulist"><ul><li><p>especially important for some audio functions that may need to:</p><div class="ulist"><ul><li><p>call very frequently</p></li><li><p>be handled <strong>NOW</strong> (rather then in the next loop iteration)</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_mix_channelfinished"><h2>Mix_ChannelFinished</h2><div class="ulist"><ul><li><p>Register your own function to call when a Channel has finished playing</p><div class="ulist"><ul><li><p>might be useful if you want to not play a sample concurrently</p><div class="ulist"><ul><li><p>i.e. not try to play sample X if it is still playing</p></li></ul></div></li><li><p>or to start another sample when one is finished</p></li><li><p><a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC37">Mix_ChannelFinished()</a></p></li></ul></div></li></ul></div></section><section id="_mix_hookmusic"><h2>Mix_HookMusic</h2><div class="ulist"><ul><li><p>Allows you to give audio data directly to the music player</p><div class="ulist"><ul><li><p>SDL2_mixer calls your function when it needs data</p></li><li><p>with information of how much data to put where</p></li><li><p>will happen very frequently</p><div class="ulist"><ul><li><p>sampleRate / chunksize  times per second</p></li></ul></div></li><li><p><a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC60">Mix_HookMusic()</a></p></li></ul></div></li></ul></div></section><section id="_mix_hookmusicfinished"><h2>Mix_HookMusicFinished</h2><div class="ulist"><ul><li><p>Register a callback function for when music playback halts</p><div class="ulist"><ul><li><p><a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC69">Mix_HookMusicFinished()</a></p></li></ul></div></li></ul></div></section><section id="_effect_processors"><h2>Effect processors</h2><div class="ulist"><ul><li><p>You can register functions to be called on each channel (<a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC76">Mix_RegisterEffect()</a>) or the postmix (<a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC79">Mix_SetPostMix</a>)</p></li><li><p>to apply some effect to that channel (or the postmix)</p><div class="ulist"><ul><li><p>e.g. show it on the screen, save it, apply echo, etc &#8230;&#8203;</p></li></ul></div></li><li><p>SDL2_mixer provides some effects by default</p><div class="ulist"><ul><li><p>we&#8217;ll not look at doing these ourselves</p></li></ul></div></li></ul></div></section></section>
+<section id="_sdl2_mixer_s_effects"><h2>SDL2_mixer&#8217;s effects</h2><div class="ulist"><ul><li><p>SDL2_mixer provides some basic sound effects</p><div class="ulist"><ul><li><p>these are not very realistic (especially the position)</p></li><li><p>but allow for some effects</p></li></ul></div></li><li><p>other libraries provide more features</p><div class="ulist"><ul><li><p>we&#8217;ll discuss some later in this lecture</p></li></ul></div></li></ul></div></section>
+<section><section id="_volume"><h2>Volume</h2><div class="ulist"><ul><li><p>both <code>chunk</code> s and channels have a volume</p></li><li><p>these are applied in the mix automatically by SDL2_mixer</p><div class="ulist"><ul><li><p>you <strong>could</strong> do this yourself in with an "effect"</p></li></ul></div></li></ul></div></section><section id="_volume_code_chunk_code"><h2>Volume (<code>chunk</code>)</h2><div class="ulist"><ul><li><p>Each <code>chunk</code> has a volume</p><div class="ulist"><ul><li><p>an <code>int</code>, from 0 to <code>MIX_MAX_VOLUME</code> (=128)</p></li><li><p>can be set with <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC23">Mix_VolumeChunk()</a></p></li><li><p>can also <code>get</code></p></li><li><p>default is <code>MIX_MAX_VOLUME</code>(maximum volume)</p></li></ul></div></li></ul></div></section><section id="_volume_channel"><h2>Volume (channel)</h2><div class="ulist"><ul><li><p>Each <code>channel</code> has a volume</p><div class="ulist"><ul><li><p>an <code>int</code>, from 0 to <code>MIX_MAX_VOLUME</code> (=128)</p></li><li><p>can be set with <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC27">Mix_Volume()</a></p></li><li><p>can also <code>get</code></p></li><li><p>default is <code>MIX_MAX_VOLUME</code>(maximum volume)</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_fading"><h2>Fading</h2><div class="ulist"><ul><li><p>Channels can be faded in, and faded out, over time</p><div class="ulist"><ul><li><p>just like a real mixer</p></li><li><p>SDL2_mixer takes care of updating the volume over time for you</p></li><li><p>FYI: the audio runs on a different thread (partially) to support this</p></li><li><p>you could also do this yourself, with an "effect"</p></li></ul></div></li></ul></div></section><section id="_an_audio_mixer_in_the_real_world"><h2>An audio mixer in the real world</h2><div class="imageblock" style=""><div class="content"><a class="image" href="https://commons.wikimedia.org/wiki/File:Mark_III_radio_desk.jpg"><img src="./assets/sound/Mark_III_radio_desk.jpg" alt="sound\Mark III radio desk" height="400"></a></div></div></section><section id="_fade_in"><h2>Fade in</h2><div class="ulist"><ul><li><p>Fade in is used instead of `Mix_PlayChannel `</p><div class="ulist"><ul><li><p>the function is <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC30">Mix_FadeInChannel()</a></p></li><li><p>as with <code>Mix_PlayChannel `, the `chunk</code> can be looped, or time limited</p></li></ul></div></li></ul></div></section><section id="_fade_out"><h2>Fade out</h2><div class="ulist"><ul><li><p>A playing channel can be faded out</p><div class="ulist"><ul><li><p>the function is <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC36">Mix_FadeOutChannel()</a></p></li><li><p>you can also ask a channel if it is present fading - <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC40">Mix_FadingChannel()</a></p></li></ul></div></li></ul></div></section></section>
+<section><section id="_panning"><h2>Panning</h2><div class="ulist"><ul><li><p>A built-in effect - <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC80">Mix_SetPanning()</a></p></li><li><p>Only works on <strong>stereo</strong> audio</p><div class="ulist"><ul><li><p>i.e. you called <code>Mix_OpenAudio</code> with 2 channels</p></li></ul></div></li><li><p>Is just setting the volume for the <code>left</code> and <code>right</code> channels</p><div class="ulist"><ul><li><p>from 0-255</p></li></ul></div></li></ul></div></section><section id="_panning2"><h2>Panning2</h2><div class="ulist"><ul><li><p>usually want something like <code>Mix_SetPanning(channel, left, 254 - left)</code></p><div class="ulist"><ul><li><p>effectively halves the volume (no way around this)</p></li></ul></div></li><li><p>I would control panning with a normalised value</p><div class="ulist"><ul><li><p>from -1 to 1</p></li></ul></div></li></ul></div></section></section>
+<section id="_distance"><h2>Distance</h2><div class="ulist"><ul><li><p>A built-in effect - <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC81">Mix_SetDistance()</a></p></li><li><p>Simulates distance-based attenuation</p><div class="ulist"><ul><li><p>0 for near/close/loud</p></li><li><p>255 for far/quiet</p></li><li><p>is non-linear (volume never quite reaches zero)Only works on <strong>stereo</strong> audio</p></li></ul></div></li></ul></div></section>
+<section id="_position"><h2>Position</h2><div class="ulist"><ul><li><p>A built-in effect - <a href="http://jcatki.no-ip.org:8080/SDL_mixer/SDL_mixer.html#SEC82">Mix_SetPosition</a></p></li><li><p>simulates simple 3D audio</p><div class="ulist"><ul><li><p>sound source at some angle and some distance</p></li><li><p>effectively the same as using panning and distance</p></li></ul></div></li><li><p>Doesn&#8217;t simulate delays, or doppler</p></li></ul></div></section>
+<section><section id="_other_sound_libraries"><h2>Other sound libraries</h2><div class="ulist"><ul><li><p>There are many, many alternatively sound/audio libraries</p></li><li><p>This is an incomplete list</p></li></ul></div></section><section id="_open_sources"><h2>Open sources</h2><div class="ulist"><ul><li><p>OpenAL</p><div class="ulist"><ul><li><p>OpenAL itself is ancient, and unsupported</p></li><li><p>use <a href="http://kcat.strangesoft.net/openal.html">OpenAL Soft</a></p></li></ul></div></li><li><p><a href="https://github.com/R4stl1n/cAudio">cAudio</a></p><div class="ulist"><ul><li><p>open source 3D Audio Engine Based on OpenAL</p></li></ul></div></li><li><p><a href="http://www.sfml-dev.org/">SFML</a></p><div class="ulist"><ul><li><p>similar to SDL2, but supports 3D audio</p></li></ul></div></li></ul></div></section><section id="_commercial_though_perhaps_no_cost"><h2>Commercial (though perhaps no cost)</h2><div class="ulist"><ul><li><p><a href="http://www.ambiera.com/irrklang/">irrKlang</a></p></li><li><p><a href="http://www.fmod.org/">FMOD</a></p></li><li><p><a href="http://www.un4seen.com/bass.html">BASS</a></p></li><li><p><a href="http://www.audiokinetic.com/">Wwise</a></p></li><li><p><a href="http://www.radgametools.com">Miles Sound System</a></p></li><li><p>&#8230;&#8203;</p></li></ul></div></section></section>
+<section><section id="_workshop_activities_1"><h2>Workshop activities 1</h2><div class="ulist"><ul><li><p>Look up the documentation for <code>Mix_VolumeChunk()</code></p></li><li><p>Set the volume of one of your samples</p></li></ul></div></section><section id="_workshop_activities_2"><h2>Workshop activities 2</h2><div class="ulist"><ul><li><p>Make one of your samples fade-in or out over time</p></li></ul></div></section><section id="_workshop_activities_3"><h2>Workshop activities 3</h2><div class="ulist"><ul><li><p>Make one of your samples play fully "left"</p></li></ul></div></section><section id="_workshop_activities_4"><h2>Workshop activities 4</h2><div class="ulist"><ul><li><p>Make a looping sample, that pans left-right with one of your sprites</p><div class="ulist"><ul><li><p>perhaps the player</p></li></ul></div></li></ul></div></section><section id="_add_features_to_your_soundeffect_and_music_classes"><h2>Add features to your SoundEffect and Music classes</h2><div class="ulist"><ul><li><p>To support some of the activities from above</p></li></ul></div></section></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: false,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
