@@ -55,13 +55,17 @@ https://en.wikipedia.org/wiki/Game_theory#Game_types
   ** or an approximation thereof
 
 === Correspondence chess
-  * https://en.wikipedia.org/wiki/Correspondence_chess
-  == Trust in Multiplayer
 
-  * Don't trust external systems
-    ** that includes players' machines!!
-    ** they can be compromised, or malicious
-    ** => server-side simulation and server-wins
+* https://en.wikipedia.org/wiki/Correspondence_chess
+
+image::Postcard-for-correspondence-chess.jpg[Postcard for correspondence chess, height=200, link=https://commons.wikimedia.org/wiki/File:Postcard-for-correspondence-chess.jpg]
+
+== Trust in Multiplayer
+
+* Don't trust external systems
+  ** that includes players' machines!!
+  ** they can be compromised, or malicious
+  ** => server-side simulation and server-wins
 
 === First-person Shooters as the most challenging cases
 
@@ -399,7 +403,3 @@ Most, modern games use Client-Server
     ** e.g. the main website
   . some external server (e.g. google.com) NOTE: this will probably fail
     ** why?
-
-=== Workshop activities 2
-
-*
