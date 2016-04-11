@@ -1,0 +1,405 @@
+= Multiplayer and Networking
+shearer12345
+:stem: latexmath
+
+:imagesdir: ./assets/networking
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+== Summary
+
+* Multiplayer briefly
+* Networking!!
+  ** Time and Characteristics of networks
+  ** Packet-switching
+  ** Client-Server vs. Peer-to-Peer
+  ** Message-passing, Wire-protocols, and Discovery
+* Multiplayer again - Client-Server vs. Peer-to-Peer
+* Example with ZeroMQ
+
+== Multiplayer
+
+* Multiplayer
+  ** one one or more windows
+  ** on one or more screens
+  ** on one or more computers
+  ** in one or more locations
+  ** in one or more timezones
+  ** on one or more platforms
+
+=== Kinds of Multiplayer Games
+
+* turn-based simulation (sequential) vs. simultaneous simulation (time)
+* same information vs. different information vs. complete information (present information)
+* deterministic vs. stochastic simulation (future information)
+* deterministic vs. stochastic control (future information)
+* discrete vs. continuous simulation (space)
+* real-time vs. non-real-time
+* player count
+
+https://en.wikipedia.org/wiki/Game_theory#Game_types
+
+== The fundamental multiplayer problem (technically)
+
+* Each player needs some view onto a globally consistent game state
+* In the general case, given laws of physics, this is impossible
+* Is possible in a number of restricted cases
+  ** even with incredible slow "networks"
+* Sometimes we just have to accept that this is not possible
+
+=== The fundamental multiplayer problem (technically) 2
+
+* The fundamental challenge is about getting information between parties
+* So that they can present this view onto the global game state
+  ** or an approximation thereof
+
+=== Correspondence chess
+
+* https://en.wikipedia.org/wiki/Correspondence_chess
+
+image::Postcard-for-correspondence-chess.jpg[Postcard for correspondence chess, height=200, link=https://commons.wikimedia.org/wiki/File:Postcard-for-correspondence-chess.jpg]
+
+== Trust in Multiplayer
+
+* Don't trust external systems
+  ** that includes players' machines!!
+  ** they can be compromised, or malicious
+  ** => server-side simulation and server-wins
+
+=== First-person Shooters as the most challenging cases
+
+* turn-based simulation (sequential) vs. *simultaneous* simulation (time)
+* same information vs. *different information* vs. complete information (present information)
+* deterministic vs. stochastic simulation (future information) - *???*
+* deterministic vs. stochastic control (future information) - *???*
+* discrete vs. *continuous* simulation (space)
+* *real-time* vs. non-real-time
+* player count - *???*
+
+== Networking
+
+image::991px-Server-based-network.svg.png[991px-Server-based-network, height=200, link=https://en.wikipedia.org/wiki/File:Server-based-network.svg]
+image::P2P-network.svg.png[P2P-network, height=200, link=https://commons.wikimedia.org/wiki/File:P2P-network.svg]
+
+== Networking!!
+
+Assumption :: You haven't had much exposure to computer networks.
+
+* We'll try to remedy that, somewhat, today.
+  ** in most CS programmes networking is an entire module - you'll be more employable if you self-study this wider
+
+=== Networking hardware/infrastructure
+
+* Computers can be connected to each other to allow them to communicate with each other ! ! ! !
+* Requires hardware and software
+  ** both in the computer and between
+* Connection are made with cables, or wirelessly
+  ** electrical, optical, radio, ..
+* Other computers can sit in between and help
+
+== TIME!!
+
+Many game genres are highly time-sensitive.
+
+The laws of physics limit how fast light and electricity travel, so between two hosts there is *ALWAYS* a time interval for data to travel from A to B.
+
+== Characteristics of networks
+
+Networks have a number of characteristics that we are interested in, whatever the form of networking we use:
+
+* Latency
+* Jitter
+* Bandwidth
+* Packet-loss
+
+== Latency
+
+* how long it takes for data to get from A to B (one-way)
+  ** or to get from A to B and back to A (round-trip)
+* lower is better
+* bounded by laws of physics
+  ** speed of light, of electricity
+* also influenced by repeaters/hubs/switches/routers
+* also influenced by local software/hardware
+
+=== Speed of light
+
+* speed of light (in a vacuum, in air, in fibreoptic)
+   *** stem:[299,792,458 \frac m s] - in vacuum
+   ** approximately stem:[3.00 × 10^8 \frac m s])
+   ** approximately 186,000 miles per second
+
+=== Speed of light 2
+
+* speed of light in air is around 0.03% slower than in a vacuum (stem:[99.97% * c])
+  ** i.e. unimportant for us
+* speed of light in fibreoptic is about 35% slower than in a vacuum (stem:[65% * c]))
+  ** this makes a difference
+
+=== Fibreoptic
+
+image::Fibreoptic.jpg[Fibreoptic, height=200, link=https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg]
+* used for national and international links
+* doesn't follow straight lines in the real world
+
+=== Speed of electricity
+
+* technically the propagation speed of electromagnetic wave in cables
+  ** for cat5 is about 35% slower than speed of light in a vacuum (stem:[65% * c]))
+  ** about the same as fibreoptic
+
+image::Cat_5.jpg[Cat 5 cable, height=200, link=https://commons.wikimedia.org/wiki/File:Cat_5.jpg]
+
+=== Repeaters, hubs, switches, routers
+
+image::4_port_netgear_ethernet_hub.jpg[4 port Netgear ethernet hub, height=150, link=https://commons.wikimedia.org/wiki/File:4_port_netgear_ethernet_hub.jpg]
+
+image::2550T-PWR-Front.jpg[50-port Ethernet switch, height=150, link=https://commons.wikimedia.org/wiki/File:2550T-PWR-Front.jpg]
+
+image::cisco_2900.jpg[Cisco 2900 router, height=150, link=http://www.cisco.com/c/en/us/products/routers/2900-series-integrated-services-routers-isr/index.html#]
+
+=== Repeaters, hubs, switches, routers 2
+
+* these pieces of hardware are themselves computers and introduce variable delays
+
+=== Latency - some numbers
+
+* London -> Amsterdam = 10ms
+* London -> Paris = 8ms
+* London -> Brisbane, Aus = 313ms
+* London -> California, USA = 132ms
+* London -> New York, USA = 73ms
+
+=== Latency - some numbers 2
+
+* https://www.dotcom-tools.com/internet-backbone-latency.aspx
+* http://www.internetweathermap.com/
+* http://internetpulse.keynote.com/
+
+== Jitter
+
+* How much latency varies
+* Varied causes, including
+  ** local machine (hardware/software)
+  ** network hardware
+    *** buffers
+    *** route changes (including losses)
+  ** congestion
+  ** noise
+
+=== Jitter - some numbers
+
+* internal -> lincoln.ac.uk
+  * min: 0.377ms
+  * avg: 0.476ms
+  * max: 0.541ms
+  * mdev: 0.059ms
+
+== Bandwidth
+
+* How much data can we send per unit time (e.g. per second) - measured in Bits Per Second
+  ** maximum amount
+  ** may be limited by other factors
+  ** may be in conflict with other services/activities
+
+=== Bandwidth - some numbers
+
+* Measured in Megabit per second (1,000,000 bits per second)
+  ** *bits* not *bytes*
+  ** rules of thumb: on the wire it takes an average of around 10 bits for each byte
+    *** there are various overheads
+
+=== Bandwidth - some numbers 2
+
+* To your home: 5 Mb/s -> 50 Mb/s
+
+=== Bandwidth - some numbers 3
+
+* Ethernet
+  ** 100 Mb/s (probably your network router, possibly your PC)
+  ** 1000 Mb/s (1Gb/s) (probably your PC, possibly your router)
+  ** 10 Gb/s (within the University)
+
+=== Bandwidth - some numbers 4
+
+* Fiberoptic
+  ** 10 or 40 Gb/s in typical system
+  ** 400 Gb/s over single channel (single wavelength of light)
+    *** https://en.wikipedia.org/wiki/Optical_fiber#cite_note-33
+  ** record for a multi-core fiber as of January 2013 was 1.05 petabits per second
+    *** 1,050,000,000,000,000 bits per second (stem:[1.05 * 10^15])
+
+== Packet-loss
+
+* Proportion of packets that are lost
+  ** due to noise in transmission media
+  ** due to congestion
+
+=== Packet-loss - some numbers
+
+* generally very low on cables (should be very close to 0%)
+  ** usually fairly stable over time
+* wireless can be quite high in "good" circumstances (1%-5%)
+  ** can vary widely over time
+
+
+
+== Packet-switching
+
+All modern networks are packet-switched networks.
+
+That means, that at a low level (OSI Layer 3: Network Layer) there is no concept of a connection between two nodes - only the possibility to send packets from one node to another.
+
+== Packet-switching vs Circuit-switching
+
+Packet-switching networks exist in contrast to Circuit-switching networks.
+
+In Circuit-switching a transmission Channel is occupied continuously while the circuit/connection is present.
+
+In Packet-switching a Channel is only occupied when sending a packet.
+
+=== Packet-switching 2
+
+image::Packet_Switching.gif[Packet_Switching, height=600, link=https://en.wikipedia.org/wiki/Packet_switching#/media/File:Packet_Switching.gif]
+
+=== Connectionless and connection-oriented modes
+
+Even though the underlying layer(s) may be packet-based we can simulate circuit-switched with a protocol. This gives us two conceptual modes - connectionless and connection-oriented
+
+=== Connectionless mode
+
+* each packet includes complete addressing information
+   ** destination
+   ** source
+   ** port numbers
+* packets are routed individually
+   ** may result in different paths
+   ** may result in out-of-order delivery
+* packets may include a sequence number
+* Examples include: Ethernet, IP, UDP
+
+=== Connection-oriented mode
+
+* requires a setup phase between hosts before useful data transfer
+* each packet just includes a connection identifier
+  ** rather than address information (so smaller)
+* end points negotiate and make sure packets are delivered in order, without errors
+* connection can be stored in the network (nodes between the hosts)
+  ** so routing becomes a simpler lookup
+* TCP is the major example here.
+
+=== IP, UDP, TCP
+
+IP :: Internet Protocol (Connectionless)
+UDP :: User Datagram Protocol (Connectionless)
+TCP ::Transmission Control Protocol (Connection-oriented)
+
+* all part of the Internet protocol suite (also known as TCP/IP)
+
+=== The Big UDP vs TCP debate
+
+There is much debate in the community around whether using UDP (connection-less, but usually with a custom protocol on top of) or TCP is better for latency-sensitive applications.
+
+There isn't a clear, evidence-based, consensus. I would suggest, implement at the high-level first (with a library), profile for issues.
+
+But, the games industry tends to say most of their real-time games use UDP - http://gafferongames.com/networking-for-game-programmers/udp-vs-tcp/
+
+=== LAN, WAN, Internet
+
+* Local Area Network (LAN)
+* Wide Area Network (WAN)
+* Internet
+
+== Client-Server vs. Peer-to-Peer
+
+What are they?
+
+=== Peer-to-Peer
+
+image::P2P-network.svg.png[P2P-network, link=https://commons.wikimedia.org/wiki/File:P2P-network.svg]
+
+=== Client-Server
+
+image::991px-Server-based-network.svg.png[991px-Server-based-network, link=https://en.wikipedia.org/wiki/File:Server-based-network.svg]
+
+== Message-passing
+
+* All modern games use some kinds of message-passing to communicate.  Conceptually, each system *only* sends/receives abstract "messages" - there are (usually) no other communication paths.
+
+* How the message are sent between systems is up to a layer below the messaging system - i.e. most of the game engine only needs to be concerned with messages. These message *MAY* end up being sent on the network as one or more messages.
+  ** depending on the technique, messages may have issues:
+    *** may not arrive
+    *** may arrive out of order
+    *** may arrive twice
+    *** may be corrupted (rare)
+
+== Wire-protocols
+
+* Being able to send messages around is all well and good, but what should we put in the messages?
+
+  ** How do we know/define the wire-protocol?
+  ** How do we make it efficient?
+  ** Endianness?
+  ** ...
+
+=== Wire-protocols 2
+
+* Many many options here, including making your own
+  ** We'll look at some in our serialization lecture
+* http://gafferongames.com/building-a-game-network-protocol/
+
+== Discovery
+
+* How to we find which hosts we should talk to?
+  ** locally
+  ** globally
+
+== Multiplayer again - Client-Server vs. Peer-to-Peer
+
+Most, modern games use Client-Server
+
+[%step]
+* easier to implement
+* makes firewall/NAT issues easier/possible
+* makes security/trust easier/possible
+
+=== Multiplayer for us
+
+* For this module, we'll work in an easier world
+  ** LAN only
+    *** assume no message loss
+    *** assume messages in order
+    *** assume known IP address (command line or config flag?)
+  ** Same machine architectures
+    *** same endianness
+  ** Same versions
+    *** both (all) machines have the same software version
+
+== Example with ZeroMQ
+
+* ZeroMQ makes sending messages easier
+  ** we *could* work directly at the socket layer, but:
+    *** various between platforms
+    *** have to bring up in the correct order (if TCP)
+* ZeroMQ also supports lots of common message patterns
+  ** publish-subscribe
+  ** request–response
+
+=== ZeroMQ links
+
+* http://zeromq.org/
+* https://github.com/zeromq/cppzmq
+
+
+== Workshop activities 1
+
+* Test latency to some computers - using the `ping` command from the console
+  ** look up how to use the command
+* Write a table of ping times to the following. Record 10 values for each, and calculate the minimum, maximum, average latency and the jitter (range, or std. dev.):
+  . your local machine (lookup how to address it)
+  . one of your neighbouring PCs (lookup how to address it)
+  . some part of the University of Lincoln's network infrastructure
+    ** e.g. the main website
+  . some external server (e.g. google.com) NOTE: this will probably fail
+    ** why?
