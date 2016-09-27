@@ -2,8 +2,9 @@
 
 == Teaching Style
 
-* New Material week-by-week at the start of workshops
 * Practice-led
+  ** lectures will introduce concepts, techniques, things to think about
+  ** effective learning will require lots of programming engagement
 * Ask questions, query norms
 * Discuss with each other
   ** Constructive Critique
@@ -12,35 +13,62 @@
 == Module Overview 1
 
 * Embedded through out
-  ** Good Programming Practice / Code Smell - embedded through out
   ** C++, libraries, engines and other languages
-  ** Game Programming Patterns
+  ** Modern C++
+  ** Efficiency
+  ** Good Programming Practice
+  ** Software Engineering Best Practices, e.g.
+    *** Versioning
+    *** Reading Documentation
 
 == Module Overview 2
 
-* Game State
-* Sprites
-  * Sprite Animation
-  * Texture Animation
-  * Video Textures
-* Scene Graphs
-* Inheritance vs Entity-Component
+* External Libraries
+* Build Systems
 
-== Module Overview 3
+* Cross-platform
+  ** libraries (those we're using and alternatives to look at (but NOT use))
+  ** concerns
+
+* Windows (*not MS Windows* ...)
+  ** Creating
+  ** (re)Sizing
+  ** Moving
+  ** Fullscreen
+
+* Handling input
+  ** keyboard
+  ** mouse
+  ** game pad
+
+* Sprites
+  ** loading
+  ** displaying
+  ** moving
+  ** animating
+
+* Game State and Scene Graphs
+
+* Logging
+
+* On-screen Text and Menus
+
 
 * Models and Simulation
   ** Fix your timestep
   ** Interpolation
   ** Determinism (briefly)
   ** Movement and basic physics
-  ** Collision detection * collision response
+  ** Collision detection & collision response
   ** Spatial Partitioning
 
-== Module Overview 4
 
 * Sound/Audio
   ** Sound effects and Streaming
   ** DSP and spatialisation (3D)
+
+== Stretch content
+
 * Networking and multiplayer games
 * File formats, serialisation, and compression
 
@@ -52,12 +80,23 @@
   ** Specific Games Programming techniques we've covered in class
 * Space for personal expression and portfolio
 
+== Workshops
+
+* Sequences of exercises/tutorials
+  ** Developing the skills you'll integrate together the your assignment
+* You can (should) start the assignment soon
+
+== Discussion - Game Design
+
+* What did you design in Game Design last year?
+  ** how complex was this?
+
+
 == Assembling a toolset
 
 * C++ (required)
 * SDL2 (required)
-* OpenGL and GLEW (optional)
-* premake5 (recommended)
+* Conan.icon (required)
 * git (recommended)
 
 == Recommended Reading/Resources
@@ -69,44 +108,6 @@
 
 Check reading list on Blackboard for complete list
 
-== CODE SMELL (groups of 2-3)
+== Blogs etc
 
-. Look up various definition of "Code Smell", write a short list of various specific code smells
-. Go through each of your groups Graphics source code and find "smelly" parts of the code
-  .. This is meant to be constructive criticism - Critique the CODE, not the author - Suggest ways to improve
-  .. Mark-up the source code with comments (starting with "//SMELL?"), giving the issue and suggestions
-. Write a list of the most common code smells in your group (or most important)
-. Email me (jshearer@lincoln.ac.uk) your groups list
-
-== GAME STATE (new groups of 2-3)
-
-In Graphics the state of our game was generally spread across multiple variables. Game State is generally collected together in a more structured manner.
-
-. Find a YouTube video of either Space Invaders, or Chuckie Egg
-. It may be useful to slow done the video.
-
-== GAME STATE 2
-
-Construct a table of *all* elements of the game state, containing these columns:
-
-. Which element? (visible on the screen, or must be stored in order to make decision wrt Game Mechanics)
-. Data-type makes best sense (int, float, string)?
-. Can there be more than one of this element? If so, how might they be collected?
-. How frequently does each change?
-
-== GAME STATE 3
-
-Managing game state is important generally, but also important for loading/saving games.
-
-. Use your table to write down a set of values for your game at some point during Game Play
-. Put these either in a table, or a file format of your choice (e.g. json)
-. Add a set of notes to make any elements that aren't entirely clear, clear
-
-== GAME STATE 4
-
-. Swap your file/table with another group
-. Try to reconstruct their game state from the file/table
-. Are there any elements that they missed?
-. Do you agree with all their decisions?
-  .. Again, constructive criticism - Critique the IDEAS, not the authors - Suggest ways to improve
-. Email your file/table to me (jshearer@lincoln.ac.uk)d
+* http://ithare.com/[ITHare] http://ithare.com/feed/[RSS feed]
