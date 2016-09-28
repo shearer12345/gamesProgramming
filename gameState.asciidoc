@@ -1,0 +1,33 @@
+
+== GAME STATE (new groups of 2-3)
+
+In Graphics the state of our game was generally spread across multiple variables. Game State is generally collected together in a more structured manner.
+
+. Find a YouTube video of either Space Invaders, or Chuckie Egg
+. It may be useful to slow done the video.
+
+== GAME STATE 2
+
+Construct a table of *all* elements of the game state, containing these columns:
+
+. Which element? (visible on the screen, or must be stored in order to make decision wrt Game Mechanics)
+. Data-type makes best sense (int, float, string)?
+. Can there be more than one of this element? If so, how might they be collected?
+. How frequently does each change?
+
+== GAME STATE 3
+
+Managing game state is important generally, but also important for loading/saving games.
+
+. Use your table to write down a set of values for your game at some point during Game Play
+. Put these either in a table, or a file format of your choice (e.g. json)
+. Add a set of notes to make any elements that aren't entirely clear, clear
+
+== GAME STATE 4
+
+. Swap your file/table with another group
+. Try to reconstruct their game state from the file/table
+. Are there any elements that they missed?
+. Do you agree with all their decisions?
+  .. Again, constructive criticism - Critique the IDEAS, not the authors - Suggest ways to improve
+. Email your file/table to me (jshearer@lincoln.ac.uk)d

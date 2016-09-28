@@ -1,48 +1,45 @@
 = Games Programming Introduction
+:imagesdir: assets
+:revealjs_history: true
+
+[.stretch]
+image::space-invaders.png[]
+
+== What is this module about?
+
+[.stretch]
+image::Chuckie_Egg_on_BBC_Micro.jpg[]
+
+* grounding in the development of games
+  ** from the software (programming) perspective
+  ** working with other devices/interfaces
 
 == Teaching Style
 
-* New Material week-by-week at the start of workshops
 * Practice-led
+  ** lectures will introduce concepts, techniques, things to think about
+  ** effective learning will require lots of programming engagement
 * Ask questions, query norms
 * Discuss with each other
   ** Constructive Critique
 * Critique my code too
 
-== Module Overview 1
+== Scope
 
-* Embedded through out
-  ** Good Programming Practice / Code Smell - embedded through out
-  ** C++, libraries, engines and other languages
-  ** Game Programming Patterns
+* we'll work on 2D games exclusively
+  ** but this content also applies to 3D
+  ** 3D requires ideas/tools not covered yet
+* building COMPLETE games
+* not AAA titles!!
 
-== Module Overview 2
+[.stretch]
+image::forzaHorizons3.jpg[]
 
-* Game State
-* Sprites
-  * Sprite Animation
-  * Texture Animation
-  * Video Textures
-* Scene Graphs
-* Inheritance vs Entity-Component
+== Disassembling a Game
 
-== Module Overview 3
-
-* Models and Simulation
-  ** Fix your timestep
-  ** Interpolation
-  ** Determinism (briefly)
-  ** Movement and basic physics
-  ** Collision detection * collision response
-  ** Spatial Partitioning
-
-== Module Overview 4
-
-* Sound/Audio
-  ** Sound effects and Streaming
-  ** DSP and spatialisation (3D)
-* Networking and multiplayer games
-* File formats, serialisation, and compression
+.Chuckie Egg
+[.stretch]
+video::J3RgzDaNTac[youtube, options="autoplay,loop"]
 
 == Assignments
 
@@ -52,12 +49,174 @@
   ** Specific Games Programming techniques we've covered in class
 * Space for personal expression and portfolio
 
+== Workshops
+
+* Sequences of exercises/tutorials
+  ** Developing the skills you'll integrate together the your assignment
+* You can (should) start the assignment soon
+
+== Module Overview
+
+* Embedded through out
+  ** {cpp}, libraries, engines and other languages
+  ** Modern {cpp}
+  ** Efficiency
+  ** Good Programming Practice
+  ** Software Engineering Best Practices, e.g.
+    *** Versioning
+    *** Reading Documentation
+
+== C and {cpp}
+
+* Why are we looking using {cpp} for building games
+* Relationship of C and {cpp}
+
+[.stretch]
+image::cpp.png[]
+
+== External Libraries
+
+* why we need them
+* what they can provide - selecting/locating
+* "installing"
+* using from {cpp}
+
+[.stretch]
+image::Ogg_vorbis_libs_and_application_dia.svg.png[]
+
+== Build Systems
+
+* why to use
+* a quick list
+* what we'll use
+
+image::cmake.jpg[height=200]
+image::conan_small.png[height=200]
+
+== Cross-platform
+
+* libraries
+  ** those we're using
+  ** alternatives to look at (but NOT use))
+  ** doing by hand (platform-specific)
+* concerns
+
+== Windows (*not MS Windows* ...)
+
+* creating
+* (re)sizing
+* moving
+* fullscreen
+
+== Logging
+
+* why
+  ** vs `printf` or `cout`
+  ** why start with logging
+* how
+
+== Getting *anything* on-screen
+
+* issues (flicker, tearing, judder)
+* techniques
+* swap intervals / vsync
+
+[.stretch]
+image::Tearing_(simulated).jpg[]
+
+== Time and Time Budgets
+
+* issues related to time
+  ** fps, deadlines
+  ** latency, jitter
+* measuring time
+* "hard real-time"
+
+[.stretch]
+image::game-loop-timeline.png[caption=http://gameprogrammingpatterns.com/game-loop.html]
+
+== Representing the World
+
+* "Models"
+* Game State
+* Scene Graphs
+
+.not just this kind of model
+[.stretch]
+image::base_3d_model__creature_by_tlund.jpg[]
+
+== Simulation
+
+* Movement and basic physics
+* Fix your timestep
+
+[.stretch]
+image::simulationCar.jpg[]
+
+== Collisions
+
+* Collision detection
+* Collision response
+* Efficiency
+* Spatial Partitioning
+
+[.stretch]
+image::Billiards_balls.jpg[]
+
+== Handling input
+
+* keyboard
+* mouse
+* gamepad
+* joystick
+
+[.stretch]
+image::Xbox-360-S-Controller.png[]
+
+== Sprites
+
+* loading
+* displaying
+* moving
+* animating
+
+[.stretch]
+image::kenny/platformerPack/Player/p1_front.png[]
+
+== On-screen Text
+
+* fonts
+* menus
+
+== Sound/Audio
+
+* loading
+* playing
+* concerns
+* sound effects
+* streaming
+* DSP and spatialisation (3D)
+
+== Stretch content
+
+* multi-threading / parallism
+* Determinism (briefly)
+* Interpolation
+* Networking and multiplayer games
+* File formats, serialisation, and compression
+
+
+== Discussion - Game Design
+
+* What did you design in Game Design last year?
+  ** how complex was this?
+
+
 == Assembling a toolset
 
-* C++ (required)
+* {cpp} (required)
 * SDL2 (required)
-* OpenGL and GLEW (optional)
-* premake5 (recommended)
+* Conan.io (required)
 * git (recommended)
 
 == Recommended Reading/Resources
@@ -69,44 +228,6 @@
 
 Check reading list on Blackboard for complete list
 
-== CODE SMELL (groups of 2-3)
+== Blogs etc
 
-. Look up various definition of "Code Smell", write a short list of various specific code smells
-. Go through each of your groups Graphics source code and find "smelly" parts of the code
-  .. This is meant to be constructive criticism - Critique the CODE, not the author - Suggest ways to improve
-  .. Mark-up the source code with comments (starting with "//SMELL?"), giving the issue and suggestions
-. Write a list of the most common code smells in your group (or most important)
-. Email me (jshearer@lincoln.ac.uk) your groups list
-
-== GAME STATE (new groups of 2-3)
-
-In Graphics the state of our game was generally spread across multiple variables. Game State is generally collected together in a more structured manner.
-
-. Find a YouTube video of either Space Invaders, or Chuckie Egg
-. It may be useful to slow done the video.
-
-== GAME STATE 2
-
-Construct a table of *all* elements of the game state, containing these columns:
-
-. Which element? (visible on the screen, or must be stored in order to make decision wrt Game Mechanics)
-. Data-type makes best sense (int, float, string)?
-. Can there be more than one of this element? If so, how might they be collected?
-. How frequently does each change?
-
-== GAME STATE 3
-
-Managing game state is important generally, but also important for loading/saving games.
-
-. Use your table to write down a set of values for your game at some point during Game Play
-. Put these either in a table, or a file format of your choice (e.g. json)
-. Add a set of notes to make any elements that aren't entirely clear, clear
-
-== GAME STATE 4
-
-. Swap your file/table with another group
-. Try to reconstruct their game state from the file/table
-. Are there any elements that they missed?
-. Do you agree with all their decisions?
-  .. Again, constructive criticism - Critique the IDEAS, not the authors - Suggest ways to improve
-. Email your file/table to me (jshearer@lincoln.ac.uk)d
+* http://ithare.com/[ITHare] http://ithare.com/feed/[RSS feed]

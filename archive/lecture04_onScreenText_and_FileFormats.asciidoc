@@ -1,0 +1,192 @@
+= On-screen Text and JSON, Assignment start
+shearer12345
+
+:imagesdir: ./assets
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+
+== Overview
+
+* On-screen text output
+* JSON
+* Workshop activities
+
+== On-screen text output
+
+* Text is represented by a series of glyphs (symbols)
+* Glyphs are generated from a font
+* A font is a particular size, weight and style of a typeface.
+* A typeface (aka font-family) is a set of fonts that share common design features
+* !!!
+* the words "font" and "typeface" are frequently confused
+
+=== On-screen text output file formats
+
+* Fonts are usually described in some format of vector format
+  ** rather than a raster format
+* TrueType is the most common format (.ttf files)
+  ** the content of .ttf files is protected by copyright
+  ** you should be careful distributing .ttf files in your game
+  ** there are a variety of openly licensed .ttf files/formats
+    *** e.g. the Hack typeface - http://sourcefoundry.org/hack/
+
+=== On-screen text output in practice
+
+* In games, text is usually rendered to the screen via a texture or sprite
+  ** with SDL2 this is reasonably easy
+* the SDL2_ttf library provides useful functions
+  ** the `TTF_OpenFont()` function loads a font from a `.ttf` file
+  ** the `TTF_RenderText_Solid()` function generates an `SDL_Surface` from a font, a string, and a colour
+  ** this `SDL_Surface` can be converted to an `SDL_Texture` with `SDL_CreateTextureFromSurface()`
+  ** an `SDL_Surface` can then be rendered using `SDL_RenderCopy()`, just like a sprite
+
+== File formats
+
+* Most games need to load information from files
+  ** rather than having everything hard-coded in source code
+
+* Why?
+[%step]
+  ** more flexible
+  ** don't have to recompile code
+  ** forces a separation of game data and game logic
+  ** allows asset team to contribute
+  ** ...
+
+=== File formats 2
+
+* There are *MANY MANY* file formats
+* Each has it's own pros and cons
+  ** We'll discuss more towards the end of this module
+* You can always develop your own file formats
+* File formats can be text-formats or binary-formats
+* Some file formats have good {cpp} libraries to help
+
+=== File formats - JSON
+
+* One specific format that may be useful to you is JSON
+  ** JavaScript Object Notation
+  ** Text format
+  ** human readable, human writeable
+  ** machine readable, machine writeable
+
+=== File formats - JSON example
+
+[source, json]
+----
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "isAlive": true,
+  "age": 25,
+  "address": {
+    "streetAddress": "21 2nd Street",
+    "city": "New York",
+    "state": "NY",
+    "postalCode": "10021-3100"
+  },
+  "phoneNumbers": [
+    {
+      "type": "home",
+      "number": "212 555-1234"
+    },
+    {
+      "type": "office",
+      "number": "646 555-4567"
+    }
+  ],
+  "children": [],
+  "spouse": null
+}
+----
+
+=== File formats - JSON libraries
+
+* Many {cpp} JSON libraries listed on awesome-cpp
+  ** http://fffaraz.github.io/awesome-cpp/#json
+  ** also: lots of other good {cpp}
+
+* May be useful for:
+[%step]
+  ** high-score loading / saving
+  ** sprite animation loading
+  ** level loading / scene description
+  ** ...
+
+=== File formats - Roll your own
+
+* You can always roll your own file format.
+* This *may* be quicker for this size project
+  ** but, generally, recommend against
+
+=== File formats
+
+* A quick look at Chuckie Eggs for Windows
+  ** http://www.chuckie-egg.co.uk/
+
+[source, text]
+----
+include::assets/chuckieEgg/levels.txt[lines=1..54]
+----
+
+== Assignment start
+
+* The assignment starting point is at https://github.com/shearer12345/sdl2template
+* It provides:
+  ** windows dependencies (directly in the repository)
+  ** premake5 script to setup a project for SDL2 with SDL2_image, SDL2_ttf and SDL2_mixer
+  ** an example main.cpp showing a image and some text
+    *** the example is *very* c-like - you should work to restructure it for yourself
+* You can just download the ZIP and do versioning yourself
+  ** OR duplicate the repository to your own github (or elsewhere)
+
+=== Work through of the starting code
+
+* We'll work through the starting code, including the premake script
+  ** line by line
+
+
+== Workshop activities (text)
+
+. Get the assignment starting point
+  ** I recommend that you use this for all your workshop activities
+  ** I recommend that you try things out in git branches
+    *** run through https://try.github.io/levels/1/challenges/18[Branching Out] on try.github.io if you need to recap
+
+== Workshop activities (text 2)
+
+. Change the text that is displayed
+. Change the position of the text
+. Change the color of the text
+. Change the point size of the text
+  .. Make it particularly small (e.g. 6) - what do you notice?
+. Change the size of the text on-screen
+
+== Workshop activities (text 3)
+
+. Find some other TrueType font files
+  . Load one of those files instead
+. Render two messages to the screen
+. Render three messages to the screen
+. Make the content (text) of one of your messages change on a key-press
+  ** What do you have to do?
+  ** What should you be careful about?
+
+== Workshop activities (text 4)
+
+. Make a class to support rendering text to the screen
+* What functions/methods to you want your class to have to be useful
+* Can you change the text for an instance of your class (at run-time)?
+  ** what does that require?
+* Can you change the font for an instance of your class (at run-time)?
+  ** what does that require?
+
+== Workshop activities (stretch)
+
+. Go through the features for the Assignment
+  ** make a list
+  ** in Lecture 1 we went through the things we'll cover in the module
+  ** identify those in the assignment that are not explicitly covered (e.g. loading screen)
+  ** those are good stretch activities
+    *** workshops are good times to ask for help/ideas etc

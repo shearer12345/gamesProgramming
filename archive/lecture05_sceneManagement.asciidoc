@@ -1,0 +1,514 @@
+= Scene Management
+shearer12345
+
+:imagesdir: ./assets
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== Overview
+
+* Scene Management
+* Workshop activities
+
+
+== Scene Management
+
+* from a VERY bad implementation
+* to something better
+
+=== Classes
+
+* We're using C++, so we should have classes for our objects
+  ** to encapsulate data
+  ** to allow functions on that data
+
+=== Multiple classes
+
+* You could use an inheritance model to allow different classes within your same scene
+* There are many ways to use classes for programming Games
+  ** especially with regards to efficiency and flexibility
+  ** we'll discuss "Entity-Component systems" in a later lecture
+
+=== A scene
+
+* Our scene could consist of a variety of different classes
+* Here we'll consider a scene that only contains instances of a single class
+  ** we can store than in one of the C++ standard containers
+  ** we'll use a std::vector
+  ** others could also be appropriate
+* We could make our own data structure for storing scene objects
+
+
+== A (minimal, incomplete) Sprite Class
+
+[source, cpp]
+.Sprite.h
+----
+#ifndef Sprite_h
+#define Sprite_h
+#include "common.h"
+
+class Sprite
+{
+public:
+    SDL_Rect rectangle;
+    Sprite(int x, int y, int w, int h);
+    Sprite(const Sprite& sprite);
+    ~Sprite();
+};
+#endif /* end of include guard:  */
+----
+
+=== A (minimal, incomplete) Sprite Class
+
+[source, cpp]
+.Sprite.cpp
+----
+#include "Sprite.h"
+Sprite::Sprite(int x, int y, int w, int h) {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Constructed (%p)", this);
+    rectangle.x = x;
+    rectangle.y = y;
+    rectangle.w = w;
+    rectangle.h = h;
+}
+Sprite::Sprite(const Sprite& sprite) : rectangle(sprite.rectangle) {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Constructed (%p) - Copied from (%p)", this, sprite);
+}
+Sprite::~Sprite() {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Destructed  (%p)", this);
+}
+----
+
+
+== A single sprite, stored in a global
+
+[source, cpp]
+.main.cpp (global)
+----
+Sprite sr(0,0, 200, 86);
+----
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_RenderCopy(ren, tex, NULL, &sr.rectangle);
+----
+
+=== A single sprite, stored in a global (visual output)
+
+image::spriteClass/single.png[caption="Sprite: ", title="A single sprite, stored in a global", height=300]
+
+=== A single sprite, stored in a global (console output)
+
+* One Sprite Instance Constructed, then Destructed on exit
+
+[source, bash]
+----
+INFO: Sprite Constructed (0x6032e0)
+SDL initialised OK!
+SDL CreatedWindow OK!
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x6032e0)
+----
+
+
+== A pair of sprites
+
+[source, cpp]
+.main.cpp (global)
+----
+Sprite sr1(0,0, 200, 86);
+Sprite sr2(200,200, 200, 86);
+----
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_RenderCopy(ren, tex, NULL, &sr1.rectangle);
+    SDL_RenderCopy(ren, tex, NULL, &sr2.rectangle);
+----
+
+=== A pair of sprites (visual output)
+
+image::spriteClass/pair.png[caption="Sprite: a pair of sprites", height=300]
+
+=== A pair of sprites (console output)
+
+* Two Sprite Instances Constructed, then Destructed on exit
+
+[source, bash]
+----
+INFO: Sprite Constructed (0x6032e0)
+INFO: Sprite Constructed (0x6032f0)
+SDL initialised OK!
+SDL CreatedWindow OK!
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x6032f0)
+INFO: Sprite Destructed  (0x6032e0)
+----
+
+
+
+
+== Two sprites, stored in global std::vector (very bad version)
+
+[source, cpp]
+.main.cpp (global)
+----
+std::vector<Sprite> spriteList;
+----
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(Sprite(0,0, 200, 86));
+  spriteList.push_back(Sprite(200,200, 200, 86));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto sprite : spriteList)
+    {
+      SDL_RenderCopy(ren, tex, NULL, &sprite.rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (very bad version) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (very bad version) (console output 1)
+
+* Two Sprite Instances Constructed dynamically (badly)
+* iterated during rendering (badly) then Destructed on exit
+
+[source, bash]
+----
+INFO: Sprite Constructed (0x7ffcf07cb920)
+INFO: Sprite Constructed (0x15b6b70) - Copied from (0x7ffcf07cb920)
+INFO: Sprite Destructed  (0x7ffcf07cb920)
+INFO: Sprite Constructed (0x7ffcf07cb930)
+INFO: Sprite Constructed (0x15fdd60) - Copied from (0x7ffcf07cb930)
+INFO: Sprite Constructed (0x15fdd50) - Copied from (0x15b6b70)
+INFO: Sprite Destructed  (0x15b6b70)
+INFO: Sprite Destructed  (0x7ffcf07cb930)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (very bad version) (console output 2)
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd50)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd60)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Rendering sprites ...
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd50)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd60)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+...
+SDL Exiting!
+INFO: Sprite Destructed  (0x15fdd50)
+INFO: Sprite Destructed  (0x15fdd60)
+----
+
+=== Two sprites, stored in global std::vector (very bad version) (what's wrong)
+
+* What's wrong with this?
+[%step]
+  . Extra Constructor and Destructor calls while filling the std::vector
+  . Constructor and Destructor calls while rendering
+
+
+== Two sprites, stored in global std::vector (better iteration)
+
+* make the iterator a reference, rather than a copy
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto& sprite : spriteList)
+    {
+      SDL_RenderCopy(ren, tex, NULL, &sprite.rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (better iteration) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (better iteration) (console output 1)
+
+* Two Sprite Instances Constructed dynamically (badly)
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x7ffef391b940)
+INFO: Sprite Constructed (0x1265240) - Copied from (0x7ffef391b940)
+INFO: Sprite Destructed  (0x7ffef391b940)
+INFO: Sprite Constructed (0x7ffef391b950)
+INFO: Sprite Constructed (0x1229010) - Copied from (0x7ffef391b950)
+INFO: Sprite Constructed (0x1229000) - Copied from (0x1265240)
+INFO: Sprite Destructed  (0x1265240)
+INFO: Sprite Destructed  (0x7ffef391b950)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (better iteration) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)
+----
+
+
+== Two sprites, stored in global std::vector (better allocation)
+
+* emplace_back create instances just for the vector
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.emplace_back(0,0, 200, 86);
+  spriteList.emplace_back(200,200, 200, 86);
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+=== Two sprites, stored in global std::vector (better allocation) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (better allocation) (console output 1)
+
+* Dynamic allocation, only copies when resizing the vector
+
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x21da1b0)
+INFO: Sprite Constructed (0x21c96a0)
+INFO: Sprite Constructed (0x21c9690) - Copied from (0x21da1b0)
+INFO: Sprite Destructed  (0x21da1b0)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (better allocation) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)
+----
+
+
+
+== Two sprites, stored in global std::vector (single allocation (ptr))
+
+* use a vector of pointers
+
+[source, cpp]
+.main.cpp (global)
+----
+std::vector<Sprite*> spriteList;
+----
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(new Sprite(0,0, 200, 86)); //could also be emplace_back
+  spriteList.push_back(new Sprite(200,200, 200, 86));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) 2
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto spritePtr : spriteList) //will be a pointer to a Sprite
+    {
+      SDL_RenderCopy(ren, tex, NULL, &spritePtr->rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (console output 1)
+
+* Dynamic allocation, only pointers are copied
+
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0xe54170)
+INFO: Sprite Constructed (0xe9af60)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (concerns?)
+
+* Any problems with using pointers?
+[%step]
+  ** unclear who owns them
+  ** leading to incorrect deallocation or missing deallocation
+
+
+
+== Two sprites, stored in global std::vector (single allocation (unique_ptr))
+
+* use a vector of unique_ptr
+
+[source, cpp]
+.main.cpp (global)
+----
+std::vector<unique_ptr<Sprite>> spriteList;
+----
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(std::unique_ptr<Sprite>(new Sprite(0,0, 200, 86)));
+  spriteList.push_back(std::unique_ptr<Sprite>(new Sprite(200,200, 200, 86)));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) 2
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto const& sprite : spriteList) //unique_ptr can't be copied, so use reference
+    {
+    	SDL_RenderCopy(ren, tex, NULL, &sprite->rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) (console output 1)
+
+* Dynamic allocation, only unique_ptrs are copied
+
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x1164950)
+INFO: Sprite Constructed (0x11a12a0)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1164950)
+INFO: Sprite Destructed  (0x11a12a0)
+----
+
+== More on unique_ptr with standard containers
+
+* http://eli.thegreenplace.net/2012/06/20/c11-using-unique_ptr-with-standard-library-containers
+
+
+== Workshop activities
+
+* Make your code use a standard container for your sprites (or other objects)
+  ** to store the sprite list
+  ** to add sprites
+  ** to render the sprites
+* Add debug code to your Sprite class to log when sprites are Constructed, Destructed, Copied
+  ** What is a copy constructor? And how/when is it called?
+  ** You could use SDL's logging functions (https://wiki.libsdl.org/CategoryLog)
+* Make sure your code is only Constructing/Destructing when you really need it too
+
+=== Workshop activities 2
+
+* Add code to add a new sprite on a key press (every time it is pressed)
+* Add code to remove a sprite from the list
+  ** the last sprite
+  ** the first sprite
+  ** one at random
+
+=== Workshop activities 3
+
+* Finding sprites in our container is presently quite hard
+  ** perhaps we want to be able to find a sprite by name (std::string)
+* Which standard container would be helpful here?
+  ** try the cheatsheet at http://homepages.e3.net.nz/~djm/cppcontainers.html
+  ** what are the advantages/disadvantages
+* How is this container declared?
+* How are elements added to this container
+* How do your iterate elements in this container?
+
+=== Workshop activities 4
+
+* Modify your code to use your chosen container instead of std::vector
