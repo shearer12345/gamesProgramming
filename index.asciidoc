@@ -9,16 +9,5 @@ shearer12345
 == List of Lectures 1
 
 . link:lecture01_introduction.html[Introduction]
-. link:lecture02_spriteAnimation.html[Sprite Animation]
-. link:lecture03_assignment_and_{cpp}11.html[Assignment_and_{cpp}11]
-. link:lecture04_onScreenText_and_FileFormats.html[On-screen Text and File Formats]
-. link:lecture05_sceneManagement.html[Scene Management]
-. link:lecture06_simulationAndTime.html[Simulation and Time]
-. link:lecture07_collisionDetection.html[Collision Detection]
 
-== List of Lectures 2
-
-. link:lecture08_sound.html[Sound]
-. link:lecture09_soundEffects.html[Sound Effects]
-. link:lecture10_multiplayerAndNetworking.html[Multiplayer And Networking]
-. link:lecture11_serialization.html[Serialization]
+== Future
