@@ -29,60 +29,7 @@ endif::[]
   ** Chuckie Egg
   ** PacMan / Ms PacMan
   ** Your Game Design from Level 1
-* Details on these at the end of this
-
-
-=== Starting point
-
-* We'll develop a starting point in workshops
-* You'll build on this to develop your game
-* Workshop activities will develop features to add into your game
-
-== Toolset (required)
-
-* You *MUST* use C/{cpp} for this assignment
-  ** You *CANNOT* use code from tutorial sites, even with attribution
-* You *MUST* use SDL2 for this assignment
-  ** You *CANNOT* use freeGLUT, GLFW, or SFML
-* You *MUST* use SDL2_image
-* You *MUST* use SDL2 OR SDL_mixer for audio (if you have audio)
-* You *MUST* use SDL_ttf for font generation
-* Check with {author} ({email}) for any others
-
-
-=== TODO Toolset (optional libraries - networking)
-
-* For networking, you may use any of the following:
-  ** SDL_net - https://www.libsdl.org/projects/SDL_net/
-  ** zeroMQ - any version - http://zeromq.org/
-  ** netLink - https://github.com/Lichtso/netLink
-
-=== TODO Toolset (optional libraries - serialisation)
-
-* For serialisation
-  ** Any serialisation libraries from http://fffaraz.github.io/awesome-cpp/#serialization
-  ** Any json libraries from http://fffaraz.github.io/awesome-cpp/#json
-  ** Any XML libraries from http://fffaraz.github.io/awesome-cpp/#xml
-
-=== Toolset (optional libraries - other)
-
-* Other libraries *MUST* be confirmed with me (Shearer)
-* You *CANNOT* use a physics library
-
-
-
-=== Support Tools (recommended)
-
-* Versioning - git, or other
-* Backup - github, gitlab, bitbucket, or other
-* Documentation (of tools/libraries)
-
-== Plagiarism etc
-
-* Must be your code
-  ** Not from tutorial sites (except from my examples)
-    *** even if you attribute it
-  ** Not from each other
+* Details on these at the end of this document
 
 
 
@@ -92,14 +39,13 @@ endif::[]
   ** a PDF of your document
   ** your supporting zip file, including the video, as specified in the following
 
-    ** reflection on the development process
-    ** at least four screenshots of your game running on PC
-
 === PDF should include
 
 * A bulleted list of libraries used
 * A bulleted list of features implemented, with screenshots of each
 * Any extra features implemented should also be on this list (with a small description if needed to make the feature clear)
+* A short reflection on the development process (https://en.wikipedia.org/wiki/Reflective_practice)
+  ** no more than 200 words
 
 === ZIP
 
@@ -117,9 +63,9 @@ endif::[]
 === ZIP (video)
 
 * showing each of the features listed in your PDF
-* at least 30 seconds long, capturing the whole screen
+* at least 30 seconds long, capturing the whole screen (desktop resolution should be the native resolution of your machine)
 * using a screen capture tool (e.g. Open Broadcaster Software (OBS), Fraps)
-  ** TODO except for multiplayer on multiple PCs - that feature can be recorded using a video/phone camera and be a separate video
+  ** for multiplayer on multiple PCs - that feature can be recorded using a video/phone camera and be a separate video
 * appropriately compressed (i.e. not 500MB+ files) (OBS will do this for you by default)
 
 === Presentation errors
@@ -138,7 +84,59 @@ endif::[]
 * It will also be valuable to the School
   ** to illustrate to students in following years what they'll be doing in the module
   ** to enhance recruitment and visibility of the School
-  ** to support external examiners in seeing what your assignment looked like, without having to run code
+  ** to support external examiners in viewing your assignment looked like
+
+<<<
+
+=== Starting point
+
+* We'll develop a starting point in workshops
+* You'll build on this to develop your game
+* Workshop activities will develop features to add into your game
+
+== Toolset (required)
+
+* You *MUST* use C/{cpp} for this assignment
+  ** You *CANNOT* use code from tutorial sites, even with attribution
+* You *MUST* use SDL2 for this assignment
+  ** You *CANNOT* use freeGLUT, GLFW, or SFML
+* You *MUST* use SDL2_image
+* You *MUST* use SDL2 OR SDL_mixer for audio (if you have audio)
+* You *MUST* use SDL_ttf for font generation
+* You *CANNOT* use a physics library
+* Check with {author} ({email}) for any others
+
+
+=== Toolset (optional libraries - serialisation)
+
+* For serialisation
+  ** Any serialisation libraries from http://fffaraz.github.io/awesome-cpp/#serialization
+  ** Any json libraries from http://fffaraz.github.io/awesome-cpp/#json
+  ** Any XML libraries from http://fffaraz.github.io/awesome-cpp/#xml
+  ** Other libraries *MUST* be confirmed with me (Shearer)
+
+=== Toolset (optional libraries - networking)
+
+* For networking, you may use any of the following:
+  ** SDL_net - https://www.libsdl.org/projects/SDL_net/
+  ** zeroMQ - any version - http://zeromq.org/
+  ** netLink - https://github.com/Lichtso/netLink
+  ** Other libraries *MUST* be confirmed with me (Shearer)
+
+
+=== Support Tools (recommended)
+
+* Versioning - git, or other
+* Backup - github, gitlab, bitbucket, or other
+* Documentation (of tools/libraries)
+
+== Plagiarism etc
+
+* Must be your code
+  ** Not from tutorial sites (except from my examples)
+    *** even if you attribute it
+  ** Not from each other
+
 
 
 == Questions
@@ -153,6 +151,7 @@ If you have questions please contact {author} ({email})
 * workshop activities will be feeding the assignment
 * ask for clarification for any assignment questions (earlier is better)
 
+<<<
 
 === Drones vs. Battleships
 
@@ -184,6 +183,8 @@ If you have questions please contact {author} ({email})
   ** or keyboard input
   ** or mouse input
 
+<<<
+
 === Chuckie Egg
 
 image::Chuckie_Egg_on_BBC_Micro.jpg[height=288]
@@ -195,6 +196,7 @@ image::Chuckie_Egg_on_BBC_Micro.jpg[height=288]
   ** draw your own (marks aren't for asset quality)
   ** find your own (many open-licensed assets sources on the web)
 
+<<<
 
 === PacMan / Ms PacMan
 
@@ -207,6 +209,7 @@ image::Pac-man.png[height=288]
   ** draw your own (marks aren't for asset quality)
   ** find your own (many open-licensed assets sources on the web)
 
+<<<
 
 == References
 
