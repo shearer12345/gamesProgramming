@@ -1,0 +1,199 @@
+= Setting up a Build Systems
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:examplesdir: examples
+:source-highlighter: highlightjs
+
+include::links.asciidoc[]
+
+== Where we want to get to
+
+* We need to be able to use libraries for Games Programming
+* For this module, we'll mainly be using the {link-sdl2}[SDL2] library
+* By the end of this session, you should have gotten our test program to run, using two different build systems
+  . manual approach
+  . automated approach (using {link-conan}[conan.io] and {link-cmake}[cmake])
+
+== Stages of making and running a program, and where errors can occur
+
+* There are 3 main stages going from source code to a running program.
+* This is true independent of {cpp}
+
+=== Compilation
+
+* Compile allh *translation unit" (roughly, each source code file)
+* Creates binary object files (`.obj` on Windows)
+* *COMPILE-TIME* errors
+
+=== Linking
+
+* Link object files together
+* Link also with any static libraries (`.lib` on Windows)
+* Creates an executable binary (`.exe` on Windows)
+* *LINK-TIME* errors
+
+=== Load and Dynamic linking
+
+* Load the program into memory (RAM, or virtual memory)
+* Load any dynamic/shared libraries into memory (unless already loaded)
+* update the program to reference into the in-memory dynamic libraries
+* *RUN-TIME* errors
+
+== Types of library
+
+. Header-only libraries
+  ** just source code - EASY
+. Static libraries
+  ** embedded into our exe by the linker - MEDIUM
+. Dynamically-linked libraries / Shared libraries
+  ** linked to our exe at run-time - HARD
+
+== Setting up Header-only libraries
+
+* Header-only libraries only contain source code.
+* Our compiler will compile all this library code for us right into our program.
+
+=== Setting up Header-only libraries (steps)
+
+. Find library header files and put somewhere on our local system
+. Use the header files (`.h` or `.hpp`) from our code
+. Tell our *compiler* where to look for header files to compile in
+
+== Setting up Static library
+
+* Static libraries still have header files
+  ** these tell us and our compiler the *interface* to the library
+  ** what functions/variables exist
+* Static libraries have pre-built binary files that will be embedded in our executable program
+
+
+=== Setting up Static library (steps)
+
+. Find library header files and put somewhere on our local system
+. Use the header files (`.h` or `.hpp`) from our code
+. Tell our *compiler* where to look for header files to compile in
+. Tell our *linker* which libraries to link to
+. Tell our *linker* where to look for binary library files are (`.lib`)
+
+== Setting up Dynamic/Shared libraries
+
+* Dynamic libraries still have header files
+  ** these tell us and our compiler the *interface* to the library
+  ** what functions/variables exist
+* Dynamic libraries usually have an import library (`.lib`) files
+  ** tell our linker what is in the binary and where
+* Dynamic library have dynamically linked binaries (`.dll`)
+  ** provide executable code to our program, loaded at run-time
+
+=== Setting up Dynamic/Shared libraries (steps)
+
+. Find library header files and put somewhere on our local system
+. Use the header files (`.h` or `.hpp`) from our code
+. Tell our *compiler* where to look for header files to compile in
+. Tell our *linker* which libraries to link to
+. Tell our *linker* where to look for binary import library files are (`.lib`)
+. Make sure our Operating System can find the Dynamic libraries at run-time
+  ** on Windows, this would in the path, or in the same directory as the `.exe`
+
+== Activity overview
+
+* We'll start with a "HelloWorld!" Program, with some initial, minimal functions from SDL2 that we wish to use
+* We'll go through a series of steps to:
+  . allow our program to *compile*
+  . allow our program to *link*
+  . allow our program to *run*
+* We'll then repeat this using {link-conan}[conan.io] and {cmake}[cmake] to make our lives easier and more scalable
+  ** our program will depend on at least 3 libraries during this module
+
+== 1. Create a New Visual Studio  (2015)C++ solution
+
+. New Project
+  .. Visual C++ -> Win32 Console Application
+  .. ANYWHERE you choose
+  .. Make "Empty project"
+  .. Untick "Security Development LifeCycle"
+
+== 2. Add test program
+
+. Add a new source file named `main.cpp`
+. Add the contents below *BY HAND* - don't copy-paste
+
+[source, cpp]
+.main.cpp
+----
+include::{examplesdir}/buildSystem/main.cpp[]
+----
+
+=== 2.1 Read the test program
+
+* Note the `#include` directives
+  ** this ask the compile to *literally* copy-paste that header into this file
+  ** those in angle-brackets (`<` or `>`) are System headers
+* Note the function names beginning with `SDL`
+  ** these functions are from the SDL2 library (we hope/intend)
+  ** Your IDE (Visual Studio) is telling you something about these. What is it saying? What is the error?
+* Look carefully at the *function signature* of the main function
+
+== 3. Try to compile the program
+
+. Build -> Build Solution (Ctrl-Shift-B)
+. What are the errors?
+
+=== 3.1 *badly* fix the errors
+
+. Comment all the lines which cause errors
+  .. rebuild, and run (in debug) - F5
+. Does it run?
+. Can you see the output?
+. Find your `exe` on your system, and run it from the command line
+  .. How do you start a command line???
+  .. How do you `change directory` if your path has spaces in it??
+
+== 4. Download SDL2
+
+. Search the web for SDL2 and try to find a download link
+
+=== 4.1 Which version???
+
+. There are a number of versions on https://www.libsdl.org/download-2.0.php
+. Which do you think you want?
+  .. HINT: We are developing software
+  .. HINT: What platform are we on?? and Word-size??
+  .. HINT: What is our compiler suite?
+. Which version of SDL2 did you download??
+  .. What is it's version number?
+
+== 5. Extract SDL2
+
+. Extract your download
+  .. Where do you think you should you put it?
+    *** Your program will need to access them
+    *** What happens if you move your project ??
+  .. How big are these files?
+  .. What folders and files have you extracted?
+  .. Do you think these files should be versioned along with your source code?
+
+== 6. Tell Visual Studio where the headers are
+
+. What header file you need??
+  .. What are all these other files??
+. Where in the library you've download is this header file?
+. How do you tell Visual Studio where header files are?
+  .. Search for how to?
+  .. Figuring out questions like this yourself is important.
+  .. Is Visual Studio confusing on this?
+. How many clicks do you need to do in Visual Studio to do this?
+  .. Think this is error prone/easy/repeatable?
+
+=== 6.1 Compile and Run Again
+
+. Uncomment the `#include` for SDL
+  ** Do the Visual Studio errors (on-screen) go away
+. Does your program now build?
+. Break it down:
+  .. Does it compile?
+  .. Does it link?
+  .. What is missing?
+
+  
