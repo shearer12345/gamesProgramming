@@ -1,4 +1,4 @@
-= Setting up a Build Systems
+= Setting up a Build System
 John Shearer
 :imagesdir: assets
 :revealjs_history: true
@@ -350,7 +350,17 @@ include::{examplesdir}/buildSystem/conanfile.txt[]
     *** if you had to set things up manually (you *could* do this in Visual Studio now, using the libraries conan has installed)
     *** you can remove the `text` generator if you want, and clear the associated, generated file
 
-== 14. Asking *cmake* to create a Visual Studio Solution
+=== 14 Add the `main.cpp`
+
+. Add a new source file named `main.cpp` (you can copy-paste this time :-)
+
+[source, cpp]
+.main.cpp
+----
+include::{examplesdir}/buildSystem/main.cpp[]
+----
+
+== 15. Ask *cmake* to create a Visual Studio Solution
 
 * {link-cmake}[cmake] is a build system builder!!
 * It can make various forms of build system
@@ -358,7 +368,7 @@ include::{examplesdir}/buildSystem/conanfile.txt[]
 * We tell cmake what we want using a `CMakeLists.txt` file
   ** note the *capitalisation*
 
-=== 14.1 Create a `CMakeLists.txt` file
+=== 15.1 Create a `CMakeLists.txt` file
 
 . In the root of your project folder (`gamesProgramming`), create a file named, exactly, `CMakeLists.txt`
   ** with the following content
@@ -369,7 +379,7 @@ include::{examplesdir}/buildSystem/conanfile.txt[]
 include::{examplesdir}/buildSystem/CMakeLists.txt[]
 ----
 
-=== 14.2 Explanation of the `CMakeLists.txt` file
+=== 15.2 Explanation of the `CMakeLists.txt` file
 
 * The name of the solution (`ConanTest`)
 * minimum cmake version ( 2.8.12)
@@ -379,7 +389,7 @@ include::{examplesdir}/buildSystem/CMakeLists.txt[]
 * use libraries from conan for that exe `conanTest`
 * make `conanTest` our startup project
 
-=== 14.3 Ask Cmake to create a Visual Studio Solution
+=== 15.3 Ask Cmake to create a Visual Studio Solution
 
 . In your `build` directory run the following, from the command line (gitBash)
   ** note what build system we're and platform we're asking cmake to create for
@@ -389,7 +399,7 @@ include::{examplesdir}/buildSystem/CMakeLists.txt[]
 cmake .. -G "Visual Studio 14 Win64"
 ----
 
-=== 14.4 Use the Visual Studio solution
+=== 15.4 Use the Visual Studio solution
 
 [source, bash]
 ----
@@ -398,12 +408,11 @@ cmake --build . --config Release #ask cmake to build in Release mode
 
 ** OR load the Visual Studio solutin (.sln) in the build directory, and build from the UI
 
-=== 14.5 Run your new binary
+=== 15.5 Run your new binary
 
-[source, bash]
 ----
 ./bin/conanTest.exe
------
+----
 
 * OR run from Visual Studio (F5).
   ** WARNING: you will likely get a console window that immediately exits
