@@ -6,11 +6,16 @@
 
 If you're using RVM, make sure you switch away from any gemset:
 
- $ rvm use default
+[source, bash]
+----
+rvm use default
+----
 
 or
-
- $ rvm use system
+[source, bash]
+----
+rvm use system
+----
 
 NOTE: For some reason, when you use the system Ruby on Fedora, you also have to add the json gem to the Gemfile.
 
@@ -18,16 +23,16 @@ NOTE: For some reason, when you use the system Ruby on Fedora, you also have to 
 
 The following will install the gems into the project.
 
- $ rm -f Gemfile.lock
-   bundle config --local github.https true
-   bundle --path=.bundle/gems --binstubs=.bundle/.bin
+[source, bash]
+----
+rm -f Gemfile.lock
+bundle config --local github.https true
+bundle --path=.bundle/gems --binstubs=.bundle/.bin
+----
 
-== Build
+== Build, with Rake
 
- $ ./.bundle/.bin/asciidoctor-revealjs \
-   -a revealjsdir=https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0 index.adoc
-
-or
-
- $ bundle exec asciidoctor-revealjs \
-   -a revealjsdir=https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0 index.adoc
+[source, bash]
+----
+bundle exec rake
+----
