@@ -1,0 +1,218 @@
+:author: John Shearer
+:doctitle: Games Programming Assignment 01 Brief 2016-17
+ifdef::backend-pdf[:notitle:]
+ifdef::backend-pdf[]
+[discrete]
+= {doctitle}
+endif::[]
+
+:email: jshearer@lincoln.ac.uk
+
+:imagesdir: ../assets/
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== Overview
+
+* Single, 100% assignment
+* Build a complete game that demonstrates both:
+  ** Games Programming capabilities (i.e. high quality code)
+  ** Specific Games Programming techniques we've covered in class
+* Space for personal expression and portfolio
+* The specific assignment and its requirements are detailed below.
+* The CRG is in the <<assignment_01_CRG.asciidoc#, CRG>> document.
+
+=== Assignment specifically - 2016-17
+
+* Clone an existing game
+  ** Drones vs. Battleships
+  ** Chuckie Egg
+  ** PacMan / Ms PacMan
+  ** Your Game Design from Level 1
+* Details on these at the end of this document
+
+
+
+== Submission
+
+* Submit to Blackboard
+  ** a PDF of your document
+  ** your supporting zip file, including the video, as specified in the following
+
+=== PDF should include
+
+* A bulleted list of libraries used
+* A bulleted list of features implemented, with screenshots of each
+* Any extra features implemented should also be on this list (with a small description if needed to make the feature clear)
+* A short reflection on the development process (https://en.wikipedia.org/wiki/Reflective_practice)
+  ** no more than 200 words
+
+=== ZIP
+
+* All game source, and assets, and binaries
+* A high-quality screen-captured video of your game in action
+
+=== ZIP (source)
+
+* All game source - .{cpp}, .c, .h, .hpp
+* Files sufficient to create a working build environment (e.g. conan.io files, cmake files)
+* All assets - images, levels, audio, sprite description files, etc
+* A compiled, runable executable (.exe for PC), including dlls
+* not marked directly, but this is the evidence chain and plagiarism check
+
+=== ZIP (video)
+
+* showing each of the features listed in your PDF
+* at least 30 seconds long, capturing the whole screen (desktop resolution should be the native resolution of your machine)
+* using a screen capture tool (e.g. Open Broadcaster Software (OBS), Fraps)
+  ** for multiplayer on multiple PCs - that feature can be recorded using a video/phone camera and be a separate video
+* appropriately compressed (i.e. not 500MB+ files) (OBS will do this for you by default)
+
+=== Presentation errors
+
+* Submissions not matching the above will be treated as submission errors
+  ** see Presentation Regulations on Blackboard for penalties
+
+
+== Feedback
+
+* you will receive written feedback on Blackboard, as well as verbal feedback during development of your program in workshops
+
+== Video
+
+* Your video will also be valuable to yourself as portfolio work
+* It will also be valuable to the School
+  ** to illustrate to students in following years what they'll be doing in the module
+  ** to enhance recruitment and visibility of the School
+  ** to support external examiners in viewing your assignment looked like
+
+<<<
+
+=== Starting point
+
+* We'll develop a starting point in workshops
+* You'll build on this to develop your game
+* Workshop activities will develop features to add into your game
+
+== Toolset (required)
+
+* You *MUST* use C/{cpp} for this assignment
+  ** You *CANNOT* use code from tutorial sites, even with attribution
+* You *MUST* use SDL2 for this assignment
+  ** You *CANNOT* use freeGLUT, GLFW, or SFML
+* You *MUST* use SDL2_image
+* You *MUST* use SDL2 OR SDL_mixer for audio (if you have audio)
+* You *MUST* use SDL_ttf for font generation
+* You *CANNOT* use a physics library
+* Check with {author} ({email}) for any others
+
+
+=== Toolset (optional libraries - serialisation)
+
+* For serialisation
+  ** Any serialisation libraries from http://fffaraz.github.io/awesome-cpp/#serialization
+  ** Any json libraries from http://fffaraz.github.io/awesome-cpp/#json
+  ** Any XML libraries from http://fffaraz.github.io/awesome-cpp/#xml
+  ** Other libraries *MUST* be confirmed with me (Shearer)
+
+=== Toolset (optional libraries - networking)
+
+* For networking, you may use any of the following:
+  ** SDL_net - https://www.libsdl.org/projects/SDL_net/
+  ** zeroMQ - any version - http://zeromq.org/
+  ** netLink - https://github.com/Lichtso/netLink
+  ** Other libraries *MUST* be confirmed with me (Shearer)
+
+
+=== Support Tools (recommended)
+
+* Versioning - git, or other
+* Backup - github, gitlab, bitbucket, or other
+* Documentation (of tools/libraries)
+
+== Plagiarism etc
+
+* Must be your code
+  ** Not from tutorial sites (except from my examples)
+    *** even if you attribute it
+  ** Not from each other
+
+
+
+== Questions
+
+If you have questions please contact {author} ({email})
+
+== Happy working
+
+:-)
+
+* please ask for help in workshops
+* workshop activities will be feeding the assignment
+* ask for clarification for any assignment questions (earlier is better)
+
+<<<
+
+=== Drones vs. Battleships
+
+* Visual design up to you (and not important for marks)
+* Should echo the main logic of the game battleships
+* The control of where to drop bombs should be with simulated drones
+  ** This introduces both real-time simulation and real-time multi-player to the game
+
+=== Drones vs. Battleships - drones
+
+* Player 1 and Player 2 each have an attack drone and a defense drone
+* Player 1's attack drone is over Player 2's ships, and vice versa
+* Defense drones are above their own player's ships
+* When it is a player's move their can move their attack drone
+  ** otherwise they can move their defense drone
+
+=== Drones vs. Battleships - drones 2
+
+* Drones bounce off each other
+* Drones bounce off world boundaries
+* Drones cannot be destroyed
+* Drones drop bombs in the nearest "cell", but can be at any point in 2-space
+  ** i.e. a drone could be at position (2.3, 4.76), but it's bomb would only impact in a single cell
+
+=== Drones vs. Battleships - battleships
+
+* How players set the positions for their battleships is up to you
+  ** you could use drones to place them
+  ** or keyboard input
+  ** or mouse input
+
+<<<
+
+=== Chuckie Egg
+
+image::Chuckie_Egg_on_BBC_Micro.jpg[height=288]
+
+* Approximately the same logic
+* Add logic for 2-player if you implement that
+* Assets
+  ** can be from the game (won't be able to publish)
+  ** draw your own (marks aren't for asset quality)
+  ** find your own (many open-licensed assets sources on the web)
+
+<<<
+
+=== PacMan / Ms PacMan
+
+image::Pac-man.png[height=288]
+
+* Approximately the same logic
+* Add logic for 2-player if you implement that
+* Assets
+  ** can be from the game (won't be able to publish)
+  ** draw your own (marks aren't for asset quality)
+  ** find your own (many open-licensed assets sources on the web)
+
+<<<
+
+== References
+
+* https://en.wikipedia.org/wiki/Chuckie_Egg
+* https://en.wikipedia.org/wiki/Pac-Man
+* https://en.wikipedia.org/wiki/Battleship_%28game%29
