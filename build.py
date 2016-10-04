@@ -41,8 +41,13 @@ def buildDirectory(dir, reveal=True, pdfReveal=False, purePdf=False):
 
             if reveal:
                 #os.system('asciidoctor -T asciidoctor-reveal.js/templates/slim/ ' + file)
-                proc = subprocess.Popen(['asciidoctor -T asciidoctor-reveal.js/templates/slim/ ' + file], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-                (out, err) = proc.communicate()
+                if fileNameWithoutSuffix.startswith("workshop"):
+                    proc = subprocess.Popen(['asciidoctor ' + file], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                    (out, err) = proc.communicate()
+                else:
+                    proc = subprocess.Popen(['asciidoctor -T asciidoctor-reveal.js/templates/slim/ ' + file], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                    (out, err) = proc.communicate()
+
 
                 if len(out) > 0:
                     print("program output:", out)

@@ -6,8 +6,12 @@ shearer12345
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
 :source-highlighter: highlightjs
 
-== List of Lectures 1
+== Lectures
 
 . link:lecture01_introduction.html[Introduction]
 
-== Future
+NOTE: workshops linked from later slides
+
+== Workshops
+
+. link:workshop01_settingUpABuildSystem.html[Setting Up A Build System]
