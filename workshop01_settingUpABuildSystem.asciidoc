@@ -15,6 +15,22 @@ include::links.asciidoc[]
   . manual approach
   . automated approach (using {link-conan}[conan.io] and {link-cmake}[cmake])
 
+== Activity summary
+
+* Imagine you have a friend/collegue/future self that needs to develop program
+* They/you will need to setup their system for this
+
+. Write (through this session) instructions of how to set up for developing your program
+  ** write by hand or a digital document
+  ** make sure to give all steps, with sufficient detail
+. Email your instructions at the end of the session
+
+=== Activity summary
+
+* There are questions scattered throughout this document.
+  ** Try to answer all of them.
+  ** Discuss them with your collegues/friends
+
 == Stages of making and running a program, and where errors can occur
 
 * There are 3 main stages going from source code to a running program.
@@ -186,7 +202,7 @@ include::{examplesdir}/buildSystem/main.cpp[]
 . How many clicks do you need to do in Visual Studio to do this?
   .. Think this is error prone/easy/repeatable?
 
-=== 6.1 Compile and Run Again
+=== 6.1 Build and Run Again
 
 . Uncomment the `#include` for SDL
   ** Do the Visual Studio errors (on-screen) go away
@@ -194,6 +210,214 @@ include::{examplesdir}/buildSystem/main.cpp[]
 . Break it down:
   .. Does it compile?
   .. Does it link?
-  .. What is missing?
+  .. Does it run?
+  .. What is missing? What do the errors say?
 
-  
+== 7. Tell Visual Studio where the `.lib` files are
+
+* and which libraries to try to link to
+
+. How do you tell Visual Studio where library files are?
+. How do you tell Visual Studio which libraries to link to?
+. How many clicks do you need to do in Visual Studio to do this?
+
+=== 7.1 Build and Run Again
+
+. Does your program now build?
+. Break it down:
+  .. Does it compile?
+  .. Does it link?
+  .. Does it run?
+  .. What is missing? What do the errors say?
+
+== 8. Copy `dlls` to the appropriate location
+
+. Where does your Operating System look for Dynamic libraries by default?
+. Can you change this? Should you?
+. What else can you do?
+  ** HINT: see the above heading!!
+
+=== 8.1 Build and Run Again
+
+. Does your program now build?
+. Break it down:
+  .. Does it compile?
+  .. Does it link?
+  .. Does it run?
+  .. What is missing? What do the errors say?
+
+== 9. So now you have a running program! ?
+
+* Assuming you now have a running program
+. Run your `.exe` from the command line
+. Can you make it so that when you run your program from Visual Studio you can see the output?
+  ** HINT: there are many ways of doing this
+
+== 10. That was for just one library!
+
+. Find a collegue/friend
+  .. Go through each other instructions
+  .. What did you each do the same, or differently?
+  .. Do those things matter?
+. What would this be like if you had 3 libraries your project needed?
+  .. or 8 libraries?
+
+== 11. Another approach
+
+* Historically, {cpp} hasn't had a package manager
+  ** Most/Many other languages do have (good/poor) package managers
+* {link-conan}[Conan.io] is pretty new
+  ** that's great - makes things easier
+  ** that's challenging - this change and break
+    *** changes, broken things is *very* common
+    *** especially in Games!!
+
+== 12. Conan and Versioning
+
+* Conan.io is pre-installed on Lab machines
+  ** if working at home or on a laptop, you'll need to install it
+* If you want to use a versioning system, now would be a good time to start
+  ** we *strongly* recommend the use of some kind of versioning
+  ** we *recommend* git, but other good tools exist
+
+== 13. Starting afresh with {link-conan}[conan.io]
+
+. Make a new folder somewhere for your project
+  ** call it `gamesProgramming` or anything you like
+  ** you can (if you like) remove all the library files you carefully downloaded!!
+. We tell conan about the libraries we need with special file - `conanfile.txt`
+  ** conan can then go off and find these libraries for us
+  ** and even, build them from source if it needs to
+  ** and create files for us, that tell us where things are
+
+=== 13.1 Create your first `conanfile.txt`
+
+. Create a file name `conanfile.txt` in the root of your new (`gamesProgramming`) folder, with the following content
+  ** this gives conan the library name, version and who's package to use, and the channel
+  ** see http://conanio.readthedocs.io/en/latest/manage_deps/conanfile_txt.html#requires[conanio on readthedocs] for more info
+
+[source, conan]
+.conanfile.txt
+----
+include::{examplesdir}/buildSystem/conanfile.txt[]
+----
+
+=== 13.2 Explanation of this `conanfile.txt`
+
+. We've said our project requires the `SDL2` library, version `2.0.4` that has been packaged by `lasote` and is in the `stable` channel
+. We've said the option `shared` on the `SDL2` library is set to `True`
+  ** meaning we want a shared (dynamic) version of SDL2
+  ** we could go with `False` and embed SDL2 directly in our program
+     *** we shouldn't do this
+     *** for good practice
+     *** and without checking whether the license terms of the library allow this (e.g. GPL license) - Discuss/Research
+. We've said we want conan to generate output for `cmake`
+  ** this output will contain details on where the needed parts of libraries are located, etc.
+
+=== 13.3 Build out-of-source
+
+. Go to your `gamesProgramming` folder with a console
+  ** we *recommend* gitBash on Lab machines
+  ** that way you can use git from the commandline also if you choose
+. Make a new directory called `build`
+  ** this is where are build files will go
+  ** most of these will be temporary - we don't need to version them
+  ** using a separate directory keeps the build clean
+
+=== 13.4 Ask conan to install the libraries
+
+. run `conan install ..`
+  ** ask conan to install packages listed in the parent directory (in `conanfile.txt`)
+  ** watch the output
+  ** try to figure out what conan is doing
+  ** what information does it tell you at the end?
+
+=== 13.5 What has conan created?
+
+* Conan has created a bunch of files for us
+  .. What two, separate locations has conan put files?
+  .. What files has conan put in out present directory?
+
+=== 13.6 Where conan has put the libraries
+
+. Have a look at the `conanbuildinfo.cmake`
+  ** This is a file that tells *cmake* about file locations
+  ** It's not very human readable
+. Add a generator `text` to your `conanfile.txt` and re-run the conan install command
+  ** Have a look a the new file - this should tell you stuff in an easier way
+  ** But not useful for anything except:
+    *** your knowledge or
+    *** if you had to set things up manually (you *could* do this in Visual Studio now, using the libraries conan has installed)
+    *** you can remove the `text` generator if you want, and clear the associated, generated file
+
+== 14. Asking *cmake* to create a Visual Studio Solution
+
+* {link-cmake}[cmake] is a build system builder!!
+* It can make various forms of build system
+* We're interested in Visual Studio solutions
+* We tell cmake what we want using a `CMakeLists.txt` file
+  ** note the *capitalisation*
+
+=== 14.1 Create a `CMakeLists.txt` file
+
+. In the root of your project folder (`gamesProgramming`), create a file named, exactly, `CMakeLists.txt`
+  ** with the following content
+
+[source, cmake]
+.CMakeLists.txt
+----
+include::{examplesdir}/buildSystem/CMakeLists.txt[]
+----
+
+=== 14.2 Explanation of the `CMakeLists.txt` file
+
+* The name of the solution (`ConanTest`)
+* minimum cmake version ( 2.8.12)
+* use the `conanbuildinfo.cmake` file we made
+* run some stuff to make conan work
+* make an `exe` called `conanTest` from `main.cpp`
+* use libraries from conan for that exe `conanTest`
+* make `conanTest` our startup project
+
+=== 14.3 Ask Cmake to create a Visual Studio Solution
+
+. In your `build` directory run the following, from the command line (gitBash)
+  ** note what build system we're and platform we're asking cmake to create for
+
+[source, bash]
+----
+cmake .. -G "Visual Studio 14 Win64"
+----
+
+=== 14.4 Use the Visual Studio solution
+
+[source, bash]
+----
+cmake --build . --config Release #ask cmake to build in Release mode
+----
+
+** OR load the Visual Studio solutin (.sln) in the build directory, and build from the UI
+
+=== 14.5 Run your new binary
+
+[source, bash]
+----
+./bin/conanTest.exe
+-----
+
+* OR run from Visual Studio (F5).
+  ** WARNING: you will likely get a console window that immediately exits
+
+
+== Stretch Activities
+
+Now you have SDL2 installed and working from your program, try to:
+
+. Make SDL log the "HelloWorld!" output, instead of using `cout`
+  ** What do you need to do differently?
+. Look up SDL's documentation of Logging.
+  ** What control do you have over the logs?
+  ** Why might you want this control? - discuss with a collegue/friend
+. Ask SDL to create you a Window
+  ** Search SDL's documentation for the function
+  ** What parameters does it need? What do they each do?
