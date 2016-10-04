@@ -1,3 +1,6 @@
+/.bundle/
+/Gemfile.lock
+
 exampleGames/
 exampleVideos/
 
