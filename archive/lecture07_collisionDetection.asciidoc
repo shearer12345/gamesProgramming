@@ -1,0 +1,189 @@
+= Collision Detection
+shearer12345
+:stem: latexmath
+
+:imagesdir: ./assets
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== What is Collision Detection?
+
+* Which objects are occupying the same space, partially or fully, at the same time?
+  ** or will in the future?
+
+image::British-pool-table-pocket.jpg[height=300]
+
+== Challenges in Collision Detection 1
+
+* Is there a collision between A and B?
+* Where was the collision?
+* When was the collision? (or will be?)
+
+=== Challenges in Collision Detection 2
+
+* Computational cost
+  ** Which objects can collide with each other?
+  ** How many collision tests do we need to do?
+  ** How expensive are collision tests?
+
+=== Challenges in Collision Detection 3
+
+* When do run collision detection?
+  ** discrete vs continuous collision detection
+* Accuracy of collision detection
+  ** Small objects
+  ** Fast objects
+  ** Complex objects (lots of polygons)
+
+== A problem with simulation rate and collision
+
+image::fastObjects.png[height=300]
+
+=== A problem with simulation rate and collision 2
+
+* set a minimum size for objects
+* set a maximum speed for objects
+* consider time in collision detection
+  ** do continuous collision detection
+
+== Collision objects
+
+* Collisions between objects of arbitrarily complex geometry is expensive
+  ** use simpler geometry for objects
+  ** at least until we know we need something better
+  ** i.e. cheat, at least some of the time
+
+=== What types of (simple) geometry are there?
+
+[%step]
+* Point
+* Line / Plane
+* Circle / Sphere
+* Rectangle / Cuboid (AKA: Boxes)
+  ** Axis-Aligned
+  ** non-Axis-Aligned
+* Triangle / ???
+* Convex Polygon / Convex Polyhedron
+* Concave Polygon / Concave Polyhedron
+
+=== What types of geometry are easy to collide with what other types?
+
+[%step]
+* Circle-Circle / Sphere-Sphere
+* Circle-Line / Sphere-Plane
+* Axis-Aligned-Box vs Axis-Aligned-Box
+* non-Axis-Aligned vs non-Axis-Aligned
+* Convex polygon / Convex polyhedron
+* Concave polygon / Concave polyhedron
+
+=== Convex polygon vs. Concave polyhedron
+
+
+image::1083px-Convex_polygon_illustration1.png[height=200]
+
+image::1024px-non-Convex_polygon_illustration2.png[height=200]
+
+=== What types of geometry are easy to collide with what other types?
+
+|===
+|       | Point | Line | Circle | AAB | Box | Convex | Concave
+
+| Point |||||||
+
+| Line |||||||
+
+| Circle |||||||
+
+| AAB |||||||
+
+| Box |||||||
+
+| Convex |||||||
+
+| Concave |||||||
+
+|===
+
+=== What types of geometry are easy to collide with what other types?
+
+
+|===
+|         | Point | Line | Circle | AAB | Box | Convex | Concave
+
+| Point   | :-)   | - |- |- |- |- |-
+
+| Line    | :-)   | :-)  |-|-|-|-|-
+
+| Circle  | :-)   | :-)  |  :-)   |-|-|-|-
+
+| AAB     | :-)   | :-)  |  :-)   | :-) |-|-|-
+
+| Box     | OK    | OK   |  :-(   | OK  | OK  |-|-
+
+| Convex  | OK    | OK   |  :-(   |  :-( |  :-( |  :-( |-
+
+| Concave | :-(   | :-(  |  HARD |  HARD |  HARD |  HARD |  HARD
+
+|===
+
+
+
+== Circle-Circle / Sphere-Sphere
+
+* Distance between centers is less than the sum of the radii
+
+=== Distance between centers
+
+* Distance between two points
+* Square-root of the sum of the squares (Pythagoras, again)
+
+=== Sum of the radii
+
+* Radius A plus Radius B
+
+== Circle-Line / Sphere-Plane
+
+* For axis-aligned line/plane, non collision if:
+  ** ???
+
+=== Circle-Line / Sphere-Plane 2
+
+* For axis-aligned line/plane, non collision if:
+  ** Circle center + radius < axisValue
+  ** Circle center - radius > axisValue
+
+=== Circle-Line / Sphere-Plane 3
+
+* Generically, use dot-product
+ ** look up "Circle-Line" intersection
+
+== Axis-Aligned-Box vs Axis-Aligned-Box
+
+* For each box, for each axis, have a minimum and a maximum value
+  ** AKA an interval
+* non-collision on ANY axis => non-collision
+* test for each axis (X, Y, Z):
+  ** ???
+
+=== Test for each axis (X, Y, Z)
+
+* All of A is lower than B
+* -- or --
+* All of B is lower than A
+
+=== Test for each axis (X, Y, Z) 2
+
+* All of A is lower than B
+  ** => Amax < Bmin
+* -- or --
+* All of B is lower than A
+  ** => Bmax < Amin
+
+
+== Workshop activities 1
+
+* Write a function to determine if two sprites are colliding?
+
+== Workshop activities 2
+
+* Continue with Coursework, or ask for more directions

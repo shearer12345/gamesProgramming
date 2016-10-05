@@ -1,0 +1,104 @@
+:author: John Shearer
+:doctitle: Games Programming Assignment 01 CRG 2016-17
+ifdef::backend-pdf[:notitle:]
+ifdef::backend-pdf[]
+[discrete]
+= {doctitle}
+endif::[]
+
+:email: jshearer@lincoln.ac.uk
+
+:imagesdir: ./assets/
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== Coursework assignment CRG
+
+[options="header", cols="15s,10s,15,15,15,15,15"]
+|===
+| Criterion | Weight | Pass (40%) | 2.2 (50%) | 2.1 (60%) | 1st (70%) | 1st+ (80%+)
+
+
+| Document
+| 10%
+| Document includes a list of features and screenshots of each
+| As for Pass, plus Document includes control keys for the demo
+| As for 2.2, plus Document reflects on the development
+| As for 2.1, plus the reflection is clear, concise and insightful
+| As for 1st, plus Document shows control keys on an annotated image of the gamepad
+
+
+
+| Logging and performance, and on-screen text
+| 10%
+| The game logs basic information to console, or screen (e.g. performance info (render time), initialisation details, debug output)
+| As for Pass, plus logging breaks down the render/game-loop and gives details on how long each aspect is taking
+| As for 2.2, plus the Game score is shown on-screen, as text
+| As for 2.1, plus logging is shown in the window as renderered text
+| As for 1st, plus the the log scrolls and uses colours to represent different log events
+
+
+| Window
+| 10%
+| There is a window which has a title including student name; module; student number
+| As for Pass, plus the window can be moved and resized
+| As for 2.2, plus the window can be made fullscreen
+| As for 2.1, plus the correct aspect ratio is maintained
+| As for 1st, plus the initial window is non-fullscreen, and half the size of the desktop, and centered
+
+
+| Sprites
+| 15%
+| There are sprites on the screen
+| As for Pass, plus multiple Sprites move on the screen, including the Player Character
+| As for 2.2, plus Sprites visual show transparency
+| As for 2.1, plus Sprites show animation sequences related to their motion (walking, jumping, idle)
+| As for 1st, plus motion animation lines up with motion - i.e. no moon-walking
+
+
+| Movement, Physics, Collisions
+| 15%
+| Player and Non-Player Characters in the game move
+| As for Pass, plus the simulation accounts for real time (evidenced through log and code inspection)
+| As for 2.2, plus Player and Non-Player Characters can collide and react apppropriately (e.g. with walls, floors, pick ups)
+| As for 2.1, game simulation pauses when in the menu
+| As for 1st, movement, physics, collision is excellent
+
+
+| Player Character Control
+| 10%
+| The Player Character can be moved/controlled with the keyboard
+| As for Pass, plus the Player Character can be moved/controlled with the D-pad on the gamepad
+| As for 2.2, plus the Player Character can be moved/controlled, with speed control, using a thumb-stick
+| As for 2.1, plus the Player Character can take some action (jump, move quicker) on a keyboard control AND a gamepad button
+| As for 1st, plus the control is smooth and effective
+
+
+| Menu
+| 10%
+| There is an initial, full-window splash screen/loading screen
+| As for Pass, plus the game contains a menu accessed/raised with the keyboard or gamepad
+| As for 2.2, plus the menu can be controlled with the keyboard, with highlighting of the element to select
+| As for 2.1, plus the menu can be controlled with the gamepad, with highlighting of the element to select
+| As for 1st, plus the menu can be controlled with the mouse, with elements highlighted on hover
+
+
+| Audio
+| 10%
+| There is some kind of background audio
+| As for Pass, plus sound effects trigger by game events
+| As for 2.2, audio volume can controlled (in-game)
+| As for 2.1, many sound effects and background audio can be paused
+| As for 1st, extra audio features. e.g. DSP, panning sound effects with player movement, 3D audio
+
+
+| Extra Features
+| 10%
+| Keys can be remapped through a config file, or through a menu
+| As for Pass, plus a two player mode is implemented. This can be on a single monitor, in a single window, with a shared viewport
+| As for 2.2, players have their own viewport within the window (split screen), OR two separate non-overlapping windows
+| As for 2.1, plus Save/Load game (serialisation to file)
+| As for 1st, multi-player between two PCs, with the game on each (still two player)
+
+
+|===

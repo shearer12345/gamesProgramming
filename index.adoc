@@ -1,0 +1,18 @@
+= Games Programming
+shearer12345
+:stem: latexmath
+
+:imagesdir: ./assets/
+:revealjs_customtheme: "reveal.js/css/theme/white.css"
+:source-highlighter: highlightjs
+
+== Lectures
+
+. link:lecture01_introduction.html[Introduction]
+. link:lecture02.html[Build Systems, Logging, Window Creation and Game Loop]
+
+NOTE: workshops linked from later slides
+
+== Workshops
+
+. link:workshop01_settingUpABuildSystem.html[Setting Up A Build System]
