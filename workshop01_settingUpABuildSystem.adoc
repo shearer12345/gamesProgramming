@@ -5,7 +5,7 @@ John Shearer
 :examplesdir: examples
 :source-highlighter: highlightjs
 
-include::links.asciidoc[]
+include::links.adoc[]
 
 == Where we want to get to
 
