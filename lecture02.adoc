@@ -1,0 +1,211 @@
+= Build Systems, Logging, Window Creation
+:imagesdir: assets
+:revealjs_history: true
+:examplesdir: examples
+:source-highlighter: highlightjs
+include::links.adoc[]
+
+== Overview
+
+* Build Systems
+* Logging
+* Window Creation
+* Towards a Game Loop (reading/thinking)
+
+== Build Systems
+
+* In the workshop you should have made two Visual Studio solutions, each able to use SDL2:
+  .. Manually
+  .. Automatically using {link-conan}[conan.io] and {link-cmake}[cmake]
+* We'll briefly run through the <<workshop01_settingUpABuildSystem.adoc#,workshop>>, and talk through it
+
+image::Sdl-logo.png[height=200]
+
+== Advantages of our automated Build System
+
+* Cross-platform
+  ** At least one of you is using the toolchain on OS X
+* Easier, in the longer term
+  ** Make a batch/bash file that runs conan and cmake appropriately
+  ** Then on a new machine (you move Lab machines frequently) just run the batch file
+  ** If anything is broken, you can just clean out the build folder and rerun the batch file
+
+== Advantages of our automated Build System 2
+
+* More reliable
+  ** "Configuration as Code"
+  ** You are not reliant on people (including yourself) from following steps correctly
+* The configuration code *documents* the setup
+  ** and *versions* the setup
+
+== *Versioning*
+
+* Highly recommend that you version your code
+  ** git (recommended)
+* Any generated files don't need to and *shouldn't* be versioned
+  ** by `conan` or `cmake`
+  ** by Visual Studio (or any other build system)
+
+== Logging
+
+* Until now, you've probably been generating output to the console using some kind of "print" statement
+  ** C/{cpp}: `printf`, `std::cout`
+  ** C#: `Console.WriteLine`
+* This works, but gives you little control or expression
+
+== Things you might want/need to do with logs
+
+* Express and Control the "level" of log messages
+  ** at compile-time
+  ** at run-time
+* Express and Control the "type" of log messages
+  ** at compile-time
+  ** at run-time
+
+== Persistent logs
+
+* Keep log files around
+  ** Why?
+  ** Log to a file
+  ** Log to a network
+
+=== Persistent logs 2
+
+* Keep log files around
+  ** Why?
+  ** To allow post-run analysis
+  ** To (possibly) allow reconstruction of the game!!
+  ** For stats generation
+
+== Adding information to log messages
+
+* You might want to be able to add information to the log messages
+  ** Why? What sort of information?
+
+=== Adding information to log messages 2
+
+* You might want to be able to add information to the log messages
+  ** Why? What sort of information?
+  ** Timestamp
+  ** Caller
+  ** Other information
+
+== Other things to do with to do with Logs
+
+* Show the log somewhere else
+  ** on-screen - in the render window, not just the console
+
+== Logging in SDL2
+
+* SDL2 has good support for logging - https://wiki.libsdl.org/CategoryLog
+* Allowing:
+  ** Log priorities
+  ** Log categories
+  ** Control of what categories/priorities to write out
+  ** Overriding of the Logging function - do what you like
+
+== Logging in SDL2 - example
+
+* from our build system example code
+
+[source, cpp]
+----
+include::{examplesdir}/buildSystem/main.cpp[]
+----
+
+== What might you want to log?
+
+* ???
+
+== Window Creation
+
+* We need at least one window for our Game
+  ** that can show some kind of imagery/graphics
+* Window creation involves talking to the Operating System
+  ** i.e. platform specific
+  ** and fiddly - see https://msdn.microsoft.com/en-gb/library/windows/desktop/ms632679(v=vs.85).aspx[CreateWindow from MSDN]
+
+WARNING: *terminology overlap - "Window" vs "Windows"*
+
+=== Window Creation by hand on MS Windows
+
+[source, cpp]
+.https://msdn.microsoft.com/en-gb/library/windows/desktop/ms632679(v=vs.85).aspx[CreateWindow function (MSDN)]
+----
+HWND WINAPI CreateWindow(
+  _In_opt_ LPCTSTR   lpClassName,
+  _In_opt_ LPCTSTR   lpWindowName,
+  _In_     DWORD     dwStyle,
+  _In_     int       x,
+  _In_     int       y,
+  _In_     int       nWidth,
+  _In_     int       nHeight,
+  _In_opt_ HWND      hWndParent,
+  _In_opt_ HMENU     hMenu,
+  _In_opt_ HINSTANCE hInstance,
+  _In_opt_ LPVOID    lpParam
+);
+----
+
+=== Window Creation by hand, on MS Windows (Resources)
+
+* https://msdn.microsoft.com/en-us/library/bb384843.aspx
+https://msdn.microsoft.com/en-us/library/windows/desktop/ff381409(v=vs.85).aspx
+
+== What is a Window?
+
+* What is it for?
+* What can we control about them?
+* Anything else that relates?
+
+=== What is a Window for?
+
+* What is it for?
+  ** Showing stuff to our user
+  ** Getting input from out user
+    *** *Frequently* only when the Window is "active"
+
+=== What can we control about a Window?
+
+* Title
+* Size, Position
+* Fullscreen (in various ways)
+* Features supported ...
+
+=== What can we control about a Window? 2
+
+* An incomplete list
+  ** window usable with OpenGL context
+  ** window is visible / not visible
+  ** window decoration (borders)
+  ** if window can be resized (by user)
+  ** window minimization
+  ** window maximization
+  ** input grab
+
+== Creating a Window in SDL2
+
+[source, cpp]
+.https://wiki.libsdl.org/SDL_CreateWindow[SDL_CreateWindow]
+----
+SDL_Window* SDL_CreateWindow(const char* title,
+                             int         x,
+                             int         y,
+                             int         w,
+                             int         h,
+                             Uint32      flags)
+);
+----
+
+=== Creating a Window in SDL2 - flags and examples
+
+* Details on the Window flags we can use and examples in SDL2s documentation
+  ** https://wiki.libsdl.org/SDL_CreateWindow
+
+== Towards a Game Loop
+
+* Recommended Reading
+  ** http://gameprogrammingpatterns.com/game-loop.html[Game Loop - Game Programming Patterns]
+  ** http://gafferongames.com/game-physics/fix-your-timestep/[Fix your timestep - Gaffer On Games]
+  ** https://www.reddit.com/r/gamedev/comments/41v2td/a_modern_c_game_loop_template_mit/[a_modern_c_game_loop_template_mit - Reddit]
+  ** https://youtu.be/fdAOPHgW7qM[Jonathan Blow, Q&A: frame-rate-independence]
