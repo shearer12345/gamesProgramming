@@ -1,3 +1,5 @@
+:examplesdir: examples
+
 :link-sdl2: https://www.libsdl.org/index.php
 :link-conan: https://conan.io/
 :link-cmake:  https://cmake.org/
