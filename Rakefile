@@ -17,10 +17,8 @@ task :generateHTML, [:filename, :output_dir] do |t, args|
     filename = args[:filename]
     output_dir = args[:output_dir]
     print "Generating HTML for: \n  " + filename + "  |||  "
-    #TODO(shearer) use asciidoctor-revealjs directly, not through shell
-    Asciidoctor.convert_file filename,
-        :to_dir => output_dir
-    puts ''
+    #TODO(shearer) use asciidoctor directly, not through shell
+    sh 'bundle exec asciidoctor ' + filename
 end
 
 task :default do
