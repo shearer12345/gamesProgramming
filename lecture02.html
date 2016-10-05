@@ -1,0 +1,131 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Build Systems, Logging, Window Creation</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css" id="theme"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section class="title"><h1>Build Systems, Logging, Window Creation</h1></section><section id="_overview"><h2>Overview</h2><div class="ulist"><ul><li><p>Build Systems</p></li><li><p>Logging</p></li><li><p>Window Creation</p></li><li><p>Towards a Game Loop (reading/thinking)</p></li></ul></div></section>
+<section id="_build_systems"><h2>Build Systems</h2><div class="ulist"><ul><li><p>In the workshop you should have made two Visual Studio solutions, each able to use SDL2:</p><div class="olist loweralpha"><ol class="loweralpha" type="a"><li><p>Manually</p></li><li><p>Automatically using <a href="https://conan.io/">conan.io</a> and <a href="https://cmake.org/">cmake</a></p></li></ol></div></li><li><p>We&#8217;ll briefly run through the <a href="workshop01_settingUpABuildSystem.html">workshop</a>, and talk through it</p></li></ul></div>
+<div class="imageblock" style=""><img src="assets/Sdl-logo.png" alt="Sdl logo" height="200"></div></section>
+<section id="_advantages_of_our_automated_build_system"><h2>Advantages of our automated Build System</h2><div class="ulist"><ul><li><p>Cross-platform</p><div class="ulist"><ul><li><p>At least one of you is using the toolchain on OS X</p></li></ul></div></li><li><p>Easier, in the longer term</p><div class="ulist"><ul><li><p>Make a batch/bash file that runs conan and cmake appropriately</p></li><li><p>Then on a new machine (you move Lab machines frequently) just run the batch file</p></li><li><p>If anything is broken, you can just clean out the build folder and rerun the batch file</p></li></ul></div></li></ul></div></section>
+<section id="_advantages_of_our_automated_build_system_2"><h2>Advantages of our automated Build System 2</h2><div class="ulist"><ul><li><p>More reliable</p><div class="ulist"><ul><li><p>"Configuration as Code"</p></li><li><p>You are not reliant on people (including yourself) from following steps correctly</p></li></ul></div></li><li><p>The configuration code <strong>documents</strong> the setup</p><div class="ulist"><ul><li><p>and <strong>versions</strong> the setup</p></li></ul></div></li></ul></div></section>
+<section id="__strong_versioning_strong"><h2><strong>Versioning</strong></h2><div class="ulist"><ul><li><p>Highly recommend that you version your code</p><div class="ulist"><ul><li><p>git (recommended)</p></li></ul></div></li><li><p>Any generated files don&#8217;t need to and <strong>shouldn&#8217;t</strong> be versioned</p><div class="ulist"><ul><li><p>by <code>conan</code> or <code>cmake</code></p></li><li><p>by Visual Studio (or any other build system)</p></li></ul></div></li></ul></div></section>
+<section id="_logging"><h2>Logging</h2><div class="ulist"><ul><li><p>Until now, you&#8217;ve probably been generating output to the console using some kind of "print" statement</p><div class="ulist"><ul><li><p>C/C++: <code>printf</code>, <code>std::cout</code></p></li><li><p>C#: <code>Console.WriteLine</code></p></li></ul></div></li><li><p>This works, but gives you little control or expression</p></li></ul></div></section>
+<section id="_things_you_might_want_need_to_do_with_logs"><h2>Things you might want/need to do with logs</h2><div class="ulist"><ul><li><p>Express and Control the "level" of log messages</p><div class="ulist"><ul><li><p>at compile-time</p></li><li><p>at run-time</p></li></ul></div></li><li><p>Express and Control the "type" of log messages</p><div class="ulist"><ul><li><p>at compile-time</p></li><li><p>at run-time</p></li></ul></div></li></ul></div></section>
+<section><section id="_persistent_logs"><h2>Persistent logs</h2><div class="ulist"><ul><li><p>Keep log files around</p><div class="ulist"><ul><li><p>Why?</p></li><li><p>Log to a file</p></li><li><p>Log to a network</p></li></ul></div></li></ul></div></section><section id="_persistent_logs_2"><h2>Persistent logs 2</h2><div class="ulist"><ul><li><p>Keep log files around</p><div class="ulist"><ul><li><p>Why?</p></li><li><p>To allow post-run analysis</p></li><li><p>To (possibly) allow reconstruction of the game!!</p></li><li><p>For stats generation</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_adding_information_to_log_messages"><h2>Adding information to log messages</h2><div class="ulist"><ul><li><p>You might want to be able to add information to the log messages</p><div class="ulist"><ul><li><p>Why? What sort of information?</p></li></ul></div></li></ul></div></section><section id="_adding_information_to_log_messages_2"><h2>Adding information to log messages 2</h2><div class="ulist"><ul><li><p>You might want to be able to add information to the log messages</p><div class="ulist"><ul><li><p>Why? What sort of information?</p></li><li><p>Timestamp</p></li><li><p>Caller</p></li><li><p>Other information</p></li></ul></div></li></ul></div></section></section>
+<section id="_other_things_to_do_with_to_do_with_logs"><h2>Other things to do with to do with Logs</h2><div class="ulist"><ul><li><p>Show the log somewhere else</p><div class="ulist"><ul><li><p>on-screen - in the render window, not just the console</p></li></ul></div></li></ul></div></section>
+<section id="_logging_in_sdl2"><h2>Logging in SDL2</h2><div class="ulist"><ul><li><p>SDL2 has good support for logging - <a href="https://wiki.libsdl.org/CategoryLog" class="bare">https://wiki.libsdl.org/CategoryLog</a></p></li><li><p>Allowing:</p><div class="ulist"><ul><li><p>Log priorities</p></li><li><p>Log categories</p></li><li><p>Control of what categories/priorities to write out</p></li><li><p>Overriding of the Logging function - do what you like</p></li></ul></div></li></ul></div></section>
+<section id="_logging_in_sdl2_example"><h2>Logging in SDL2 - example</h2><div class="ulist"><ul><li><p>from our build system example code</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="cpp language-cpp">#include &lt;iostream&gt;
+#include "SDL.h"
+
+int main(int argc, char* argv[])
+{
+	//send HelloWorld! to console output
+	std::cout &lt;&lt; "HelloWorld!\n";
+
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION,
+			"SDL_Init Error: %s\n", SDL_GetError());
+		return 1;
+	}
+	SDL_Log("SDL initialised OK!\n");
+
+	return 0;
+}</code></pre></div></div></section>
+<section id="_what_might_you_want_to_log"><h2>What might you want to log?</h2><div class="ulist"><ul><li><p>???</p></li></ul></div></section>
+<section><section id="_window_creation"><h2>Window Creation</h2><div class="ulist"><ul><li><p>We need at least one window for our Game</p><div class="ulist"><ul><li><p>that can show some kind of imagery/graphics</p></li></ul></div></li><li><p>Window creation involves talking to the Operating System</p><div class="ulist"><ul><li><p>i.e. platform specific</p></li><li><p>and fiddly - see <a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ms632679(v=vs.85).aspx">CreateWindow from MSDN</a></p></li></ul></div></li></ul></div><div class="admonitionblock warning"><table><tr><td class="icon"><div class="title">Warning</div></td><td class="content"><strong>terminology overlap - "Window" vs "Windows"</strong></td></tr></table></div></section><section id="_window_creation_by_hand_on_ms_windows"><h2>Window Creation by hand on MS Windows</h2><div class="listingblock"><div class="title"><a href="https://msdn.microsoft.com/en-gb/library/windows/desktop/ms632679(v=vs.85).aspx">CreateWindow function (MSDN)</a></div><div class="content"><pre class="highlight"><code class="cpp language-cpp">HWND WINAPI CreateWindow(
+  _In_opt_ LPCTSTR   lpClassName,
+  _In_opt_ LPCTSTR   lpWindowName,
+  _In_     DWORD     dwStyle,
+  _In_     int       x,
+  _In_     int       y,
+  _In_     int       nWidth,
+  _In_     int       nHeight,
+  _In_opt_ HWND      hWndParent,
+  _In_opt_ HMENU     hMenu,
+  _In_opt_ HINSTANCE hInstance,
+  _In_opt_ LPVOID    lpParam
+);</code></pre></div></div></section><section id="_window_creation_by_hand_on_ms_windows_resources"><h2>Window Creation by hand, on MS Windows (Resources)</h2><div class="ulist"><ul><li><p><a href="https://msdn.microsoft.com/en-us/library/bb384843.aspx" class="bare">https://msdn.microsoft.com/en-us/library/bb384843.aspx</a>
+<a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ff381409(v=vs.85).aspx" class="bare">https://msdn.microsoft.com/en-us/library/windows/desktop/ff381409(v=vs.85).aspx</a></p></li></ul></div></section></section>
+<section><section id="_what_is_a_window"><h2>What is a Window?</h2><div class="ulist"><ul><li><p>What is it for?</p></li><li><p>What can we control about them?</p></li><li><p>Anything else that relates?</p></li></ul></div></section><section id="_what_is_a_window_for"><h2>What is a Window for?</h2><div class="ulist"><ul><li><p>What is it for?</p><div class="ulist"><ul><li><p>Showing stuff to our user</p></li><li><p>Getting input from out user</p><div class="ulist"><ul><li><p><strong>Frequently</strong> only when the Window is "active"</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_what_can_we_control_about_a_window"><h2>What can we control about a Window?</h2><div class="ulist"><ul><li><p>Title</p></li><li><p>Size, Position</p></li><li><p>Fullscreen (in various ways)</p></li><li><p>Features supported &#8230;&#8203;</p></li></ul></div></section><section id="_what_can_we_control_about_a_window_2"><h2>What can we control about a Window? 2</h2><div class="ulist"><ul><li><p>An incomplete list</p><div class="ulist"><ul><li><p>window usable with OpenGL context</p></li><li><p>window is visible / not visible</p></li><li><p>window decoration (borders)</p></li><li><p>if window can be resized (by user)</p></li><li><p>window minimization</p></li><li><p>window maximization</p></li><li><p>input grab</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_creating_a_window_in_sdl2"><h2>Creating a Window in SDL2</h2><div class="listingblock"><div class="title"><a href="https://wiki.libsdl.org/SDL_CreateWindow">SDL_CreateWindow</a></div><div class="content"><pre class="highlight"><code class="cpp language-cpp">SDL_Window* SDL_CreateWindow(const char* title,
+                             int         x,
+                             int         y,
+                             int         w,
+                             int         h,
+                             Uint32      flags)
+);</code></pre></div></div></section><section id="_creating_a_window_in_sdl2_flags_and_examples"><h2>Creating a Window in SDL2 - flags and examples</h2><div class="ulist"><ul><li><p>Details on the Window flags we can use and examples in SDL2s documentation</p><div class="ulist"><ul><li><p><a href="https://wiki.libsdl.org/SDL_CreateWindow" class="bare">https://wiki.libsdl.org/SDL_CreateWindow</a></p></li></ul></div></li></ul></div></section></section>
+<section id="_towards_a_game_loop"><h2>Towards a Game Loop</h2><div class="ulist"><ul><li><p>Recommended Reading</p><div class="ulist"><ul><li><p><a href="http://gameprogrammingpatterns.com/game-loop.html">Game Loop - Game Programming Patterns</a></p></li><li><p><a href="http://gafferongames.com/game-physics/fix-your-timestep/">Fix your timestep - Gaffer On Games</a></p></li><li><p><a href="https://www.reddit.com/r/gamedev/comments/41v2td/a_modern_c_game_loop_template_mit/">a_modern_c_game_loop_template_mit - Reddit</a></p></li><li><p><a href="https://youtu.be/fdAOPHgW7qM">Jonathan Blow, Q&amp;A: frame-rate-independence</a></p></li></ul></div></li></ul></div></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
