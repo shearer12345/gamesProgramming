@@ -1,6 +1,5 @@
 #include <iostream>
 #include "SDL.h"
-#include "SDL_image.h"
 
 
 // tag::globalVariables[]
@@ -25,7 +24,7 @@ int init() {
 
 // tag::createWindow[]
 void createWindow() {
-	win = SDL_CreateWindow("A Window Title", 100, 100, 600, 600, SDL_WINDOW_OPENGL); //same height and width makes the window square ...
+	win = SDL_CreateWindow("A Window Title", 100, 100, 600, 600, SDL_WINDOW_SHOWN); //same height and width makes the window square ...
 
 	//error handling
 	if (win == nullptr) {
@@ -53,15 +52,15 @@ void createRenderer() {
 
 // tag::loadAssets[]
 void loadAssets() {
-	std::string imagePath = "./assets/Opengl-logo.svg.png";
+	std::string imagePath = "./assets/Sdl-logo.bmp";
 
-	SDL_Surface* surface = IMG_Load("assets/Sdl-logo.png");
+	SDL_Surface* surface = SDL_LoadBMP(imagePath.c_str());
 	if (surface == nullptr) {
 		SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION,
-			"SDL IMG_Load Error: %s\n", SDL_GetError());
+			"SDL_LoadBMP Error: %s\n", SDL_GetError());
 			running = false;
 		}
-	SDL_Log("SDL IMG_Load OK! for: %s\n", imagePath.c_str());
+	SDL_Log("SDL_LoadBMP OK! for: %s\n", imagePath.c_str());
 
 	tex = SDL_CreateTextureFromSurface(ren, surface);
 	if (tex == nullptr) {
