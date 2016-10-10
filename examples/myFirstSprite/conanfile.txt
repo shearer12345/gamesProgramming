@@ -1,0 +1,12 @@
+[requires]
+SDL2/2.0.4@lasote/stable
+
+##image loading (either/or)
+SDL2_image/2.0.1@lasote/stable
+#stb_image/2.12@dsobczyk/testing
+
+[options]
+SDL2:shared=True #False
+
+[generators]
+cmake
