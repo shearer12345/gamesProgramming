@@ -3,6 +3,7 @@
 
 exampleGames/
 exampleVideos/
+build/
 
 *.pdf
 *.pdfmarks

@@ -9,7 +9,8 @@ shearer12345
 == Lectures
 
 . link:lecture01_introduction.html[Introduction]
-. link:lecture02.html[Build Systems, Logging, Window Creation and Game Loop]
+. link:lecture02.html[Build Systems, Logging, Window Creation]
+. link:lecture03.html[Game Loop, and timing]
 
 NOTE: workshops linked from later slides
 
