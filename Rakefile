@@ -26,4 +26,5 @@ task :default do
     task(:generateReveal).execute( :filename => 'index.adoc' )
     task(:generateReveal).execute( :filename => 'lecture01_introduction.adoc')
     task(:generateReveal).execute( :filename => 'lecture02.adoc')
+    task(:generateReveal).execute( :filename => 'lecture03.adoc')
 end

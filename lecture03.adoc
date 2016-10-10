@@ -1,0 +1,19 @@
+= Game Loop and my First Sprite
+:imagesdir: assets
+:revealjs_history: true
+:examplesdir: examples
+:source-highlighter: highlightjs
+include::links.adoc[]
+
+== Overview
+
+* Game Loop
+* My First Sprite
+
+== Towards a Game Loop
+
+* Recommended Reading
+  ** http://gameprogrammingpatterns.com/game-loop.html[Game Loop - Game Programming Patterns]
+  ** http://gafferongames.com/game-physics/fix-your-timestep/[Fix your timestep - Gaffer On Games]
+  ** https://www.reddit.com/r/gamedev/comments/41v2td/a_modern_c_game_loop_template_mit/[a_modern_c_game_loop_template_mit - Reddit]
+  ** https://youtu.be/fdAOPHgW7qM[Jonathan Blow, Q&A: frame-rate-independence]
