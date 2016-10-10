@@ -1,4 +1,4 @@
-= Game Loop and my First Sprite
+= Game Loop and Timing
 :imagesdir: assets
 :revealjs_history: true
 :examplesdir: examples
@@ -8,12 +8,254 @@ include::links.adoc[]
 == Overview
 
 * Game Loop
-* My First Sprite
+* Timing
+* Game Loop Timing Solutions
+* Determinism
 
-== Towards a Game Loop
+== What *ANY* Game needs to do
 
-* Recommended Reading
-  ** http://gameprogrammingpatterns.com/game-loop.html[Game Loop - Game Programming Patterns]
-  ** http://gafferongames.com/game-physics/fix-your-timestep/[Fix your timestep - Gaffer On Games]
-  ** https://www.reddit.com/r/gamedev/comments/41v2td/a_modern_c_game_loop_template_mit/[a_modern_c_game_loop_template_mit - Reddit]
-  ** https://youtu.be/fdAOPHgW7qM[Jonathan Blow, Q&A: frame-rate-independence]
+* Show to a player images and sound that change, in response to player input, sufficiently quickly to provide for an "interactive" experience
+  ** Render (display), also with sound
+  ** Get input from player, or players
+  ** Update a model of the world
+  ** *REPEAT*
+
+NOTE: order can be altered
+
+== Game Loop (BAD!)
+
+[source, cpp]
+.gameLoop/main.cpp
+----
+include::{examplesdir}/gameLoop/main.cpp[tags=main]
+----
+
+== What's wrong with that??
+
+* Let's run that program and see what happens
+  ** What do you think will happen?
+
+== DEMO
+
+* DEMO :-)
+
+=== Demo Issues
+
+. Hard-running
+  ** runs as fast as it can
+  ** how fast? We don't even know!
+  ** runs at different speeds on different hardware
+  ** runs at different speeds when doing different things per step/frame
+  ** our render rate/frequency is fixed/couple to out step rate/frequency
+
+=== Demo Issues 2
+
+. Doesn't/can't exit
+. Doesn't actual *do* anything
+  ** render, get input, update
+
+== Milliseconds per *Frame* and per *Step*
+
+* What we're actually interested in?
+  ** How long did each take?
+  ** Or the time since the last time we were in this place?
+* We can calculate FPS from these
+
+== *Frames* and *Steps* Per Second
+
+* FPS is the frequently quoted metric
+  ** FPS - Frames Per Second - how many times `render` is called per second
+  ** Steps Per Second - how many times `update` is called per second
+
+== Time in your Game Loop
+
+* There are *many, many* ways better game loops
+* The key thing is to *measure* real-time and use that information
+
+
+== Real-time System
+
+* The issue we're looking at is more generical called "Real-time Systems"
+
+"A system is said to be real-time if the total correctness of an operation depends not only upon its logical correctness, but also upon the time in which it is performed."
+-- Mordechai Ben-Ari, Principles of Concurrent and Distributed Programming
+
+== Relationship with Real-World Real-time control
+
+* Many/most Real-World Real-time control systems have similar loops to a Game Loop
+  ** some may have schedulers in more complex situations
+  ** some may be written to be provable to meet deadlines
+  ** Games rarely use either of these formalisms
+
+== Measuring Real-time
+
+* SDL2 provides a simple, not very precise, way of measuring time - https://wiki.libsdl.org/SDL_GetTicks[`SDL_GetTicks`]
+
+"Returns an unsigned 32-bit value representing the number of milliseconds since the SDL library initialized."
+-- `SDL_GetTicks` Documentation, https://wiki.libsdl.org/SDL_GetTicks
+
+== Solution #1
+
+* Limit the rate through the Game Loop based on elapsed time
+
+. initialise a variable for the time of the next update
+  ** from the clock
+  ** and how long from one update to the next
+. before doing the next update, measure if we've got to that time already
+  ** if not, then sleep for the extra time
+  ** don't spin-wait / busy-wait!!!
+
+== Let's try it - DEMO 2
+
+* example at http://www.koonsolo.com/news/dewitters-gameloop/[FPS dependent on Constant Game Speed]
+
+
+== Reviewing Solution #1 - Slow Machine
+
+* Slow machine - can't always hit the rate
+  ** long steps make for bad simulations
+  ** long steps make for bad renderings
+  ** we *may* be able to mitigate one of those
+
+== Reviewing Solution #1 - Fast Machine
+
+* Fast machine - easily hits the rate
+  ** could make the simulation or rendering *better*
+
+== Accuracy and Precision of Time
+
+Accuracy:: How correct the time is
+
+Precision:: How precisely (fine-grained) the time is measured/represented
+
+== Getting accurate, precise Real-time is hard
+
+* Most PCs get their sense of time from a "Real-time Clock"
+  ** usually based on a vibrating piece of quartz!
+* The quartz's size affects clock rate
+  ** temperature
+* Almost all clocks *drift* - become inaccurate
+* Usually, drift is managed by getting a "better" time from the network
+  ** usually ties back to an atomic clock
+
+NOTE: for single-player games, we rarely care about accurate real-tiem
+
+== Higher-frequency that the RTC
+
+* RTCs don't give very high frequency updates
+* Usually, the processor cycle speed is used for fine-grained time measuring
+  ** Modern CPU's can (*DO*) change this frequency!!
+
+== High-resolution Clock - A solution?
+
+* Fortunately, modern {cpp} does most of this for us
+  ** http://www.cplusplus.com/reference/chrono/high_resolution_clock/now/[High-resolution Clock]
+* API is pretty heavy
+  ** the millisecond precision of `SDL_GetTicks` may be enough for you (mostly)
+
+== Solution #2
+
+* Update amount dependent on elapsed time
+
+. initialise a variables to measure time between updates
+  ** from the clock
+. between calling `update`, measure elapsed time, and pass
+  ** `update` should update less when given shorter durations
+
+== Solution #2 - Slow Machine
+
+* When Rendering is "heavy" our simulation steps get large
+  ** Rendering rate and Simulation rate are coupled
+* Too large steps *feels* bad
+  ** may *explode* a simulation
+  ** may *miss* events (e.g. bullets pass through things)
+  ** will behave differently
+
+== Solution #2 - Fast Machine
+
+* Rounding errors - yes, really
+  ** Especially with a low precision clock
+    *** `SDL_GetTicks`!!!
+* Burning CPU cycles
+
+== Observation
+
+* Many modern games are *render-limited*
+  ** running smaller simulations steps is *very* plausible
+  ** https://youtu.be/fdAOPHgW7qM[Jonathan Blow ("Braid", "The Witness") suggests 200+ Hz!]
+
+== Solution #3
+
+* For *render-limited* systems
+* Run a constant simulation rate
+  ** reduce the frame rate
+* i.e. make the simulation *feel* nice, but lower FPS, on Slow machines
+* in other words, do multiple updates for each render, depending on available time
+
+NOTE: Films are usually only 24fps ...
+
+== What we want
+
+. To render as fast as we can display
+  ** for best visual smoothness
+. To render as well as possible
+  ** conflicts with above
+. To update at a *constant*, high rate
+. To interpolate visuals between simulation steps
+
+
+== Solution #4
+
+* Tie to V-Sync
+  ** limit our render rate to the display rate of our *physical* devices
+  ** occurs in hardware
+  ** see also - Adaptive V-Sync, G-Sync, ...
+* Not really a solution ...
+
+== Solution #5
+
+* Don't do all updates every update
+* ???? WTF ???
+
+=== Don't do all updates every update 2
+
+* ???? WTF ???
+* AI may not need to update every simulation step
+* Physics simulation does
+
+
+== Determinism
+
+* Our Game behaves the same way each time
+  ** independent of the hardware
+  ** independent of time
+
+== Values of Determinism (briefly)
+
+* debugging
+  ** if it runs differently another time, how do find the bug
+  ** simulation behaves the same in debug as release
+    *** even if you *pause* executation!!
+* log replay
+* same simulation in multiple places
+
+
+== Deterministic Simulation
+
+* Fixed time step *vital* for deterministic simulation
+* *neccesary* but not *sufficent*
+
+
+== WARNING: no classes, horrid global variables
+
+WARNING: no classes, horrid global variables
+
+* We should create a "Game" class, or similar, to encapsulate
+
+== Recommended Reading
+
+* http://gameprogrammingpatterns.com/game-loop.html[Game Loop - Game Programming Patterns]
+* http://gafferongames.com/game-physics/fix-your-timestep/[Fix your timestep - Gaffer On Games]
+* https://www.reddit.com/r/gamedev/comments/41v2td/a_modern_c_game_loop_template_mit/[a_modern_c_game_loop_template_mit - Reddit]
+* https://youtu.be/fdAOPHgW7qM[Jonathan Blow, Q&A: frame-rate-independence]
+* https://developer.mozilla.org/en-US/docs/Games/Anatomy[Anatomy of a Video Game]
