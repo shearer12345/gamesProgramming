@@ -71,7 +71,37 @@ include::links.adoc[]
   .. Yellow
   .. Grey
 
-== 4. Input Handling
+== 4. Game Loop
+
+* Our present program doesn't have a Game Loop
+  ** it just runs and then exits
+* Add a Game Loop
+  ** keep it simple initially
+  ** it should call (at least) 3 functions
+    ... `process_input`
+    ... `update`
+    ... `render`
+* Add a log for each time this loop goes around
+  ** what "priority" should this log be?
+
+== 4.1 Make the window colour change over time
+
+* Store the colour in a variable
+  ** what "scope" should this variable be in?
+  ** or - how do our functions access its data
+* Change the variable over time
+  ** where should this happen?
+* Use the variable when drawing
+  ** wher should this happen?
+
+== 4.2 WARNING: global variables
+
+* So far we have no classes
+* Quite likely you will use Global variables for your program at this point
+* WARNING: Global variables are, in general, *BAD* practice
+* We should try to move away from this in future
+
+== 5. Input Handling
 
 * Our Game loop doesn't exit well at the present
 * SDL can give us input from the user
@@ -81,7 +111,7 @@ include::links.adoc[]
   ** the user presses escape down
 * Log appropriately
 
-== 5. Loading a Sprite
+== 6. Loading a Sprite
 
 * SDL can load some bitmap files with the `SDL_LoadBMP` function
   ** we'll move to a better image loader later
@@ -90,8 +120,10 @@ include::links.adoc[]
   ** make sure you have one in the appropriate format
   ** where will your program look
 * What "type" does `SDL_LoadBMP` give you
+* Log and handles errors appropriately
+  ** this *WILL* help you now and in future
 
-=== 5.1 Creating a texture
+=== 6.1 Creating a texture
 
 * "Textures" exist in GPU memory
 * "Surfaces" exist in CPU memory
@@ -99,40 +131,46 @@ include::links.adoc[]
 * `SDL_CreateTextureFromSurface` will help you create a "texture"
   ** what should you do with the surface after you've finished with it
   ** check the documentation
+* Log and handles errors appropriately
+  ** this *WILL* help you now and in future
 
-=== 5.2 Drawing the texture
+=== 6.2 Drawing the texture
 
 * SDL can draw a texture with the `SDL_RenderCopy` function
 * Look up the documentation
 * Use `SDL_RenderCopy` in your program
+* Log and handles errors appropriately
+  ** this *MAY* help you now and in future
 
-== 6. Change the sprite size and position
+== 7. Change the sprite size and position
 
 * `SDL_RenderCopy` can control the size and position of the sprite
 * Read the documentation
 * Change the size and position
 * What units are these in?
 
-== 7. Make the sprite position and size independent of window resolution
+== 8. Make the sprite position and size independent of window resolution
 
 * Change the Window size for your program
   ** try a variety of options, including fullscreen
 * Make your sprite always appear relatively the same size
 
-== 8. Move your sprite over time
+== 9. Move your sprite over time
 
 * Store the sprite position in a variable and change it in your `update` function
 * Render using that position
 
-== 9. Time how long your program is spending in each stage
+== 10. Time how long your program is spending in each stage
 
 * Use `SDL_GetTicks` initially
-* 
-
-
+* Move to something with more precision
+* Where is burning most time?
+  ** There is a specific point in our game that our program is waiting
+  ** What is it?
+  ** Can you disable the cause?
+  ** What happens once you disable the cause?
 
 == Stretch Activities
 
 * Compensate for real-time in your Game Loop
-  **
 * Look at various ways of error checking
