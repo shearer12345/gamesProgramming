@@ -17,3 +17,4 @@ NOTE: workshops linked from later slides
 == Workshops
 
 . link:workshop01_settingUpABuildSystem.html[Setting Up A Build System]
+. link:workshop02_myFirstSprite.html[My First Sprite]

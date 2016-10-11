@@ -1,0 +1,138 @@
+= My First Sprite
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Create a window
+* Draw a Sprite in the window
+* Control where and what size in the window it appears
+* Make the sprite position and size independent of window resolution
+* Time how long your program is spending in each stage
+* Compensate for real-time in your Game Loop
+* Look at various ways of error checking
+
+== Activity summary
+
+* We'll be building on a working <<workshop01_settingUpABuildSystem.adoc#,Build System>>
+  ** you shouldn't need to change the `conanfile.txt` or `CMakeLists.txt` files
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+* SDL2 can already load some images, which we can then use as Sprites
+  ** only very limited forms of `.bmp` files
+  ** 24bpp ``.bmp` files
+
+== 1. Create a Window
+
+* add code using `SDL_CreateWindow` to create a window
+  ** be careful where/when in your program you put this
+  ** it would be good to have it in a function
+
+=== 1.1 Check for errors
+
+* you should check for errors and do something appropriate
+  ** bad return values
+* SDL has some https://wiki.libsdl.org/CategoryAssertions[assert] functions that you could use
+  ** look them up, which would make sense for your program
+  ** or handle errors differently
+
+== 2. Create a Renderer
+
+* To draw stuff in the window we need a renderer
+* Use `SDL_CreateRenderer` to create a renderer for our window
+* Check it for errors
+* What "kind" of renderer makes most sense
+
+=== 2.1 Combine/Simplify
+
+* SDL can make a connected window and a renderer in a single function call
+  ** use this instead
+
+== 3. Clear and Present the renderer
+
+* Our render function should do 3 things:
+  .. Clear the "backbuffer"
+  .. Draw some stuff
+  .. Show the "backbuffer"
+    *** make the "backbuffer" the "frontbuffer"
+
+=== 3.1 Clear and Present the renderer
+
+* Look up the appropriate functions in SDL2
+* Use them to make the window various colours:
+  .. Red
+  .. Green
+  .. Blue
+  .. Yellow
+  .. Grey
+
+== 4. Input Handling
+
+* Our Game loop doesn't exit well at the present
+* SDL can give us input from the user
+* Look up `SDL_PollEvent` in the documentation
+* Use it in your code (in `process_input`) to stop your program running when:
+  ** the user closes the window
+  ** the user presses escape down
+* Log appropriately
+
+== 5. Loading a Sprite
+
+* SDL can load some bitmap files with the `SDL_LoadBMP` function
+  ** we'll move to a better image loader later
+* Look up the documentation for `SDL_LoadBMP`
+* Make your program load an image
+  ** make sure you have one in the appropriate format
+  ** where will your program look
+* What "type" does `SDL_LoadBMP` give you
+
+=== 5.1 Creating a texture
+
+* "Textures" exist in GPU memory
+* "Surfaces" exist in CPU memory
+* `SDL_LoadBMP` doesn't give you a texture
+* `SDL_CreateTextureFromSurface` will help you create a "texture"
+  ** what should you do with the surface after you've finished with it
+  ** check the documentation
+
+=== 5.2 Drawing the texture
+
+* SDL can draw a texture with the `SDL_RenderCopy` function
+* Look up the documentation
+* Use `SDL_RenderCopy` in your program
+
+== 6. Change the sprite size and position
+
+* `SDL_RenderCopy` can control the size and position of the sprite
+* Read the documentation
+* Change the size and position
+* What units are these in?
+
+== 7. Make the sprite position and size independent of window resolution
+
+* Change the Window size for your program
+  ** try a variety of options, including fullscreen
+* Make your sprite always appear relatively the same size
+
+== 8. Move your sprite over time
+
+* Store the sprite position in a variable and change it in your `update` function
+* Render using that position
+
+== 9. Time how long your program is spending in each stage
+
+* Use `SDL_GetTicks` initially
+* 
+
+
+
+== Stretch Activities
+
+* Compensate for real-time in your Game Loop
+  **
+* Look at various ways of error checking
