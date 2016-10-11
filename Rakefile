@@ -31,13 +31,19 @@ task :generatePDF, [:filename, :output_dir] do |t, args|
 end
 
 task :default do
+    #Web pages
     task(:generateHTML  ).execute( :filename => 'workshop01_settingUpABuildSystem.adoc')
+    task(:generateHTML  ).execute( :filename => 'workshop02_myFirstSprite.adoc')
+
     task(:generateReveal).execute( :filename => 'index.adoc' )
     task(:generateReveal).execute( :filename => 'lecture01_introduction.adoc')
     task(:generateReveal).execute( :filename => 'lecture02.adoc')
     task(:generateReveal).execute( :filename => 'lecture03.adoc')
 
+    #PDFs
     task(:generatePDF   ).execute( :filename => 'workshop01_settingUpABuildSystem.adoc')
+    task(:generatePDF   ).execute( :filename => 'workshop02_myFirstSprite.adoc')
+
     task(:generatePDF   ).execute( :filename => 'index.adoc' )
     task(:generatePDF   ).execute( :filename => 'lecture01_introduction.adoc')
     task(:generatePDF   ).execute( :filename => 'lecture02.adoc')
