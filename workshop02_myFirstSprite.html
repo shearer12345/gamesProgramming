@@ -657,7 +657,125 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_4_input_handling">4. Input Handling</h2>
+<h2 id="_4_game_loop">4. Game Loop</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Our present program doesn&#8217;t have a Game Loop</p>
+<div class="ulist">
+<ul>
+<li>
+<p>it just runs and then exits</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Add a Game Loop</p>
+<div class="ulist">
+<ul>
+<li>
+<p>keep it simple initially</p>
+</li>
+<li>
+<p>it should call (at least) 3 functions</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><code>process_input</code></p>
+</li>
+<li>
+<p><code>update</code></p>
+</li>
+<li>
+<p><code>render</code></p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Add a log for each time this loop goes around</p>
+<div class="ulist">
+<ul>
+<li>
+<p>what "priority" should this log be?</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_4_1_make_the_window_colour_change_over_time">4.1 Make the window colour change over time</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Store the colour in a variable</p>
+<div class="ulist">
+<ul>
+<li>
+<p>what "scope" should this variable be in?</p>
+</li>
+<li>
+<p>or - how do our functions access its data</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change the variable over time</p>
+<div class="ulist">
+<ul>
+<li>
+<p>where should this happen?</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use the variable when drawing</p>
+<div class="ulist">
+<ul>
+<li>
+<p>wher should this happen?</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_4_2_warning_global_variables">4.2 WARNING: global variables</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>So far we have no classes</p>
+</li>
+<li>
+<p>Quite likely you will use Global variables for your program at this point</p>
+</li>
+<li>
+<p>WARNING: Global variables are, in general, <strong>BAD</strong> practice</p>
+</li>
+<li>
+<p>We should try to move away from this in future</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_5_input_handling">5. Input Handling</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -691,7 +809,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_5_loading_a_sprite">5. Loading a Sprite</h2>
+<h2 id="_6_loading_a_sprite">6. Loading a Sprite</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -724,10 +842,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>What "type" does <code>SDL_LoadBMP</code> give you</p>
 </li>
+<li>
+<p>Log and handles errors appropriately</p>
+<div class="ulist">
+<ul>
+<li>
+<p>this <strong>WILL</strong> help you now and in future</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_5_1_creating_a_texture">5.1 Creating a texture</h3>
+<h3 id="_6_1_creating_a_texture">6.1 Creating a texture</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -752,11 +880,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </li>
+<li>
+<p>Log and handles errors appropriately</p>
+<div class="ulist">
+<ul>
+<li>
+<p>this <strong>WILL</strong> help you now and in future</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_5_2_drawing_the_texture">5.2 Drawing the texture</h3>
+<h3 id="_6_2_drawing_the_texture">6.2 Drawing the texture</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -768,13 +906,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Use <code>SDL_RenderCopy</code> in your program</p>
 </li>
+<li>
+<p>Log and handles errors appropriately</p>
+<div class="ulist">
+<ul>
+<li>
+<p>this <strong>MAY</strong> help you now and in future</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_6_change_the_sprite_size_and_position">6. Change the sprite size and position</h2>
+<h2 id="_7_change_the_sprite_size_and_position">7. Change the sprite size and position</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -795,7 +943,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_7_make_the_sprite_position_and_size_independent_of_window_resolution">7. Make the sprite position and size independent of window resolution</h2>
+<h2 id="_8_make_the_sprite_position_and_size_independent_of_window_resolution">8. Make the sprite position and size independent of window resolution</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -817,7 +965,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_8_move_your_sprite_over_time">8. Move your sprite over time</h2>
+<h2 id="_9_move_your_sprite_over_time">9. Move your sprite over time</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -832,13 +980,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_9_time_how_long_your_program_is_spending_in_each_stage">9. Time how long your program is spending in each stage</h2>
+<h2 id="_10_time_how_long_your_program_is_spending_in_each_stage">10. Time how long your program is spending in each stage</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Use <code>SDL_GetTicks</code> initially
-*</p>
+<p>Use <code>SDL_GetTicks</code> initially</p>
+</li>
+<li>
+<p>Move to something with more precision</p>
+</li>
+<li>
+<p>Where is burning most time?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There is a specific point in our game that our program is waiting</p>
+</li>
+<li>
+<p>What is it?</p>
+</li>
+<li>
+<p>Can you disable the cause?</p>
+</li>
+<li>
+<p>What happens once you disable the cause?</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -850,8 +1019,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Compensate for real-time in your Game Loop
-**</p>
+<p>Compensate for real-time in your Game Loop</p>
 </li>
 <li>
 <p>Look at various ways of error checking</p>
@@ -863,7 +1031,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-10-11 08:57:08 BST
+Last updated 2016-10-11 09:20:31 BST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
