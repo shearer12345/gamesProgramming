@@ -259,3 +259,5 @@ WARNING: no classes, horrid global variables
 * https://www.reddit.com/r/gamedev/comments/41v2td/a_modern_c_game_loop_template_mit/[a_modern_c_game_loop_template_mit - Reddit]
 * https://youtu.be/fdAOPHgW7qM[Jonathan Blow, Q&A: frame-rate-independence]
 * https://developer.mozilla.org/en-US/docs/Games/Anatomy[Anatomy of a Video Game]
+* http://www.fabiensanglard.net/timer_and_framerate/index.php[Timer and Framerate]
+* http://idevgames.com/articles/timebasedanimation[Time-based Animation]
