@@ -439,9 +439,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>For this module, we&#8217;ll mainly be using the <a href="https://www.libsdl.org/index.php">SDL2</a> library</p>
 </li>
 <li>
-<p>By the end of this session, you should have gotten our test program to run, using two different build systems</p>
-<div class="olist arabic">
-<ol class="arabic">
+<p>By the end of this session, you should have:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>gotten our test program to run, using two different build systems</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
 <li>
 <p>manual approach</p>
 </li>
@@ -449,6 +453,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>automated approach (using <a href="https://conan.io/">conan.io</a> and <a href="https://cmake.org/">cmake</a>)</p>
 </li>
 </ol>
+</div>
+</li>
+<li>
+<p>written an automation script to fully automate that</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. a Windows <code>.bat</code> file</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </li>
 </ul>
@@ -1805,6 +1822,126 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_16_automate_everything">16. Automate everything!</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>We&#8217;ve only really executed 4 commands above</p>
+<div class="ulist">
+<ul>
+<li>
+<p>that depend on 3 files</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>BUT</strong> that is a lot to remember; hard to get right; easy to get wrong; etc</p>
+</li>
+<li>
+<p>We should automate that too.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_16_1_batch_script_files">16.1 Batch/Script files</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Batch files, AKA Script files can executed commands for us</p>
+</li>
+<li>
+<p>There are many different scripting engines</p>
+<div class="ulist">
+<ul>
+<li>
+<p>default on Windows - Batch files - <code>.bat</code></p>
+</li>
+<li>
+<p>default on Linux - Shell files - <code>.sh</code></p>
+</li>
+<li>
+<p>Powershell</p>
+</li>
+<li>
+<p>"real" scripting languages</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Python, Lua, Ruby, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_16_2_automation">16.2 Automation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Automate the steps from part two using a Batch/Script file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>it needs to do all the steps we&#8217;ve done automated</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>making and going into <code>build</code> directory</p>
+</li>
+<li>
+<p>conan</p>
+</li>
+<li>
+<p>cmake</p>
+</li>
+<li>
+<p>clean up (leave the command line at the same path)</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_16_3_test_it">16.3 Test it</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Test your script by running it twice, back to back</p>
+</li>
+<li>
+<p>Test your script by deleting the <code>build</code> directory</p>
+</li>
+<li>
+<p>Test your script by deleting the <code>build</code> and the <code>.conan</code> directory (in your user space)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>C:\Users\Computing\.conan\</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Test your script on another machine</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_stretch_activities">Stretch Activities</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -1855,7 +1992,7 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-10-10 15:18:09 BST
+Last updated 2016-10-12 19:00:35 BST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
