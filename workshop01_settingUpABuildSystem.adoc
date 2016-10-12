@@ -10,9 +10,12 @@ include::links.adoc[]
 
 * We need to be able to use libraries for Games Programming
 * For this module, we'll mainly be using the {link-sdl2}[SDL2] library
-* By the end of this session, you should have gotten our test program to run, using two different build systems
-  . manual approach
-  . automated approach (using {link-conan}[conan.io] and {link-cmake}[cmake])
+* By the end of this session, you should have:
+  ** gotten our test program to run, using two different build systems
+    ... manual approach
+    ... automated approach (using {link-conan}[conan.io] and {link-cmake}[cmake])
+  ** written an automation script to fully automate that
+    *** e.g. a Windows `.bat` file
 
 == Activity summary
 
@@ -416,6 +419,39 @@ cmake --build . --config Release #ask cmake to build in Release mode
 * OR run from Visual Studio (F5).
   ** WARNING: you will likely get a console window that immediately exits
 
+== 16. Automate everything!
+
+* We've only really executed 4 commands above
+  ** that depend on 3 files
+* *BUT* that is a lot to remember; hard to get right; easy to get wrong; etc
+* We should automate that too.
+
+=== 16.1 Batch/Script files
+
+* Batch files, AKA Script files can executed commands for us
+* There are many different scripting engines
+  ** default on Windows - Batch files - `.bat`
+  ** default on Linux - Shell files - `.sh`
+  ** Powershell
+  ** "real" scripting languages
+    *** Python, Lua, Ruby, ...
+
+=== 16.2 Automation
+
+* Automate the steps from part two using a Batch/Script file
+  ** it needs to do all the steps we've done automated
+    ... making and going into `build` directory
+    ... conan
+    ... cmake
+    ... clean up (leave the command line at the same path)
+
+=== 16.3 Test it
+
+* Test your script by running it twice, back to back
+* Test your script by deleting the `build` directory
+* Test your script by deleting the `build` and the `.conan` directory (in your user space)
+  ** `C:\Users\Computing\.conan\`
+* Test your script on another machine
 
 == Stretch Activities
 

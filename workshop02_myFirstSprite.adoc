@@ -16,10 +16,15 @@ include::links.adoc[]
 * Compensate for real-time in your Game Loop
 * Look at various ways of error checking
 
+== Where you should already be
+
+* Having a working build system, that uses SDL
+  ** setup on your present machine using your automation script
+  ** from <<workshop01_settingUpABuildSystem.adoc#,Workshop 1>>
+  ** you shouldn't need to change the `conanfile.txt` or `CMakeLists.txt` files
+
 == Activity summary
 
-* We'll be building on a working <<workshop01_settingUpABuildSystem.adoc#,Build System>>
-  ** you shouldn't need to change the `conanfile.txt` or `CMakeLists.txt` files
 * We'll be adding stuff to `main.cpp` to do more interesting things
 * You could continue with your existing code (take a snapshot/commit)
   ** or start a fresh project
