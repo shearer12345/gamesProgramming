@@ -8,3 +8,4 @@ gem 'asciidoctor-revealjs',
     branch: 'master'
 # NOTE For some reason, the json gem is required when using the system Ruby
 gem 'json'
+gem 'asciidoctor-pdf'
