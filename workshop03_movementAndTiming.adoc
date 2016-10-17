@@ -1,0 +1,61 @@
+= Movement And Timing
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Create a window
+* Draw a Sprite in the window
+* Control where and what size in the window it appears
+* Make the sprite position and size independent of window resolution
+* Time how long your program is spending in each stage
+* Compensate for real-time in your Game Loop
+* Look at various ways of error checking
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Be able to change the window size, including fullscreen
+
+== Activity summaryasciidoctor-pdf
+
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== 1. Toggle fullscreen on a key-press
+
+* Allow switching to fullscreen mode on a key-press
+* Allow switching out of fullscreen mode on the same key
+* Allow the user to change the size of the window with the mouse
+  ** at the window edges
+* Make the window return to the size it was before fullscreen when toggling back
+
+
+== 9. Move your sprite over time
+
+* Store the sprite position in a variable and change it in your `update` function
+* Render using that position
+
+== 10. Time how long your program is spending in each stage
+
+* Use `SDL_GetTicks` initially
+* Move to something with more precision
+* Where is burning most time?
+  ** There is a specific point in our game that our program is waiting
+  ** What is it?
+  ** Can you disable the cause?
+  ** What happens once you disable the cause?
+
+== Stretch Activities
+
+* Compensate for real-time in your Game Loop
+* Look at various ways of error checking

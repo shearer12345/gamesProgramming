@@ -18,3 +18,4 @@ NOTE: workshops linked from later slides
 
 . link:workshop01_settingUpABuildSystem.html[Setting Up A Build System]
 . link:workshop02_myFirstSprite.html[My First Sprite]
+. link:workshop03_movementAndTiming.html[Movement and Timing]
