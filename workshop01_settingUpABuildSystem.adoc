@@ -328,8 +328,9 @@ include::{examplesdir}/buildSystem/conanfile.txt[]
 
 === 13.4 Ask conan to install the libraries
 
-. run `conan install ..`
-  ** ask conan to install packages listed in the parent directory (in `conanfile.txt`)
+. in your console `cd` to `build`
+. run `conan install ..` from the `build` directory
+  ** ask conan to install packages listed in the `..` (parent) directory (in `conanfile.txt`)
   ** watch the output
   ** try to figure out what conan is doing
   ** what information does it tell you at the end?
@@ -354,7 +355,10 @@ include::{examplesdir}/buildSystem/conanfile.txt[]
 
 === 14 Add the `main.cpp`
 
-. Add a new source file named `main.cpp` (you can copy-paste this time :-)
+. Add a new source file named `main.cpp` in the root of your project (`gamesProgramming`)
+  ** you can copy-paste this time :-)
+  ** don't create this in your `build` folder
+  ** `build` should only contain files that can be generated
 
 [source, cpp]
 .main.cpp
@@ -395,6 +399,7 @@ include::{examplesdir}/buildSystem/CMakeLists.txt[]
 
 . In your `build` directory run the following, from the command line (gitBash)
   ** note what build system we're and platform we're asking cmake to create for
+  ** the `..` tell cmake to look in the *parent* directory for the `CMakeLists.txt` file
 
 [source, bash]
 ----
@@ -403,21 +408,25 @@ cmake .. -G "Visual Studio 14 Win64"
 
 === 15.4 Use the Visual Studio solution
 
+* Load the Visual Studio solutin (.sln) in the build directory, and build from the UI
+* OR ask cmake to build (with Visual Studio's compiler) for you
+
 [source, bash]
 ----
 cmake --build . --config Release #ask cmake to build in Release mode
 ----
 
-** OR load the Visual Studio solutin (.sln) in the build directory, and build from the UI
 
 === 15.5 Run your new binary
+
+* Run from Visual Studio (F5).
+  ** WARNING: you will likely get a console window that immediately exits
+* OR run from the command line
 
 ----
 ./bin/conanTest.exe
 ----
 
-* OR run from Visual Studio (F5).
-  ** WARNING: you will likely get a console window that immediately exits
 
 == 16. Automate everything!
 
