@@ -40,14 +40,15 @@ task :default do
     task(:generateReveal).execute( :filename => 'lecture01_introduction.adoc')
     task(:generateReveal).execute( :filename => 'lecture02.adoc')
     task(:generateReveal).execute( :filename => 'lecture03.adoc')
+    task(:generateReveal).execute( :filename => 'lecture04.adoc')
 
     #PDFs
     task(:generatePDF   ).execute( :filename => 'workshop01_settingUpABuildSystem.adoc')
     task(:generatePDF   ).execute( :filename => 'workshop02_myFirstSprite.adoc')
     task(:generatePDF   ).execute( :filename => 'workshop03_movementAndTiming.adoc')
 
-    task(:generatePDF   ).execute( :filename => 'index.adoc' )
     task(:generatePDF   ).execute( :filename => 'lecture01_introduction.adoc')
     task(:generatePDF   ).execute( :filename => 'lecture02.adoc')
     task(:generatePDF   ).execute( :filename => 'lecture03.adoc')
+    task(:generatePDF   ).execute( :filename => 'lecture04.adoc')
 end

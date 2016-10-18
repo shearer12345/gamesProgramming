@@ -59,16 +59,22 @@ void loadAssets() {
 		SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION,
 			"SDL_LoadBMP Error: %s\n", SDL_GetError());
 			running = false;
-		}
-	SDL_Log("SDL_LoadBMP OK! for: %s\n", imagePath.c_str());
+	}
+	else {
+		SDL_Log("SDL_LoadBMP OK! for: %s\n", imagePath.c_str());
+	}
+
 
 	tex = SDL_CreateTextureFromSurface(ren, surface);
 	if (tex == nullptr) {
 		SDL_LogCritical(SDL_LOG_CATEGORY_APPLICATION,
 			"SDL_CreateTextureFromSurface: %s\n", SDL_GetError());
 			running = false;
-		}
-	SDL_Log("SDL_CreateTextureFromSurface OK!\n");
+	}
+	else {
+		SDL_Log("SDL_CreateTextureFromSurface OK!\n");
+
+	}
 
 	SDL_FreeSurface(surface);
 }
@@ -147,6 +153,7 @@ int main(int argc, char* argv[])
 	createRenderer();
 	loadAssets();
 
+	// tag::gameloop[]
 	while(running) {
 		SDL_LogDebug(SDL_LOG_CATEGORY_APPLICATION,
 			"Game Loop start: %i\n", SDL_GetTicks());
@@ -155,6 +162,8 @@ int main(int argc, char* argv[])
 		update();
 		render();
 	}
+	// end::gameloop[]
+
 	return 0;
 }
 // end::main[]

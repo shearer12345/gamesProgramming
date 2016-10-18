@@ -1,0 +1,319 @@
+= Representing the World (a little) and beginning Simulation
+:imagesdir: assets
+:revealjs_history: true
+:examplesdir: examples
+:source-highlighter: highlightjs
+include::links.adoc[]
+
+== Overview
+
+* Some programming tips
+* Representing our "World"
+* Simulation
+
+
+== Accessing data from other functions
+
+* Our game loop should be calling other functions
+  ** How do those functions access the data they need
+[source, cmake]
+----
+include::{examplesdir}/myFirstSprite/main.cpp[tags=gameloop]
+----
+
+=== What data ?
+
+* What data does each need access to?
+  . process_input ??
+  . update ??
+  . render ??
+* Should we limit the data that these functions can access?
+  ** discuss ...
+* Should they be able to change that data?
+
+=== What data? 2
+
+. process_input
+  ** game control state
+. update
+  ** world representation
+. render
+  ** world representation
+
+=== Ways of providing access to data?
+
+* How can we let our functions access the data they need?
+
+=== Ways of providing access to data? 2
+
+* How can we let our functions access the data they need?
+  . pass pointers/reference to the data??
+  . pass the values of the data??
+  . make the data global??
+
+
+
+== Function/method signatures and reading the documentation!!
+
+* The function/method signature tells you what you need to give the function, or order to use it
+* Good documentation should explain what the function/method does and how to use it
+* Many libraries provide only C interfaces, even if we're using {cpp}
+  ** e.g. SDL and OpenGL
+
+=== SDL_RenderCopy signature
+
+[source, cpp]
+.https://wiki.libsdl.org/SDL_RenderCopy[SDL_RenderCopy]
+----
+int SDL_RenderCopy(SDL_Renderer*   renderer,
+                   SDL_Texture*    texture,
+                   const SDL_Rect* srcrect,
+                   const SDL_Rect* dstrect);
+----
+
+* What is each parameter?
+  ** What do they control?
+* What does the `const` do?
+  ** http://en.cppreference.com/w/cpp/language/cv[{cpp} reference]
+
+=== SDL_GetWindowSize signature
+
+[source, cpp]
+.https://wiki.libsdl.org/SDL_GetWindowSize[SDL_GetWindowSize]
+----
+void SDL_GetWindowSize(SDL_Window* window,
+                       int*        w,
+                       int*        h);
+----
+
+* How does this return data??
+  ** the function returns `void` !!!
+
+=== SDL_GetWindowSize example use
+
+[source, cpp]
+.Example
+----
+SDL_Window window* SDL_CreateWindow( "title",
+  SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+  800, 600,
+  NULL);
+
+int width;
+int height;
+SDL_GetWindowSize(window, &width, &height);
+SDL_assert(width == 800);
+SDL_assert(height == 600);
+----
+
+== Representing our "World"
+
+* So far our "World" consists of merely a single Sprite
+  ** things will get more complex and larger
+* What can we control about this Sprite at the moment?
+  ** ??
+  ** Or what properties does it have??
+
+=== Our lonely Sprite
+
+* Position - where on the screen
+  ** in what coordinate system
+* Size
+  ** in what coordinate system
+* Texture
+
+=== What do need to able to do with our Sprite?
+
+* ???
+
+=== What do need to able to do with our Sprite 2
+
+* Move it
+  ** at what rate? (velocity?)
+* Render it?
+* Animate it?
+* Do some kind of collisions with it?
+* ...
+
+== Classes for things
+
+* We're using C++, so we should have classes for our objects
+  ** to encapsulate data
+  ** to allow functions on that data
+  ** these *don't* have to be the same classes ...
+    *** perhaps contrasting with "normal" OOP
+
+== Class inheritance
+
+* You could use an inheritance model with your classes
+  ** but **DON'T** use multiple-inheritance - there be dragons
+
+[.stretch]
+image::blue-dragon-ii.jpg[]
+
+== Entity-Component systems
+
+* There are many ways to use classes for programming Games
+  ** especially with regards to efficiency and flexibility
+* The Entity-Component model is an alternative to inheritance
+  ** Composition vs. Inheritance
+
+=== Entities
+
+* Each type of thing is an Entity - e.g. a Dragon
+* Entities have no logic
+* Each Entity has a set of components that belong to it, or each entity refers to
+  ** Position
+  ** Texture
+  ** Velocity
+
+=== Components
+
+* Each component holds *data*
+  ** the data needed for some behaviour, such as rendering
+
+=== System
+
+* Each "system" processes through a certain set of entities
+  ** such as all those with a Position and Velocity, and updates the positions
+  ** such as all those with a Position and Sprite, and renders them
+
+=== Entity-Component systems
+
+* Could be overkill for within this module
+  ** So might an inheritance heirarchy with more than 2 levels
+* The separation of Data and Logic allows for significant performance enhancements
+  ** See https://youtu.be/rX0ItVEVjHc[Data-Oriented Design]
+  ** Especially related to caching
+* See Recommended Reading
+
+== {cpp}
+
+* Make CLASSES !!!!
+* Make class hierarchies if/when appropriate
+
+== Multiple files in your project
+
+* You presently only have one source file - `main.cpp`
+* Your present `CMakeLists.txt` file only try to make an `exe` out of that single file
+
+[source, cmake]
+----
+include::{examplesdir}/myFirstSprite/CMakeLists.txt[]
+----
+
+=== Multiple files in your project 2
+
+* You should make new classes in new files (generally)
+  ** with a `.h` and a `.cpp`, usually
+* You'll need to tell cmake to compile those files into your program also
+  ** add them to list of files in `add_executable`
+* What should you add?
+
+=== Multiple files in your project 3
+
+* Here's an example
+  ** there are other ways of doing this
+
+[source, cmake]
+----
+project(ConanTest)
+cmake_minimum_required(VERSION 2.8.12)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
+add_executable(conanTest main.cpp myClass.h myClass.cpp)
+target_link_libraries(conanTest ${CONAN_LIBS})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")
+----
+
+=== Globbing in CMake
+
+* Listing all the source files for executable might become a list annoying
+* CMake supports globbing and recursive globbing
+
+glob:: match files names according to a pattern. e.g. `*.txt`
+
+* We *could* generate a list of files to add to our executable with a glob
+  ** *WARNING:* the CMake people recommend *AGAINST* this practice.
+
+[source, cmake]
+----
+file(GLOB source_list "*.cpp" "*.h")
+add_executable(conanTest ${source_list} )
+target_link_libraries(conanTest ${CONAN_LIBS})
+----
+
+
+== Simulation
+
+* For our games to *do* anything, we need to change its state
+* Unlike many other systems, Games tend to change their state over time
+  ** even when there is no human interaction
+  ** e.g. a ball keeps falling
+
+== What is Simulation?
+
+* Changing a model over time
+  ** Our world has some state to one time
+  ** A timestep later the world state has changed
+  ** We have to determine what should change and how
+
+== Simulation and reality
+
+* In general all game simulation is fakery
+  ** i.e. a "model" of how things change - not 100% correct
+* We have choices about how much we fake things
+* And choices about efficient algorithms etc
+* Why always fakery?
+
+=== Why always fakery
+
+* We may not be attempting to simulate the real world
+* Almost all physical systems are mathmatically impossible to compute analytically
+  ** see three-body problem - https://en.wikipedia.org/wiki/Three-body_problem
+
+== Separating parts of Game Loop
+
+* The three main parts of our Game Loop should each only do some things
+
+=== `Render`
+
+* `render` should *only* render
+  ** according to the world state
+  ** it shouldn't change the world state
+  ** it shouldn't handle input
+
+=== `Update`
+
+* `update` should *only* update the world state
+  ** according to the world state and controller state
+  ** it shouldn't render anything
+  ** it shouldn't handle input
+
+=== `process_input`
+
+* `process_input` should *only* process input
+  ** it should set controller state
+  ** it shouldn't change the world state
+  ** it shouldn't render anything
+
+=== Limiting access and influence
+
+* You could use {cpp} features to limit what each of these functions can do
+  ** e.g. `render` could be passed a *constant* reference to the "World"
+    *** so that {cpp} won't let `render` change the World state
+    *** attempting to change would be a compile-error
+
+== Recommended Reading
+
+* http://gamedev.stackexchange.com/questions/31473/what-is-the-role-of-systems-in-a-component-based-entity-architecture
+* http://www.gamedev.net/page/resources/_/technical/game-programming/understanding-component-entity-systems-r3013
+* http://gameprogrammingpatterns.com/component.html
+* https://spin.atomicobject.com/2016/04/22/entity-component-systems/
+* http://entity-systems.wikidot.com/
+* https://www.raywenderlich.com/24878/introduction-to-component-based-architecture-in-games
+* https://youtu.be/rX0ItVEVjHc

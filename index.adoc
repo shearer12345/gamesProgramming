@@ -11,6 +11,7 @@ shearer12345
 . link:lecture01_introduction.html[Introduction]
 . link:lecture02.html[Build Systems, Logging, Window Creation]
 . link:lecture03.html[Game Loop, and timing]
+. link:lecture04.html[Representing the World and Simulation]
 
 NOTE: workshops linked from later slides
 

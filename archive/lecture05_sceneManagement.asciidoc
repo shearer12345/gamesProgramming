@@ -16,18 +16,7 @@ shearer12345
 * from a VERY bad implementation
 * to something better
 
-=== Classes
 
-* We're using C++, so we should have classes for our objects
-  ** to encapsulate data
-  ** to allow functions on that data
-
-=== Multiple classes
-
-* You could use an inheritance model to allow different classes within your same scene
-* There are many ways to use classes for programming Games
-  ** especially with regards to efficiency and flexibility
-  ** we'll discuss "Entity-Component systems" in a later lecture
 
 === A scene
 
