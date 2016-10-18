@@ -101,63 +101,6 @@ image::Chuckie_Egg_on_BBC_Micro.jpg[]
 
 
 
-== {cpp} and {cpp}11
-
-* Make CLASSES !!!!
-* Make class hierarchies if/when appropriate
-
-== Function/method signatures and reading the documentation!!
-
-* The function/method signature tells you what you need to give the function, or order to use it
-* Good documentation should explain what the function/method does and how to use it
-* Many libraries provide only C interfaces, even if we're using C++
-  ** e.g. SDL and OpenGL
-
-=== SDL_RenderCopy signature
-
-[source, cpp]
-----
-int SDL_RenderCopy(SDL_Renderer*   renderer,
-                   SDL_Texture*    texture,
-                   const SDL_Rect* srcrect,
-                   const SDL_Rect* dstrect)
-----
-
-* What is each parameter?
-* What does the `const` do?
-
-https://wiki.libsdl.org/SDL_RenderCopy
-
-=== SDL_GetWindowSize signature
-
-[source, cpp]
-----
-void SDL_GetWindowSize(SDL_Window* window,
-                       int*        w,
-                       int*        h)
-----
-
-* How does this return data??
-  ** the function returns `void` !!!
-
-https://wiki.libsdl.org/SDL_GetWindowSize
-
-=== SDL_GetWindowSize example use
-
-[source, cpp]
-----
-...
-SDL_Window window* SDL_CreateWindow( "title",
-  SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-  800, 600,
-  SDL_WINDOW_OPENGL);
-
-int width;
-int height;
-SDL_GetWindowSize(window, &width, &height);
-// width and height will now have the appropriate values
-----
-
 == Pointers (a quick recap)
 
 * If you're writing C or {cpp} you really need to understand pointers
