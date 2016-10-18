@@ -1552,11 +1552,14 @@ cmake</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>run <code>conan install ..</code></p>
+<p>in your console <code>cd</code> to <code>build</code></p>
+</li>
+<li>
+<p>run <code>conan install ..</code> from the <code>build</code> directory</p>
 <div class="ulist">
 <ul>
 <li>
-<p>ask conan to install packages listed in the parent directory (in <code>conanfile.txt</code>)</p>
+<p>ask conan to install packages listed in the <code>..</code> (parent) directory (in <code>conanfile.txt</code>)</p>
 </li>
 <li>
 <p>watch the output</p>
@@ -1644,7 +1647,20 @@ cmake</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add a new source file named <code>main.cpp</code> (you can copy-paste this time :-)</p>
+<p>Add a new source file named <code>main.cpp</code> in the root of your project (<code>gamesProgramming</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>you can copy-paste this time :-)</p>
+</li>
+<li>
+<p>don&#8217;t create this in your <code>build</code> folder</p>
+</li>
+<li>
+<p><code>build</code> should only contain files that can be generated</p>
+</li>
+</ul>
+</div>
 </li>
 </ol>
 </div>
@@ -1771,6 +1787,9 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")</code></pre>
 <li>
 <p>note what build system we&#8217;re and platform we&#8217;re asking cmake to create for</p>
 </li>
+<li>
+<p>the <code>..</code> tell cmake to look in the <strong>parent</strong> directory for the <code>CMakeLists.txt</code> file</p>
+</li>
 </ul>
 </div>
 </li>
@@ -1784,30 +1803,28 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_15_4_use_the_visual_studio_solution">15.4 Use the Visual Studio solution</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Load the Visual Studio solutin (.sln) in the build directory, and build from the UI</p>
+</li>
+<li>
+<p>OR ask cmake to build (with Visual Studio&#8217;s compiler) for you</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash" data-lang="bash">cmake --build . --config Release #ask cmake to build in Release mode</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>OR load the Visual Studio solutin (.sln) in the build directory, and build from the UI</p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_15_5_run_your_new_binary">15.5 Run your new binary</h3>
-<div class="listingblock">
-<div class="content">
-<pre>./bin/conanTest.exe</pre>
-</div>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>OR run from Visual Studio (F5).</p>
+<p>Run from Visual Studio (F5).</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1816,7 +1833,15 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")</code></pre>
 </ul>
 </div>
 </li>
+<li>
+<p>OR run from the command line</p>
+</li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./bin/conanTest.exe</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1992,7 +2017,7 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-10-17 16:10:12 BST
+Last updated 2016-10-18 22:08:24 BST
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
