@@ -1,0 +1,87 @@
+= Movement And Timing
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Create a window
+* Draw a Sprite in the window
+* Control where and what size in the window it appears
+* Make the sprite position and size independent of window resolution
+* Time how long your program is spending in each stage
+* Compensate for real-time in your Game Loop
+* Look at various ways of error checking
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Be able to change the window size, including fullscreen
+
+== Activity summary
+
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== 1. Toggle fullscreen on a key-press
+
+* Allow switching to fullscreen mode on a key-press
+* Allow switching out of fullscreen mode on the same key
+* Allow the user to change the size of the window with the mouse
+  ** at the window edges
+* Make the window return to the size it was before fullscreen when toggling back
+
+== 2. Move your sprite
+
+* Store the sprite position in a variable and use it in your `render` function
+  ** What information do you need in the variable?
+  ** What type/struct/class would make sense to store it in?
+* Change the variable and check that your sprite renders in a new, correct position
+* Add code to change the variable (once) on a key press
+* Make the sprite move the same amount every time a key is pressed down
+
+== 3. Move your sprite over time
+
+* In your `update` function, change the variable by a fixed amount each call
+  ** What happens to the position over time?
+* Change your `update` function, so that your sprite orbits the centre of the window
+  ** You'll want to use the present position of the sprite to support your calculation
+
+== 4. Time how long your program is spending in each stage
+
+* Use `SDL_GetTicks` initially
+  ** Log the time (in milliseconds?) at each stage of the game loop
+* Where is burning most time?
+* Break down the step that is taking the longest
+  ** Add more logging (perhaps at a less-important priority and make the log output priority lower)
+  ** There is a specific point in our game that our program is waiting
+  ** What is it?
+  ** HINT: What "Frames Per Second" are your getting
+  ** Can you disable the cause?
+  ** What happens once you disable the cause?
+
+== 5. Use better timing
+
+* `SDL_GetTicks` only has millisecond precision
+* Use the http://www.cplusplus.com/reference/chrono/high_resolution_clock/now/[high-resolution clock] instead
+  ** `std::chrono::high_resolution_clock`
+  ** Read the documentation of how to calculate "durations"
+* How long is each stage of your game loop taking now?
+
+== 6. Compensate for real-time in your Game Loop
+
+* Use one of the methods outlined in lectures to manage real-time in your game loop
+  ** note: the slides link out to a number of external sources
+* Keeping the cause you disabled (in 4) off (V-sync off, in the driver), does your program now run at a consistent rate?
+  ** How long *should* it take for your sprite to complete an orbit?
+  ** Time that (or multiple orbits) with an external clock (your phone?)
+* Re-enable V-sync
+  ** Does your program still run correctly wrt time?

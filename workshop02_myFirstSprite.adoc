@@ -12,13 +12,10 @@ include::links.adoc[]
 * Draw a Sprite in the window
 * Control where and what size in the window it appears
 * Make the sprite position and size independent of window resolution
-* Time how long your program is spending in each stage
-* Compensate for real-time in your Game Loop
-* Look at various ways of error checking
 
 == Where you should already be
 
-* Having a working build system, that uses SDL
+* Have a working build system, that uses SDL
   ** setup on your present machine using your automation script
   ** from <<workshop01_settingUpABuildSystem.adoc#,Workshop 1>>
   ** you shouldn't need to change the `conanfile.txt` or `CMakeLists.txt` files
@@ -159,23 +156,3 @@ include::links.adoc[]
 * Change the Window size for your program
   ** try a variety of options, including fullscreen
 * Make your sprite always appear relatively the same size
-
-== 9. Move your sprite over time
-
-* Store the sprite position in a variable and change it in your `update` function
-* Render using that position
-
-== 10. Time how long your program is spending in each stage
-
-* Use `SDL_GetTicks` initially
-* Move to something with more precision
-* Where is burning most time?
-  ** There is a specific point in our game that our program is waiting
-  ** What is it?
-  ** Can you disable the cause?
-  ** What happens once you disable the cause?
-
-== Stretch Activities
-
-* Compensate for real-time in your Game Loop
-* Look at various ways of error checking
