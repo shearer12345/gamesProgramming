@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="John Shearer">
-<title>My First Sprite</title>
+<title>Movement And Timing</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -421,7 +421,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>My First Sprite</h1>
+<h1>Movement And Timing</h1>
 <div class="details">
 <span id="author" class="author">John Shearer</span><br>
 </div>
@@ -444,6 +444,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Make the sprite position and size independent of window resolution</p>
 </li>
+<li>
+<p>Time how long your program is spending in each stage</p>
+</li>
+<li>
+<p>Compensate for real-time in your Game Loop</p>
+</li>
+<li>
+<p>Look at various ways of error checking</p>
+</li>
 </ul>
 </div>
 </div>
@@ -455,19 +464,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul>
 <li>
 <p>Have a working build system, that uses SDL</p>
+</li>
+<li>
+<p>Have a program that draws a sprite on the screen</p>
 <div class="ulist">
 <ul>
 <li>
-<p>setup on your present machine using your automation script</p>
+<p>with a size and position that you can control/change</p>
 </li>
 <li>
-<p>from <a href="workshop01_settingUpABuildSystem.html">Workshop 1</a></p>
-</li>
-<li>
-<p>you shouldn&#8217;t need to change the <code>conanfile.txt</code> or <code>CMakeLists.txt</code> files</p>
+<p>sprite position and size independent of window resolution</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Be able to change the window size, including fullscreen</p>
 </li>
 </ul>
 </div>
@@ -491,15 +503,90 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </li>
-<li>
-<p>SDL2 can already load some images, which we can then use as Sprites</p>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_toggle_fullscreen_on_a_key_press">1. Toggle fullscreen on a key-press</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>only very limited forms of <code>.bmp</code> files</p>
+<p>Allow switching to fullscreen mode on a key-press</p>
 </li>
 <li>
-<p>24bpp <code>`.bmp</code> files</p>
+<p>Allow switching out of fullscreen mode on the same key</p>
+</li>
+<li>
+<p>Allow the user to change the size of the window with the mouse</p>
+<div class="ulist">
+<ul>
+<li>
+<p>at the window edges</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Make the window return to the size it was before fullscreen when toggling back</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_move_your_sprite">2. Move your sprite</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Store the sprite position in a variable and use it in your <code>render</code> function</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What information do you need in the variable?</p>
+</li>
+<li>
+<p>What type/struct/class would make sense to store it in?</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change the variable and check that your sprite renders in a new, correct position</p>
+</li>
+<li>
+<p>Add code to change the variable (once) on a key press</p>
+</li>
+<li>
+<p>Make the sprite move the same amount every time a key is pressed down</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_move_your_sprite_over_time">3. Move your sprite over time</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>In your <code>update</code> function, change the variable by a fixed amount each call</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What happens to the position over time?</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change your <code>update</code> function, so that your sprite orbits the centre of the window</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You&#8217;ll want to use the present position of the sprite to support your calculation</p>
 </li>
 </ul>
 </div>
@@ -509,206 +596,44 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_1_create_a_window">1. Create a Window</h2>
+<h2 id="_4_time_how_long_your_program_is_spending_in_each_stage">4. Time how long your program is spending in each stage</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>add code using <code>SDL_CreateWindow</code> to create a window</p>
+<p>Use <code>SDL_GetTicks</code> initially</p>
 <div class="ulist">
 <ul>
 <li>
-<p>be careful where/when in your program you put this</p>
-</li>
-<li>
-<p>it would be good to have it in a function</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_1_1_check_for_errors">1.1 Check for errors</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>you should check for errors and do something appropriate</p>
-<div class="ulist">
-<ul>
-<li>
-<p>bad return values</p>
+<p>Log the time (in milliseconds?) at each stage of the game loop</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>SDL has some <a href="https://wiki.libsdl.org/CategoryAssertions">assert</a> functions that you could use</p>
+<p>Where is burning most time?</p>
+</li>
+<li>
+<p>Break down the step that is taking the longest</p>
 <div class="ulist">
 <ul>
 <li>
-<p>look them up, which would make sense for your program</p>
+<p>Add more logging (perhaps at a less-important priority and make the log output priority lower)</p>
 </li>
 <li>
-<p>or handle errors differently</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_2_create_a_renderer">2. Create a Renderer</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>To draw stuff in the window we need a renderer</p>
+<p>There is a specific point in our game that our program is waiting</p>
 </li>
 <li>
-<p>Use <code>SDL_CreateRenderer</code> to create a renderer for our window</p>
+<p>What is it?</p>
 </li>
 <li>
-<p>Check it for errors</p>
+<p>HINT: What "Frames Per Second" are your getting</p>
 </li>
 <li>
-<p>What "kind" of renderer makes most sense</p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_2_1_combine_simplify">2.1 Combine/Simplify</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>SDL can make a connected window and a renderer in a single function call</p>
-<div class="ulist">
-<ul>
-<li>
-<p>use this instead</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_3_clear_and_present_the_renderer">3. Clear and Present the renderer</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Our render function should do 3 things:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Clear the "backbuffer"</p>
+<p>Can you disable the cause?</p>
 </li>
 <li>
-<p>Draw some stuff</p>
-</li>
-<li>
-<p>Show the "backbuffer"</p>
-<div class="ulist">
-<ul>
-<li>
-<p>make the "backbuffer" the "frontbuffer"</p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_3_1_clear_and_present_the_renderer">3.1 Clear and Present the renderer</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Look up the appropriate functions in SDL2</p>
-</li>
-<li>
-<p>Use them to make the window various colours:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Red</p>
-</li>
-<li>
-<p>Green</p>
-</li>
-<li>
-<p>Blue</p>
-</li>
-<li>
-<p>Yellow</p>
-</li>
-<li>
-<p>Grey</p>
-</li>
-</ol>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_game_loop">4. Game Loop</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Our present program doesn&#8217;t have a Game Loop</p>
-<div class="ulist">
-<ul>
-<li>
-<p>it just runs and then exits</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Add a Game Loop</p>
-<div class="ulist">
-<ul>
-<li>
-<p>keep it simple initially</p>
-</li>
-<li>
-<p>it should call (at least) 3 functions</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p><code>process_input</code></p>
-</li>
-<li>
-<p><code>update</code></p>
-</li>
-<li>
-<p><code>render</code></p>
-</li>
-</ol>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Add a log for each time this loop goes around</p>
-<div class="ulist">
-<ul>
-<li>
-<p>what "priority" should this log be?</p>
+<p>What happens once you disable the cause?</p>
 </li>
 </ul>
 </div>
@@ -718,253 +643,70 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_4_1_make_the_window_colour_change_over_time">4.1 Make the window colour change over time</h2>
+<h2 id="_5_use_better_timing">5. Use better timing</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Store the colour in a variable</p>
+<p><code>SDL_GetTicks</code> only has millisecond precision</p>
+</li>
+<li>
+<p>Use the <a href="http://www.cplusplus.com/reference/chrono/high_resolution_clock/now/">high-resolution clock</a> instead</p>
 <div class="ulist">
 <ul>
 <li>
-<p>what "scope" should this variable be in?</p>
+<p><code>std::chrono::high_resolution_clock</code></p>
 </li>
 <li>
-<p>or - how do our functions access its data</p>
+<p>Read the documentation of how to calculate "durations"</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Change the variable over time</p>
-<div class="ulist">
-<ul>
-<li>
-<p>where should this happen?</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Use the variable when drawing</p>
-<div class="ulist">
-<ul>
-<li>
-<p>wher should this happen?</p>
-</li>
-</ul>
-</div>
+<p>How long is each stage of your game loop taking now?</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_4_2_warning_global_variables">4.2 WARNING: global variables</h2>
+<h2 id="_6_compensate_for_real_time_in_your_game_loop">6. Compensate for real-time in your Game Loop</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>So far we have no classes</p>
-</li>
-<li>
-<p>Quite likely you will use Global variables for your program at this point</p>
-</li>
-<li>
-<p>WARNING: Global variables are, in general, <strong>BAD</strong> practice</p>
-</li>
-<li>
-<p>We should try to move away from this in future</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_5_input_handling">5. Input Handling</h2>
-<div class="sectionbody">
+<p>Use one of the methods outlined in lectures to manage real-time in your game loop</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Our Game loop doesn&#8217;t exit well at the present</p>
-</li>
-<li>
-<p>SDL can give us input from the user</p>
-</li>
-<li>
-<p>Look up <code>SDL_PollEvent</code> in the documentation</p>
-</li>
-<li>
-<p>Use it in your code (in <code>process_input</code>) to stop your program running when:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>the user closes the window</p>
-</li>
-<li>
-<p>the user presses escape down</p>
+<p>note: the slides link out to a number of external sources</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Log appropriately</p>
+<p>Keeping the cause you disabled (in 4) off (V-sync off, in the driver), does your program now run at a consistent rate?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>How long <strong>should</strong> it take for your sprite to complete an orbit?</p>
 </li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_6_loading_a_sprite">6. Loading a Sprite</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
 <li>
-<p>SDL can load some bitmap files with the <code>SDL_LoadBMP</code> function</p>
-<div class="ulist">
-<ul>
-<li>
-<p>we&#8217;ll move to a better image loader later</p>
+<p>Time that (or multiple orbits) with an external clock (your phone?)</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Look up the documentation for <code>SDL_LoadBMP</code></p>
-</li>
-<li>
-<p>Make your program load an image</p>
+<p>Re-enable V-sync</p>
 <div class="ulist">
 <ul>
 <li>
-<p>make sure you have one in the appropriate format</p>
-</li>
-<li>
-<p>where will your program look</p>
+<p>Does your program still run correctly wrt time?</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>What "type" does <code>SDL_LoadBMP</code> give you</p>
-</li>
-<li>
-<p>Log and handles errors appropriately</p>
-<div class="ulist">
-<ul>
-<li>
-<p>this <strong>WILL</strong> help you now and in future</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="_6_1_creating_a_texture">6.1 Creating a texture</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>"Textures" exist in GPU memory</p>
-</li>
-<li>
-<p>"Surfaces" exist in CPU memory</p>
-</li>
-<li>
-<p><code>SDL_LoadBMP</code> doesn&#8217;t give you a texture</p>
-</li>
-<li>
-<p><code>SDL_CreateTextureFromSurface</code> will help you create a "texture"</p>
-<div class="ulist">
-<ul>
-<li>
-<p>what should you do with the surface after you&#8217;ve finished with it</p>
-</li>
-<li>
-<p>check the documentation</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Log and handles errors appropriately</p>
-<div class="ulist">
-<ul>
-<li>
-<p>this <strong>WILL</strong> help you now and in future</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_6_2_drawing_the_texture">6.2 Drawing the texture</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>SDL can draw a texture with the <code>SDL_RenderCopy</code> function</p>
-</li>
-<li>
-<p>Look up the documentation</p>
-</li>
-<li>
-<p>Use <code>SDL_RenderCopy</code> in your program</p>
-</li>
-<li>
-<p>Log and handles errors appropriately</p>
-<div class="ulist">
-<ul>
-<li>
-<p>this <strong>MAY</strong> help you now and in future</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_7_change_the_sprite_size_and_position">7. Change the sprite size and position</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><code>SDL_RenderCopy</code> can control the size and position of the sprite</p>
-</li>
-<li>
-<p>Read the documentation</p>
-</li>
-<li>
-<p>Change the size and position</p>
-</li>
-<li>
-<p>What units are these in?</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_8_make_the_sprite_position_and_size_independent_of_window_resolution">8. Make the sprite position and size independent of window resolution</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Change the Window size for your program</p>
-<div class="ulist">
-<ul>
-<li>
-<p>try a variety of options, including fullscreen</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Make your sprite always appear relatively the same size</p>
 </li>
 </ul>
 </div>
