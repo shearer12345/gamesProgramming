@@ -1,4 +1,4 @@
-= Representing the World (a little) and beginning Simulation
+= Programming Tips and Representing the World (a little)
 :imagesdir: assets
 :revealjs_history: true
 :examplesdir: examples
@@ -51,6 +51,41 @@ include::{examplesdir}/myFirstSprite/main.cpp[tags=gameloop]
   . pass the values of the data??
   . make the data global??
 
+== Separating parts of Game Loop
+
+* The three main parts of our Game Loop should each only do some things
+
+=== `process_input`
+
+* `process_input` should *only* process input
+  ** it should set controller state - *what* has happened in the world
+    *** abstract things, rather than low-level events
+    *** e.g. "jump", not "button X pressed"
+  ** it shouldn't change the world state
+  ** it shouldn't render anything
+
+=== `Update Simulation`
+
+* AKA stepSimulation (take a simulation step)
+* `update` should *only* update the world state
+  ** according to the world state and controller state
+  ** and how long to simulate for (duration)
+  ** it shouldn't render anything
+  ** it shouldn't handle input
+
+=== `Render`
+
+* `render` should *only* render
+  ** according to the world state
+  ** it shouldn't change the world state
+  ** it shouldn't handle input
+
+=== Limiting access and influence
+
+* You could use {cpp} features to limit what each of these functions can do
+  ** e.g. `render` could be passed a *constant* reference to the "World"
+    *** so that {cpp} won't let `render` change the World state
+    *** attempting to change would be a compile-error
 
 
 == Function/method signatures and reading the documentation!!
@@ -151,7 +186,7 @@ SDL_assert(height == 600);
 [.stretch]
 image::blue-dragon-ii.jpg[]
 
-== Entity-Component systems
+== Entity-Component-Systems
 
 * There are many ways to use classes for programming Games
   ** especially with regards to efficiency and flexibility
@@ -178,7 +213,7 @@ image::blue-dragon-ii.jpg[]
   ** such as all those with a Position and Velocity, and updates the positions
   ** such as all those with a Position and Sprite, and renders them
 
-=== Entity-Component systems
+=== Entity-Component-Systems
 
 * Could be overkill for within this module
   ** So might an inheritance heirarchy with more than 2 levels
@@ -247,66 +282,6 @@ add_executable(conanTest ${source_list} )
 target_link_libraries(conanTest ${CONAN_LIBS})
 ----
 
-
-== Simulation
-
-* For our games to *do* anything, we need to change its state
-* Unlike many other systems, Games tend to change their state over time
-  ** even when there is no human interaction
-  ** e.g. a ball keeps falling
-
-== What is Simulation?
-
-* Changing a model over time
-  ** Our world has some state to one time
-  ** A timestep later the world state has changed
-  ** We have to determine what should change and how
-
-== Simulation and reality
-
-* In general all game simulation is fakery
-  ** i.e. a "model" of how things change - not 100% correct
-* We have choices about how much we fake things
-* And choices about efficient algorithms etc
-* Why always fakery?
-
-=== Why always fakery
-
-* We may not be attempting to simulate the real world
-* Almost all physical systems are mathmatically impossible to compute analytically
-  ** see three-body problem - https://en.wikipedia.org/wiki/Three-body_problem
-
-== Separating parts of Game Loop
-
-* The three main parts of our Game Loop should each only do some things
-
-=== `Render`
-
-* `render` should *only* render
-  ** according to the world state
-  ** it shouldn't change the world state
-  ** it shouldn't handle input
-
-=== `Update`
-
-* `update` should *only* update the world state
-  ** according to the world state and controller state
-  ** it shouldn't render anything
-  ** it shouldn't handle input
-
-=== `process_input`
-
-* `process_input` should *only* process input
-  ** it should set controller state
-  ** it shouldn't change the world state
-  ** it shouldn't render anything
-
-=== Limiting access and influence
-
-* You could use {cpp} features to limit what each of these functions can do
-  ** e.g. `render` could be passed a *constant* reference to the "World"
-    *** so that {cpp} won't let `render` change the World state
-    *** attempting to change would be a compile-error
 
 == Recommended Reading
 

@@ -1,0 +1,40 @@
+= Simulation
+:imagesdir: assets
+:revealjs_history: true
+:examplesdir: examples
+:source-highlighter: highlightjs
+include::links.adoc[]
+
+== Overview
+
+* Simulation
+
+== Simulation
+
+* For our games to *do* anything, we need to change its state
+* Unlike many other systems, Games tend to change their state over time
+  ** even when there is no human interaction
+  ** e.g. a ball keeps falling
+
+== What is Simulation?
+
+* Changing a model over time
+  ** Our world has some state to one time
+  ** A timestep later the world state has changed
+  ** We have to determine what should change and how
+
+== Simulation and reality
+
+* In general all game simulation is fakery
+  ** i.e. a "model" of how things change - not 100% correct
+* We have choices about how much we fake things
+* And choices about efficient algorithms etc
+* Why always fakery?
+
+=== Why always fakery
+
+* We may not be attempting to simulate the real world
+* Almost all physical systems are mathmatically impossible to compute analytically
+  ** see three-body problem - https://en.wikipedia.org/wiki/Three-body_problem
+
+== Recommended Reading
