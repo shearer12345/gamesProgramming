@@ -28,7 +28,7 @@ printf "== Creating build system\n"
 #        - possible releated issues:
 #          - https://github.com/conan-io/conan/issues/199
 #          - https://github.com/conan-io/conan/issues/178
-if cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCONAN_DISABLE_CHECK_COMPILER=On ; then
+if cmake .. -G "CodeBlocks - Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCONAN_DISABLE_CHECK_COMPILER=On ; then
   printf "== Created build system OK\n"
 else
   printf "== FAILED to created build system - Exiting\n"
