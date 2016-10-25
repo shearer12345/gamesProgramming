@@ -14,7 +14,6 @@ include::links.adoc[]
 * Make the sprite position and size independent of window resolution
 * Time how long your program is spending in each stage
 * Compensate for real-time in your Game Loop
-* Look at various ways of error checking
 
 == Where you should already be
 

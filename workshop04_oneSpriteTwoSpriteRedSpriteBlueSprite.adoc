@@ -1,0 +1,83 @@
+= One Sprite, Two Sprite, Red Sprite, Blue Sprite
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Make a *class* to store our Sprite
+* Instantiate this *class* in our code to create an instance
+  ** Use the instance in `update` and `render`
+* Instantiate two sprites, with two variables
+  ** Use them in `update` and `render`
+* Instantiate three sprites, with some kind of "container"
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window
+* Be able to change the window size, including fullscreen
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Time how long your program is spending in each stage
+* Compensate for real-time in your Game Loop
+
+== Activity summary
+
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== 1. Make a *class* to store our Sprite
+
+* So far, our Sprite data has been stored directly in our main, or globally
+* Make a class for your Sprite
+  ** What data should it store?
+* Make your class be written in separate `.h` and `.cpp` files
+  ** you'll need to modify your `CMakeLists.txt` file to add them to your executable
+* Your class doesn't need any methods yet
+
+== Instantiate this *class* to create an instance
+
+* Make an instance of your Sprite class
+  ** Where should you do this?
+  ** Does it work if you make it a global?
+    *** If not, what is going on?
+    *** Make sure you are checking *all* errors (or using Asserts)
+* Use the data from the instance in `update` and `render`
+  ** to make your Sprite move in any direction and be visible
+
+== Instantiate two sprites, with two variables
+
+* Make two instances of your Sprite class
+  ** Each with a separate variable
+  ** Use them in `update` and `render`
+
+== Instantiate three sprites, with some kind of "container"
+
+* Make three instances of your Sprite class
+  ** All stored in some kind of "container"
+  ** What types of "container" do you know about?
+  ** Which type of "container" do you think would be most appropriate
+    *** there isn't always a clear, single correct answer
+  ** Use them in `update` and `render`
+
+== Instantiate 42 sprites, with some kind of "container"
+
+* Make 42 instances of your Sprite class
+  ** All stored in some kind of "container"
+  ** Randomly set their start positions and directions
+  ** Use them in `update` and `render`
+
+== Methods or Systems
+
+* AKA: Object-Orientation vs. Entity Component
+* At your discretion, either:
+  .. Add methods to your Sprite class to support update and rendering (OOP)
+    *** so your Sprites can update and render themselves
+  .. Make a SpriteMove class and a SpriteRender class, that will act on Sprites appropriately (ECS)

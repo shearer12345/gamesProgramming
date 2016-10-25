@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="John Shearer">
-<title>Movement And Timing</title>
+<title>One Sprite, Two Sprite, Red Sprite, Blue Sprite</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -421,7 +421,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Movement And Timing</h1>
+<h1>One Sprite, Two Sprite, Red Sprite, Blue Sprite</h1>
 <div class="details">
 <span id="author" class="author">John Shearer</span><br>
 </div>
@@ -433,22 +433,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Create a window</p>
+<p>Make a <strong>class</strong> to store our Sprite</p>
 </li>
 <li>
-<p>Draw a Sprite in the window</p>
+<p>Instantiate this <strong>class</strong> in our code to create an instance</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use the instance in <code>update</code> and <code>render</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Control where and what size in the window it appears</p>
+<p>Instantiate two sprites, with two variables</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use them in <code>update</code> and <code>render</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>Make the sprite position and size independent of window resolution</p>
-</li>
-<li>
-<p>Time how long your program is spending in each stage</p>
-</li>
-<li>
-<p>Compensate for real-time in your Game Loop</p>
+<p>Instantiate three sprites, with some kind of "container"</p>
 </li>
 </ul>
 </div>
@@ -461,6 +469,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul>
 <li>
 <p>Have a working build system, that uses SDL</p>
+</li>
+<li>
+<p>Create a window</p>
+</li>
+<li>
+<p>Be able to change the window size, including fullscreen</p>
 </li>
 <li>
 <p>Have a program that draws a sprite on the screen</p>
@@ -476,7 +490,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>Be able to change the window size, including fullscreen</p>
+<p>Time how long your program is spending in each stage</p>
+</li>
+<li>
+<p>Compensate for real-time in your Game Loop</p>
 </li>
 </ul>
 </div>
@@ -505,85 +522,74 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_1_toggle_fullscreen_on_a_key_press">1. Toggle fullscreen on a key-press</h2>
+<h2 id="_1_make_a_strong_class_strong_to_store_our_sprite">1. Make a <strong>class</strong> to store our Sprite</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Allow switching to fullscreen mode on a key-press</p>
+<p>So far, our Sprite data has been stored directly in our main, or globally</p>
 </li>
 <li>
-<p>Allow switching out of fullscreen mode on the same key</p>
-</li>
-<li>
-<p>Allow the user to change the size of the window with the mouse</p>
+<p>Make a class for your Sprite</p>
 <div class="ulist">
 <ul>
 <li>
-<p>at the window edges</p>
+<p>What data should it store?</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Make the window return to the size it was before fullscreen when toggling back</p>
+<p>Make your class be written in separate <code>.h</code> and <code>.cpp</code> files</p>
+<div class="ulist">
+<ul>
+<li>
+<p>you&#8217;ll need to modify your <code>CMakeLists.txt</code> file to add them to your executable</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Your class doesn&#8217;t need any methods yet</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_2_move_your_sprite">2. Move your sprite</h2>
+<h2 id="_instantiate_this_strong_class_strong_to_create_an_instance">Instantiate this <strong>class</strong> to create an instance</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Store the sprite position in a variable and use it in your <code>render</code> function</p>
+<p>Make an instance of your Sprite class</p>
 <div class="ulist">
 <ul>
 <li>
-<p>What information do you need in the variable?</p>
+<p>Where should you do this?</p>
 </li>
 <li>
-<p>What type/struct/class would make sense to store it in?</p>
+<p>Does it work if you make it a global?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If not, what is going on?</p>
+</li>
+<li>
+<p>Make sure you are checking <strong>all</strong> errors (or using Asserts)</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Change the variable and check that your sprite renders in a new, correct position</p>
-</li>
-<li>
-<p>Add code to change the variable (once) on a key press</p>
-</li>
-<li>
-<p>Make the sprite move the same amount every time a key is pressed down</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_3_move_your_sprite_over_time">3. Move your sprite over time</h2>
-<div class="sectionbody">
+<p>Use the data from the instance in <code>update</code> and <code>render</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p>In your <code>update</code> function, change the variable by a fixed amount each call</p>
-<div class="ulist">
-<ul>
-<li>
-<p>What happens to the position over time?</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Change your <code>update</code> function, so that your sprite orbits the centre of the window</p>
-<div class="ulist">
-<ul>
-<li>
-<p>You&#8217;ll want to use the present position of the sprite to support your calculation</p>
+<p>to make your Sprite move in any direction and be visible</p>
 </li>
 </ul>
 </div>
@@ -593,44 +599,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_4_time_how_long_your_program_is_spending_in_each_stage">4. Time how long your program is spending in each stage</h2>
+<h2 id="_instantiate_two_sprites_with_two_variables">Instantiate two sprites, with two variables</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Use <code>SDL_GetTicks</code> initially</p>
+<p>Make two instances of your Sprite class</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Log the time (in milliseconds?) at each stage of the game loop</p>
-</li>
-</ul>
-</div>
+<p>Each with a separate variable</p>
 </li>
 <li>
-<p>Where is burning most time?</p>
-</li>
-<li>
-<p>Break down the step that is taking the longest</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Add more logging (perhaps at a less-important priority and make the log output priority lower)</p>
-</li>
-<li>
-<p>There is a specific point in our game that our program is waiting</p>
-</li>
-<li>
-<p>What is it?</p>
-</li>
-<li>
-<p>HINT: What "Frames Per Second" are your getting</p>
-</li>
-<li>
-<p>Can you disable the cause?</p>
-</li>
-<li>
-<p>What happens once you disable the cause?</p>
+<p>Use them in <code>update</code> and <code>render</code></p>
 </li>
 </ul>
 </div>
@@ -640,69 +621,91 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_5_use_better_timing">5. Use better timing</h2>
+<h2 id="_instantiate_three_sprites_with_some_kind_of_container">Instantiate three sprites, with some kind of "container"</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><code>SDL_GetTicks</code> only has millisecond precision</p>
-</li>
-<li>
-<p>Use the <a href="http://www.cplusplus.com/reference/chrono/high_resolution_clock/now/">high-resolution clock</a> instead</p>
+<p>Make three instances of your Sprite class</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>std::chrono::high_resolution_clock</code></p>
+<p>All stored in some kind of "container"</p>
 </li>
 <li>
-<p>Read the documentation of how to calculate "durations"</p>
+<p>What types of "container" do you know about?</p>
+</li>
+<li>
+<p>Which type of "container" do you think would be most appropriate</p>
+<div class="ulist">
+<ul>
+<li>
+<p>there isn&#8217;t always a clear, single correct answer</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>How long is each stage of your game loop taking now?</p>
+<p>Use them in <code>update</code> and <code>render</code></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_6_compensate_for_real_time_in_your_game_loop">6. Compensate for real-time in your Game Loop</h2>
+<h2 id="_instantiate_42_sprites_with_some_kind_of_container">Instantiate 42 sprites, with some kind of "container"</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Use one of the methods outlined in lectures to manage real-time in your game loop</p>
+<p>Make 42 instances of your Sprite class</p>
 <div class="ulist">
 <ul>
 <li>
-<p>note: the slides link out to a number of external sources</p>
+<p>All stored in some kind of "container"</p>
+</li>
+<li>
+<p>Randomly set their start positions and directions</p>
+</li>
+<li>
+<p>Use them in <code>update</code> and <code>render</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_methods_or_systems">Methods or Systems</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>AKA: Object-Orientation vs. Entity Component</p>
+</li>
+<li>
+<p>At your discretion, either:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Add methods to your Sprite class to support update and rendering (OOP)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>so your Sprites can update and render themselves</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Keeping the cause you disabled (in 4) off (V-sync off, in the driver), does your program now run at a consistent rate?</p>
-<div class="ulist">
-<ul>
-<li>
-<p>How long <strong>should</strong> it take for your sprite to complete an orbit?</p>
+<p>Make a SpriteMove class and a SpriteRender class, that will act on Sprites appropriately (ECS)</p>
 </li>
-<li>
-<p>Time that (or multiple orbits) with an external clock (your phone?)</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Re-enable V-sync</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Does your program still run correctly wrt time?</p>
-</li>
-</ul>
+</ol>
 </div>
 </li>
 </ul>
