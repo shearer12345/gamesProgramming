@@ -282,6 +282,25 @@ add_executable(conanTest ${source_list} )
 target_link_libraries(conanTest ${CONAN_LIBS})
 ----
 
+== Making new files in Visual Studio
+
+* WARNING: Visual Studio will by default put new items in project's root
+  ** in your *`build`* folder icon:frown-o[]
+* REMINDER: *Everything* in your `build` folder should be considered temporary
+  ** you want to be able to remove the entire folder do get a clean system
+
+=== Making new files in Visual Studio 2
+
+* *IF* you use "Add New Items" (or equivalent) in Visual Studio
+  ** *REMEMBER* to change the path where it creates the new file
+  ** to the root of your project (e.g. `gamesProgramming`)
+  ** *REMEMBER* to add the files to your `CMakeLists.txt` file also
+    *** Your project will still build without this
+    *** *BUT* only until your rerun CMake (e.g. when you moves machines)
+* You *could* choose to make a `src` folder at this point, to collect all your source code
+  ** to make things more organised
+  ** you'll need to update your `CMakeLists.txt` files to match the new locations
+
 
 == Recommended Reading
 

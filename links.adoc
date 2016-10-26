@@ -1,4 +1,5 @@
 :examplesdir: examples
+:icons: font
 
 :link-sdl2: https://www.libsdl.org/index.php
 :link-conan: https://conan.io/
