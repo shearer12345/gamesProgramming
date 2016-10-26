@@ -42,6 +42,7 @@ task :default do
     task(:generateReveal).execute( :filename => 'lecture02.adoc')
     task(:generateReveal).execute( :filename => 'lecture03.adoc')
     task(:generateReveal).execute( :filename => 'lecture04.adoc')
+    task(:generateReveal).execute( :filename => 'lecture05.adoc')
 
     #PDFs
     task(:generatePDF   ).execute( :filename => 'workshop01_settingUpABuildSystem.adoc')
@@ -53,4 +54,5 @@ task :default do
     task(:generatePDF   ).execute( :filename => 'lecture02.adoc')
     task(:generatePDF   ).execute( :filename => 'lecture03.adoc')
     task(:generatePDF   ).execute( :filename => 'lecture04.adoc')
+    task(:generatePDF   ).execute( :filename => 'lecture05.adoc')
 end
