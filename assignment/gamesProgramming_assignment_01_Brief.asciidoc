@@ -100,7 +100,7 @@ endif::[]
   ** You *CANNOT* use code from tutorial sites, even with attribution
 * You *MUST* use SDL2 for this assignment
   ** You *CANNOT* use freeGLUT, GLFW, or SFML
-* You *MUST* use SDL2_image
+* You *MUST* use SDL2, SDL2_image, or stb_image for image/texture loading
 * You *MUST* use SDL2 OR SDL_mixer for audio (if you have audio)
 * You *MUST* use SDL_ttf for font generation
 * You *CANNOT* use a physics library
