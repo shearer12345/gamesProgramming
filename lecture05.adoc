@@ -196,9 +196,7 @@ Exe Location:: `C:\Users\aUser\gamesProgramming\build\bin\myAwesomeGame.exe`
 
 === Mass
 
-* A measure of resistance to change of For every action there is an equal and opposite reaction.
-
-If two objects bump into each other they will react by moving apart.motion when a force is applied
+* A measure of resistance to change of motion when a force is applied
 * Is NOT the weight of an object (that depends on gravitational pull)
 * Units are stem:[kg]
 * A scalar (has no direction)
