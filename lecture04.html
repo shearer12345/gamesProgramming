@@ -51,6 +51,8 @@ conan_basic_setup()
 add_executable(conanTest main.cpp)
 target_link_libraries(conanTest ${CONAN_LIBS})
 
+file(COPY assets DESTINATION bin)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "conanTest")</code></pre></div></div></section><section id="_multiple_files_in_your_project_2"><h2>Multiple files in your project 2</h2><div class="ulist"><ul><li><p>You should make new classes in new files (generally)</p><div class="ulist"><ul><li><p>with a <code>.h</code> and a <code>.cpp</code>, usually</p></li></ul></div></li><li><p>You&#8217;ll need to tell cmake to compile those files into your program also</p><div class="ulist"><ul><li><p>add them to list of files in <code>add_executable</code></p></li></ul></div></li><li><p>What should you add?</p></li></ul></div></section><section id="_multiple_files_in_your_project_3"><h2>Multiple files in your project 3</h2><div class="ulist"><ul><li><p>Here&#8217;s an example</p><div class="ulist"><ul><li><p>there are other ways of doing this</p></li></ul></div></li></ul></div>
 <div class="listingblock"><div class="content"><pre class="highlight"><code class="cmake language-cmake">project(ConanTest)
