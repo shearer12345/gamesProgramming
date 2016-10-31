@@ -1,0 +1,54 @@
+= Use The Force, Luke
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== TODO Where we want to get to
+
+* Have some kind of force-based simulation
+  * using stem:[F = ma]
+  
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window
+* Be able to change the window size, including fullscreen
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Time how long your program is spending in each stage
+* Compensate for real-time in your Game Loop
+* Have a sprite class to encapsulate sprite data
+* Have a container to store multiple sprites
+* Be able to update and render multiple sprites
+
+== Activity summary
+
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== 1. TODO
+
+* make a sprite that orbits (like the Earth) around the centre of the screen (the Sun)
+  ** you could also render the Sun if you like
+* it should have a starting velocity perpendicular to the direction of the sun
+  ** at right-angles to the sun
+  ** easy if you start it right above, or right below the sun
+* it should have an acceleration towards the Sun proportional to the distance
+  ** correctly inversely proportional to the square of the distance
+  ** the mass of the "sprite" doesn't matter in this case - why not?
+
+== TODOWorkshop activities 5
+
+* adjust the starting velocity so the Earth doesn't immediately:
+  ** crash into the Sun
+  ** fly off into space
+* tweak that value to maintain the orbit for longer
+* what happens if you do two simulation steps each frame, each of half the length of time?
+  ** or 4 steps, each a 1/4 of the time?
