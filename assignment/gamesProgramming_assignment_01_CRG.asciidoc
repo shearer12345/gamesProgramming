@@ -12,14 +12,27 @@ endif::[]
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
 :source-highlighter: highlightjs
 
+== Learning Outcomes (from Module Specification)
+
+LO1:: apply appropriate programming and algorithmic techniques to games
+
+LO2:: design and develop interactive games using an appropriate API
+
+LO3:: implement efficient algorithms for computer games programming development e.g. collision detection, camera movement, interaction
+
+LO4:: design and develop games software using appropriate games and graphics programming techniques and standard graphics libraries
+
+LO5:: Utilise the documentation of game development
+
 == Coursework assignment CRG
 
-[options="header", cols="15s,10s,15,15,15,15,15"]
+[options="header", cols="15s,10s,10s,15,15,15,15,15"]
 |===
-| Criterion | Weight | Pass (40%) | 2.2 (50%) | 2.1 (60%) | 1st (70%) | 1st+ (80%+)
+| Criterion | LO | Weight | Pass (40%) | 2.2 (50%) | 2.1 (60%) | 1st (70%) | 1st+ (80%+)
 
 
 | Document
+| LO1, LO2, LO3, LO4, LO5
 | 10%
 | Document includes a list of features and screenshots of each
 | As for Pass, plus Document includes control keys for the demo
@@ -30,6 +43,7 @@ endif::[]
 
 
 | Logging and performance, and on-screen text
+| LO1, LO4, LO5
 | 10%
 | The game logs basic information to console, or screen (e.g. performance info (render time), initialisation details, debug output)
 | As for Pass, plus logging breaks down the render/game-loop and gives details on how long each aspect is taking
@@ -39,6 +53,7 @@ endif::[]
 
 
 | Window
+| LO1, LO4, LO5
 | 10%
 | There is a window which has a title including student name; module; student number
 | As for Pass, plus the window can be moved and resized
@@ -48,6 +63,7 @@ endif::[]
 
 
 | Sprites
+| LO1, LO2, LO3, LO4, LO5
 | 15%
 | There are sprites on the screen
 | As for Pass, plus multiple Sprites move on the screen, including the Player Character
@@ -57,6 +73,7 @@ endif::[]
 
 
 | Movement, Physics, Collisions
+| LO1, LO2, LO3, LO4
 | 15%
 | Player and Non-Player Characters in the game move
 | As for Pass, plus the simulation accounts for real time (evidenced through log and code inspection)
@@ -66,6 +83,7 @@ endif::[]
 
 
 | Player Character Control
+| LO1, LO2, LO3, LO4, LO5
 | 10%
 | The Player Character can be moved/controlled with the keyboard
 | As for Pass, plus the Player Character can be moved/controlled with the D-pad on the gamepad
@@ -75,6 +93,7 @@ endif::[]
 
 
 | Menu
+| LO1, LO2, LO3, LO4, LO5
 | 10%
 | There is an initial, full-window splash screen/loading screen
 | As for Pass, plus the game contains a menu accessed/raised with the keyboard or gamepad
@@ -84,6 +103,7 @@ endif::[]
 
 
 | Audio
+| LO1, LO2, LO3, LO4, LO5
 | 10%
 | There is some kind of background audio
 | As for Pass, plus sound effects trigger by game events
@@ -93,6 +113,7 @@ endif::[]
 
 
 | Extra Features
+| LO1, LO2, LO3, LO4, LO5
 | 10%
 | Keys can be remapped through a config file, or through a menu
 | As for Pass, plus a two player mode is implemented. This can be on a single monitor, in a single window, with a shared viewport
