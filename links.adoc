@@ -1,6 +1,7 @@
 :examplesdir: examples
 :icons: font
 :stem: latexmath
+:experimental:
 
 :link-sdl2: https://www.libsdl.org/index.php
 :link-conan: https://conan.io/

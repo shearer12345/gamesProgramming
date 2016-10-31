@@ -1,0 +1,82 @@
+= Use The Force, Luke
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Have some kind of force-based simulation
+  * using stem:[F = ma]
+* simulate a simple physics situation
+  ** a "ball" that starts at the bottom of the screen going upwards
+  ** has a constant force of gravity applied
+  ** so it goes up slower and slower until it starts coming down
+* make a simple game out of this
+  ** Lunar Lander
+  ** using keyboard input
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window, change its size, including fullscreen
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Compensate for real-time in your Game Loop
+* Have a sprite class to encapsulate sprite data
+* Have a container to store multiple sprites
+* Be able to update and render multiple sprites
+
+== Activity summary
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== 1. What goes up ...
+
+. Make a sprite that has an initial position in the bottom, centre of the screen
+  ** you should represent the position of your sprite as a vector
+  ** this could be a 2D array, or just two variables
+  ** you *could* make your own 2D vector class
+  ** where in the sprite do you want to use as it's position??
+    *** which is easiest to work with?
+. Make the sprite store velocity, make this initially upwards
+  ** you should represent velocity as a vector
+. Make the simulate/update use the velocity to update the position
+  ** so the sprite goes up over time, until it disappears off the top off the screen
+
+== 2. ... must come down
+
+. Make your sprite store its Mass
+. Make your simulation calculate the force exerted by gravity on your sprite
+  ** assume that gravity acts downwards
+  ** it doesn't matter how strong you make gravity (yet ...)
+  ** force of gravity is directly proportional to the mass
+. Use the force to calculate the acceleration of your sprite, according to:
+  ** stem:[F = ma]
+. Use the acceleration to update the velocity
+. Continue to use the velocity to update the position
+. Adjust the strength of gravity until your sprite goes up almost to the top of the screen, and then comes down
+
+
+== 3. Make a simple "Lunar Lander" game
+
+. Make another force act (upwards?) (a "rocket") on your sprite when a key is pressed
+  ** the common approach is to have a "force accumulator" (a vector) that is set to zero at the beginning of each `update`
+  ** each force calculation then adds to the accumulator in update
+  ** the total force is then used in the simulation step
+  ** you will need to somehow know, each update step, if the key you're interested in (kbd:[UP]?) is pressed or not pressed
+    *** HINT: You want to know the state of the keyboard
+    *** WARNING: there are some "gotcha"s here - read *all* the docs on the function you're using
+. Make your game detect when the sprite "hits" the bottom of the window
+  ** make the game exit when this happens - death
+. Make your game detect when the sprite "hits the top of the window
+  ** make the game exit when this happens - death
+. Make your game output (to the console) how long from the start of the game it has been before the sprite dies
+  ** now you have a simple game
+. Adjust gravity and/or the strength of your "rocket" to make the game challenging
+. Challenge a friend/colleague/demonstrator to get a high score
