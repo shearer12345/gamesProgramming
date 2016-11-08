@@ -37,12 +37,12 @@ task :default do
     task(:generateHTML  ).execute( :filename => 'workshop03_movementAndTiming.adoc')
     task(:generateHTML  ).execute( :filename => 'workshop04_oneSpriteTwoSpriteRedSpriteBlueSprite.adoc')
     task(:generateHTML  ).execute( :filename => 'workshop05_useTheForceLuke.adoc')
+    task(:generateHTML  ).execute( :filename => 'workshop06_runSpriteRun.adoc')
 
     task(:generateReveal).execute( :filename => 'index.adoc' )
     task(:generateReveal).execute( :filename => 'lecture01_introduction.adoc')
     task(:generateReveal).execute( :filename => 'lecture02.adoc')
     task(:generateReveal).execute( :filename => 'lecture03.adoc')
-    task(:generateReveal).execute( :filename => 'lecture04.adoc')
     task(:generateReveal).execute( :filename => 'lecture05.adoc')
 
     #PDFs
@@ -51,6 +51,7 @@ task :default do
     task(:generatePDF   ).execute( :filename => 'workshop03_movementAndTiming.adoc')
     task(:generatePDF   ).execute( :filename => 'workshop04_oneSpriteTwoSpriteRedSpriteBlueSprite.adoc')
     task(:generatePDF   ).execute( :filename => 'workshop05_useTheForceLuke.adoc')
+    task(:generatePDF   ).execute( :filename => 'workshop06_runSpriteRun.adoc')
 
     task(:generatePDF   ).execute( :filename => 'lecture01_introduction.adoc')
     task(:generatePDF   ).execute( :filename => 'lecture02.adoc')

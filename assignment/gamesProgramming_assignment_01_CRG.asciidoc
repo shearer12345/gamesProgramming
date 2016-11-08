@@ -11,6 +11,7 @@ endif::[]
 :imagesdir: ./assets/
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
 :source-highlighter: highlightjs
+:pdf-page-layout: landscape
 
 == Learning Outcomes (from Module Specification)
 
@@ -26,14 +27,12 @@ LO5:: Utilise the documentation of game development
 
 == Coursework assignment CRG
 
-[options="header", cols="15s,10s,10s,15,15,15,15,15"]
+[options="header", cols="15s,15,15,15,15,15"]
 |===
-| Criterion | LO | Weight | Pass (40%) | 2.2 (50%) | 2.1 (60%) | 1st (70%) | 1st+ (80%+)
+| Criterion (LO) Weight | Pass (40%) | 2.2 (50%) | 2.1 (60%) | 1st (70%) | 1st+ (80%+)
 
 
-| Document
-| LO1, LO2, LO3, LO4, LO5
-| 10%
+| Document (LO1, LO2, LO3, LO4, LO5) 10%
 | Document includes a list of features and screenshots of each
 | As for Pass, plus Document includes control keys for the demo
 | As for 2.2, plus Document reflects on the development
@@ -42,9 +41,7 @@ LO5:: Utilise the documentation of game development
 
 
 
-| Logging and performance, and on-screen text
-| LO1, LO4, LO5
-| 10%
+| Logging and performance, and on-screen text (LO1, LO4, LO5) 10%
 | The game logs basic information to console, or screen (e.g. performance info (render time), initialisation details, debug output)
 | As for Pass, plus logging breaks down the render/game-loop and gives details on how long each aspect is taking
 | As for 2.2, plus the Game score is shown on-screen, as text
@@ -52,9 +49,7 @@ LO5:: Utilise the documentation of game development
 | As for 1st, plus the the log scrolls and uses colours to represent different log events
 
 
-| Window
-| LO1, LO4, LO5
-| 10%
+| Window (LO1, LO4, LO5) 10%
 | There is a window which has a title including student name; module; student number
 | As for Pass, plus the window can be moved and resized
 | As for 2.2, plus the window can be made fullscreen
@@ -62,9 +57,7 @@ LO5:: Utilise the documentation of game development
 | As for 1st, plus the initial window is non-fullscreen, and half the size of the desktop, and centered
 
 
-| Sprites
-| LO1, LO2, LO3, LO4, LO5
-| 15%
+| Sprites (LO1, LO2, LO3, LO4, LO5) 15%
 | There are sprites on the screen
 | As for Pass, plus multiple Sprites move on the screen, including the Player Character
 | As for 2.2, plus Sprites visual show transparency
@@ -72,9 +65,7 @@ LO5:: Utilise the documentation of game development
 | As for 1st, plus motion animation lines up with motion - i.e. no moon-walking
 
 
-| Movement, Physics, Collisions
-| LO1, LO2, LO3, LO4
-| 15%
+| Movement, Physics, Collisions (LO1, LO2, LO3, LO4) 15%
 | Player and Non-Player Characters in the game move
 | As for Pass, plus the simulation accounts for real time (evidenced through log and code inspection)
 | As for 2.2, plus Player and Non-Player Characters can collide and react apppropriately (e.g. with walls, floors, pick ups)
@@ -82,9 +73,7 @@ LO5:: Utilise the documentation of game development
 | As for 1st, movement, physics, collision is excellent
 
 
-| Player Character Control
-| LO1, LO2, LO3, LO4, LO5
-| 10%
+| Player Character Control (LO1, LO2, LO3, LO4, LO5) 10%
 | The Player Character can be moved/controlled with the keyboard
 | As for Pass, plus the Player Character can be moved/controlled with the D-pad on the gamepad
 | As for 2.2, plus the Player Character can be moved/controlled, with speed control, using a thumb-stick
@@ -92,9 +81,7 @@ LO5:: Utilise the documentation of game development
 | As for 1st, plus the control is smooth and effective
 
 
-| Menu
-| LO1, LO2, LO3, LO4, LO5
-| 10%
+| Menu (LO1, LO2, LO3, LO4, LO5) 10%
 | There is an initial, full-window splash screen/loading screen
 | As for Pass, plus the game contains a menu accessed/raised with the keyboard or gamepad
 | As for 2.2, plus the menu can be controlled with the keyboard, with highlighting of the element to select
@@ -102,9 +89,7 @@ LO5:: Utilise the documentation of game development
 | As for 1st, plus the menu can be controlled with the mouse, with elements highlighted on hover
 
 
-| Audio
-| LO1, LO2, LO3, LO4, LO5
-| 10%
+| Audio (LO1, LO2, LO3, LO4, LO5) 10%
 | There is some kind of background audio
 | As for Pass, plus sound effects trigger by game events
 | As for 2.2, audio volume can controlled (in-game)
@@ -112,9 +97,7 @@ LO5:: Utilise the documentation of game development
 | As for 1st, extra audio features. e.g. DSP, panning sound effects with player movement, 3D audio
 
 
-| Extra Features
-| LO1, LO2, LO3, LO4, LO5
-| 10%
+| Extra Features (LO1, LO2, LO3, LO4, LO5) 10%
 | Keys can be remapped through a config file, or through a menu
 | As for Pass, plus a two player mode is implemented. This can be on a single monitor, in a single window, with a shared viewport
 | As for 2.2, players have their own viewport within the window (split screen), OR two separate non-overlapping windows
