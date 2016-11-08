@@ -23,3 +23,4 @@ NOTE: workshops linked from later slides
 . link:workshop03_movementAndTiming.html[Movement and Timing]
 . link:workshop04_oneSpriteTwoSpriteRedSpriteBlueSprite.html[One Sprite, Two Sprite, Red Sprite, Blue Sprite]
 . link:workshop05_useTheForceLuke.html[Use The Force, Luke]
+. link:workshop06_runSpriteRun.html[Run Sprite! Run!]

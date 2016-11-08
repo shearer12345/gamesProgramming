@@ -1,0 +1,111 @@
+= Run Sprite! Run!
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Load Sprites with SDL2_image
+  ** postponed till next week - conan package for Windows in in-progress
+  ** https://github.com/lasote/conan-sdl2_image/issues/1
+  ** for now, just convert any assets into 24-bit bitmaps
+    *** you'll not have transparency anymore, but ...
+* Have some animated sprites
+  ** loaded from a file
+  ** control the animation rate
+    *** separate it from the frame rate
+* Move between different animations on demand
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window, change its size, including fullscreen
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Compensate for real-time in your Game Loop
+* Have a sprite class to encapsulate sprite data
+* Have a container to store multiple sprites
+* Be able to update and render multiple sprites
+
+== Activity summary
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== What are sprites?
+
+* A Sprite is a 2D image, usually used within a video game.
+* Usually, partially transparent (not for today)
+
+[Kenny Platformer Pack - p1_front]
+image::kenny/platformerPack/Player/p1_front.png[caption="Kenny Platformer Pack: ", title="p1_front", alt="Kenny Platformer Pack: p1_front", height="300", link="http://open.commonly.cc/"]
+
+
+== What is sprite animation?
+
+* Changing between a set of sprites over time, to give the impression of change
+  ** movement
+  ** shape change
+  ** ...
+
+[Kenny Platformer Pack - p1 walk cycle]
+image::kenny/platformerPack/Player/p1_walk/PNG/p1_walk.apng[caption="Kenny Platformer Pack: ", title="p1 walk cycle", alt="Kenny Platformer Pack: p1 walk cycle", height="200", link="http://open.commonly.cc/"]
+
+== 1. Load an animated Sprite
+
+* Animated Sprites are usually (best) stored in a single image
+  ** the image contains multiple sub-images, one for each state of the animation
+  ** this is called a "sprite sheet"
+* Load a sprite sheet image
+  ** Display it on the screen
+
+== 2. Show just one sprite from a spritesheet
+
+* Modify your code to just show a single sprite from the sprite sheet
+  ** e.g. the top-left one
+* What information do you need?
+  ** are there any standards for how/where this information is stored?
+
+== 3. Show a pair of sprite from a spritesheet, alternating per-frame
+
+* NOTE: this is *BAD* practice
+  ** we've tied the animation rate to the frame rate
+* Make your code show one sprite from the sprite sheet
+  ** and the second sprite on the next frame
+  ** etc.
+
+== 4. Account for real-time
+
+* Decide on your animation rate
+  ** how many animation sprites should you show per second?
+  ** make it 1 per second, initially
+* Adjust your code to alternate images at this rate
+  ** what information do you need to store?
+    *** about your state within the animation
+    *** what would be a good way to represent this? (why *type*)
+* Optionally, make key bindings to adjust the animation rate dynamically
+
+== 5. Make an animation sequence
+
+* Determine a sequence of sprites in your spritesheet to make into an animation
+  ** e.g. a walk-cycle
+  ** how do you represent the sequence in your code?
+  ** and how do you represent your stage within the sequence?
+* Modify your code to move through this sequence over time
+  ** still account for real-time
+
+== 6. Move between different animations on demand
+
+* Determine two sequences of sprites in your spritesheet to make into two animation
+  ** they *can* share some sprites
+  ** how do you represent the sequences?
+  ** and how do you represent your stage within the sequence?
+* Modify your code to move through one sequence and switch to the other on a keypress
+  ** *when* should this transition occur?
+    *** NOTE: game design choice ...
+    ** still account for real-time
