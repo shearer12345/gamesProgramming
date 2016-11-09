@@ -8,7 +8,6 @@ endif::[]
 
 :email: jshearer@lincoln.ac.uk
 
-:imagesdir: ../assets/
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
 :source-highlighter: highlightjs
 
