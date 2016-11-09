@@ -76,6 +76,7 @@ image::kenny/platformerPack/Player/p1_walk/p1_walk_annotated.png[caption="Kenny 
 
 * More efficient
   ** in general, it is more efficient to have larger images and draw from just part of them
+  ** fewer texture binds (at the OpenGL level)
 
 === Sprites within sprite sheets
 
@@ -217,6 +218,19 @@ Most image formats are, or can be, used.
 * custom
 * ...
 
+
+=== Sprite files - meta-data - an example 1
+
+----
+include::assets/kenny/platformerPack/Player/p1_spritesheet.txt[]
+----
+
+=== Sprite files - meta-data - an example 2
+
+----
+include::assets/kenny/platformerPack/Player/p1_walk/p1_walk.json[]
+----
+
 == Texture Animation
 
 * If we're using OpenGL (or DirectX) we can still do sprite animation
@@ -230,68 +244,6 @@ Most image formats are, or can be, used.
 * We can also use video as a source for textures
 * Pros? Cons?
 
-== Activities
-
-* Using C++, using SDL2's 2D renderer - no OpenGL
-  ** unless you want to
-* Have an starting point at at https://github.com/shearer12345/graphicsByExample/tree/master/src/sdl_noOpenGL
-
-== Get the starting point
-
-.Windows
-[source]
-----
-git clone --recursive https://github.com/shearer12345/graphicsByExample.git ## <1>
-----
-<1> The Windows dependencies are in a separate repository, connected as a submodule. The `--recursive` flag asks git to also pull down all the submodules. If you miss it by accident, you can after do `git submodule init`, followed by `git submodule update`
-
-=== Build the starting point
-
-[source, bat]
-----
-git checkout sdl_noOpenGL
-git pull
-./premake5.bat vs2015
-----
-
-1. Load the `.sln` file
-2. Build and run sdl_noOpenGL you wish to explore - kbd:[F5]
-
-=== Delete the other projects if you want
-
-* i.e. the other directory in src
-  ** run premake again after
-
-== Change the size of the displayed sprite
-
-* The example uses `SDL_RenderCopy` to put the sprite on the screen
-* What are the two parameters that are presently NULL
-* Make the sprite be half the height/width of the window and centered
-* Make the sprite 20 pixels square
-* Make the sprite moveable on a key press
-
-== Getting more sprites
-
-* There are some nice copyright free assets at http://open.commonly.cc/
-* Get a set of sprites that you like.
-
-== Sprite sheet
-
-* Load one of the sprite sheets and show it as the whole sprite
-* Use the other parameter of `SDL_RenderCopy` to only show the first sprite from the sprite sheet
-* Make pressing a key move to the next sprite sheet
-
-== Animated sprites
-
-* Make the sprite animate by moving forwards 1 sprite frame per rendered frame
-* make it 1 sprite frame per 10 rendered frames
-* make it 1 sprite frame per second
-
-== Meta-data
-
-* Animation cycles are usually specified in separate files
-* Look through the assets you downloaded and figure out which files
-* Try to use that data in your program.
 
 
 == Recommended Reading
