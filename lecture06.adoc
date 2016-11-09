@@ -11,10 +11,10 @@ include::links.adoc[]
   ** in detail
   ** discussing approaches
 
-= Games Programming Assignment 01 Brief
+== Games Programming Assignment 01 Brief
 
 include::assignment/gamesProgramming_assignment_01_Brief.adoc[]
 
-= Games Programming Assignment 01 CRG
+== Games Programming Assignment 01 CRG
 
 include::assignment/gamesProgramming_assignment_01_CRG.adoc[]
