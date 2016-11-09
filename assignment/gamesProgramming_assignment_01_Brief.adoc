@@ -8,7 +8,6 @@ endif::[]
 
 :email: jshearer@lincoln.ac.uk
 
-:imagesdir: ../assets/
 :revealjs_customtheme: "reveal.js/css/theme/white.css"
 :source-highlighter: highlightjs
 
@@ -54,7 +53,7 @@ endif::[]
 
 === ZIP (source)
 
-* All game source - .{cpp}, .c, .h, .hpp
+* All game source - .cpp, .c, .h, .hpp
 * Files sufficient to create a working build environment (e.g. conan.io files, cmake files)
 * All assets - images, levels, audio, sprite description files, etc
 * A compiled, runable executable (.exe for PC), including dlls

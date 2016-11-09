@@ -8,19 +8,34 @@ shearer12345
 
 == Lectures
 
-. link:lecture01_introduction.html[Introduction]
-. link:lecture02.html[Build Systems, Logging, Window Creation]
-. link:lecture03.html[Game Loop, and timing]
-. link:lecture04.html[Programming Tips and Representing the World]
-. link:lecture05.html[Simulation]
+[cols="15,15"]
+|===
+| link:lecture01_introduction.html[1: Introduction]
+| link:lecture02.html[2: Build Systems, Logging]
+| link:lecture03.html[3: Game Loop, and timing]
+| link:lecture04.html[4: Programming Tips]
+| link:lecture05.html[5: Simulation]
+| link:lecture06.html[*6: Assignment*]
+| link:lecture07.html[7: Sprite Animation]
+| link:lecture08.html[8: Scene Management]
+| link:lecture09.html[9: Collision Detection]
+| link:lecture10.html[10: On-screen Text]
+| link:lecture11.html[11: Sound]
+| link:lecture12.html[12: Multi-player and Networking]
+| link:lecture13.html[13: Serialization]
+|
+|===
 
-NOTE: workshops linked from later slides
+NOTE: workshops on next slide
 
 == Workshops
 
-. link:workshop01_settingUpABuildSystem.html[Setting Up A Build System]
-. link:workshop02_myFirstSprite.html[My First Sprite]
-. link:workshop03_movementAndTiming.html[Movement and Timing]
-. link:workshop04_oneSpriteTwoSpriteRedSpriteBlueSprite.html[One Sprite, Two Sprite, Red Sprite, Blue Sprite]
-. link:workshop05_useTheForceLuke.html[Use The Force, Luke]
-. link:workshop06_runSpriteRun.html[Run Sprite! Run!]
+[cols="15,15"]
+|===
+| link:workshop01_settingUpABuildSystem.html[1: Setting Up A Build System]
+| link:workshop02_myFirstSprite.html[2: My First Sprite]
+| link:workshop03_movementAndTiming.html[3: Movement and Timing]
+| link:workshop04_oneSpriteTwoSpriteRedSpriteBlueSprite.html[4: One Sprite, Two Sprite, Red Sprite, Blue Sprite]
+| link:workshop05_useTheForceLuke.html[5: Use The Force, Luke]
+| link:workshop06_runSpriteRun.html[6: Run Sprite! Run!]
+|
