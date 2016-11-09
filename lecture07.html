@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Sprite Animation</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [["\\(", "\\)"]],
+  displayMath: [["\\[", "\\]"]],
+  ignoreClass: "nostem|nolatexmath"
+},
+asciimath2jax: {
+  delimiters: [["\\$", "\\$"]],
+  ignoreClass: "nostem|noasciimath"
+},
+TeX: { equationNumbers: { autoNumber: "none" } }
+});</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section class="title"><h1>Sprite Animation</h1><div class="preamble"><div class="imageblock" style=""><img src="assets/kenny/platformerPack/sample.png" alt="sample"></div></div></section>
+<section id="_overview"><h2>Overview</h2><div class="ulist"><ul><li><p>What are sprites?</p></li><li><p>What is sprite animation?</p></li><li><p>What are sprite sheets?</p></li><li><p>Challenges in sprite animation</p></li><li><p>Sprite Files</p></li><li><p>Texture Animation</p></li><li><p>Video Textures</p></li></ul></div></section>
+<section id="_what_are_sprites"><h2>What are sprites?</h2><div class="ulist"><ul><li><p>A Sprite is a 2D image, usually used within a video game.</p></li><li><p>Usually, partially transparent</p></li></ul></div>
+<div class="imageblock" style=""><a class="image" href="http://open.commonly.cc/"><img src="assets/kenny/platformerPack/Player/p1_front.png" alt="Kenny Platformer Pack: p1_front" height="300"></a></div><div class="title">Kenny Platformer Pack: p1_front</div></section>
+<section><section id="_what_is_sprite_animation"><h2>What is sprite animation?</h2><div class="ulist"><ul><li><p>Changing between a set of sprites over time, to give the impression of change</p><div class="ulist"><ul><li><p>movement</p></li><li><p><strong>shape change</strong></p></li><li><p>&#8230;&#8203;</p></li></ul></div></li></ul></div><div class="imageblock" style=""><a class="image" href="http://open.commonly.cc/"><img src="assets/kenny/platformerPack/Player/p1_walk/PNG/p1_walk.apng" alt="Kenny Platformer Pack: p1 walk cycle" height="200"></a></div><div class="title">Kenny Platformer Pack: p1 walk cycle</div></section><section id="_what_is_sprite_animation_2"><h2>What is sprite animation?</h2><div class="paragraph"><p>(for platforms not supporting apng)</p></div>
+<div class="ulist"><ul><li><p>Changing between a set of sprites over time, to give the impression of change</p><div class="ulist"><ul><li><p>movement</p></li><li><p>shape change</p></li><li><p>&#8230;&#8203;</p></li></ul></div></li></ul></div>
+<div class="imageblock" style=""><a class="image" href="http://open.commonly.cc/"><img src="assets/kenny/platformerPack/Player/p1_walk/PNG/p1_walk.gif" alt="Kenny Platformer Pack: p1 walk cycle" height="150"></a></div><div class="title">Kenny Platformer Pack: p1 walk cycle</div></section></section>
+<section id="_what_are_sprite_sheets"><h2>What are sprite sheets?</h2><div class="ulist"><ul><li><p>Single images containing multiple sprites and/or multiple frames of sprite animation</p></li></ul></div>
+<div class="imageblock" style=""><a class="image" href="http://open.commonly.cc/"><img src="assets/kenny/platformerPack/Player/p1_walk/p1_walk.png" alt="Kenny Platformer Pack: p1_walk spritesheet" height="300"></a></div><div class="title">Kenny Platformer Pack: p1_walk spritesheet</div></section>
+<section id="_challenges_in_sprite_animation"><h2>Challenges in sprite animation</h2><div class="olist arabic"><ol class="arabic"><li><p>Sprites within sprite sheets</p><div class="ulist"><ul><li><p>selecting the right set of pixels for each sprite</p></li></ul></div></li><li><p>Animation Cycles</p><div class="ulist"><ul><li><p>selecting the right sprite at the right time</p></li><li><p>smoothing the transitions</p></li><li><p>animation frame rate != render frame rate</p></li></ul></div></li><li><p>Multiple Animation Cycles</p><div class="ulist"><ul><li><p>when to transition from one cycle to another</p></li></ul></div></li></ol></div></section>
+<section><section id="_sprites_within_sprite_sheets"><h2>Sprites within sprite sheets</h2><div class="ulist"><ul><li><p>selecting the right set of pixels for each sprite</p></li></ul></div><div class="imageblock" style=""><a class="image" href="http://open.commonly.cc/"><img src="assets/kenny/platformerPack/Player/p1_walk/p1_walk_annotated.png" alt="Kenny Platformer Pack: p1_walk_annotated spritesheet" height="500"></a></div><div class="title">Kenny Platformer Pack: p1_walk_annotated spritesheet</div></section><section id="_why_sprites_within_sprite_sheets"><h2>Why Sprites within sprite sheets?</h2><div class="ulist"><ul><li><p>More efficient</p><div class="ulist"><ul><li><p>in general, it is more efficient to have larger images and draw from just part of them</p></li><li><p>fewer texture binds (at the OpenGL level)</p></li></ul></div></li></ul></div></section><section id="_sprites_within_sprite_sheets_2"><h2>Sprites within sprite sheets</h2><div class="ulist"><ul><li><p>Somehow we have to figure out which area of the sprite sheet correspond to each sprite</p></li><li><p>we <strong>NEED</strong> more information to do this</p><div class="ulist"><ul><li><p>it might be implicit - i.e. we expect all sprite sheets to conform to some standard</p></li><li><p>we might have that information in another file (or directly in our source code) (or, in theory, embedded in the meta-data of the image)</p></li></ul></div></li></ul></div></section><section id="_sprites_within_sprite_sheets_3"><h2>Sprites within sprite sheets</h2><div class="paragraph"><p>Let&#8217;s have a closer look at the sprite sheet</p></div>
+<div class="imageblock" style=""><a class="image" href="http://open.commonly.cc/"><img src="assets/kenny/platformerPack/Player/p1_walk/p1_walk_annotated.png" alt="Kenny Platformer Pack: p1_walk_annotated spritesheet" height="500"></a></div><div class="title">Kenny Platformer Pack: p1_walk_annotated spritesheet</div></section></section>
+<section><section id="_animation_cycles"><h2>Animation Cycles</h2><div class="ulist"><ul><li><p>animation frame rate != render frame rate</p></li><li><p>selecting the right sprite at the right time</p></li><li><p>smoothing the transitions</p></li></ul></div></section><section id="_animation_frame_rate_render_frame_rate"><h2>Animation frame rate != render frame rate</h2><div class="ulist"><ul><li><p>Our sprite frame rate is frequently lower than our render frame rate</p></li><li><p>Our render frame rate is frequently variable</p></li></ul></div>
+<div class="imageblock" style=""><img src="assets/diagrams/renderFrameVsAnimationFrame.svg" alt="Kenny Platformer Pack - p1_walk_annotated spritesheet"></div></section><section id="_selecting_the_right_sprite_at_the_right_time"><h2>Selecting the right sprite at the right time</h2><div class="ulist"><ul><li><p>When do we move from one sprite to another?</p></li><li><p>Usually at a fixed rate</p><div class="ulist"><ul><li><p>e.g. 10 sprite frames per second</p></li><li><p>so we need to keep track of real time, and animation time</p></li></ul></div></li><li><p>How do we represent where in the animation cycle we are?</p><div class="ulist"><ul><li><p>which frame? or a normalised float?</p></li><li><p>DISCUSS &#8230;&#8203;</p></li></ul></div></li></ul></div></section><section id="_smoothing_the_transitions"><h2>Smoothing the transitions</h2><div class="ulist"><ul><li><p>Frequently our sprites frame rate is lower than our render frame rate</p><div class="ulist"><ul><li><p>we <strong>could</strong> somehow try to smooth between images to smooth out the transitions</p></li><li><p>this is really hard</p></li><li><p>better to do offline</p></li><li><p>or use another animation techniques (e.g. skeletal animation)</p></li></ul></div></li></ul></div></section></section>
+<section id="_multiple_animation_cycles"><h2>Multiple Animation Cycles</h2><div class="ulist"><ul><li><p>when to transition from one cycle to another?</p></li></ul></div>
+<div class="imageblock" style=""><img src="assets/spriteAnimation/multipleAnimationCycles.svg" alt="multipleAnimationCycles" height="300"></div></section>
+<section><section id="_sprite_files"><h2>Sprite files</h2><div class="ulist"><ul><li><p>the imagery</p></li><li><p>meta-data</p></li></ul></div></section><section id="_sprite_files_imagery"><h2>Sprite files - imagery</h2><div class="paragraph"><p>What file formats is the image data stored in?</p></div>
+<div class="paragraph"><p>Most image formats are, or can be, used.</p></div>
+<div class="ulist"><ul><li><p>bmp</p></li><li><p>gif</p></li><li><p>jpg</p></li><li><p>png</p></li><li><p>&#8230;&#8203;</p></li></ul></div></section><section id="_advantages_disadvantages_of_these_file_formats"><h2>Advantages / Disadvantages of these file formats??</h2><table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:14.2857%"><col style="width:42.8571%"><col style="width:42.8572%"></colgroup><thead><tr><th class="tableblock halign-left valign-top">format</th><th class="tableblock halign-left valign-top">pro</th><th class="tableblock halign-left valign-top">con</th></tr></thead><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock">bmp</p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">gif</p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">jpg</p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">png</p></td><td class="tableblock halign-left valign-top"></td><td class="tableblock halign-left valign-top"></td></tr></tbody></table></section><section id="_advantages_disadvantages_of_these_file_formats_2"><h2>Advantages / Disadvantages of these file formats ?? 2</h2><table class="tableblock frame-all grid-all" style="width:100%"><colgroup><col style="width:14.2857%"><col style="width:42.8571%"><col style="width:42.8572%"></colgroup><thead><tr><th class="tableblock halign-left valign-top">format</th><th class="tableblock halign-left valign-top">pro</th><th class="tableblock halign-left valign-top">con</th></tr></thead><tbody><tr><td class="tableblock halign-left valign-top"><p class="tableblock"><code>bmp</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">easy to load</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">no transparency; minimal compression</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock"><code>gif</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">transparency (full/none)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">limited colour depth/palette</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock"><code>jpg</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">high compression; good for real-world scenes</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">lossy; has artefacts for some kinds of images (handles hard edges badly); hard to write a loader</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock"><code>png</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">transparency (alpha-levels); lossless; compressed</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">compression (lossless) isn&#8217;t (generally) as good as <code>jpg</code>; hard to write a loader</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock"><code>tga</code></p></td><td class="tableblock halign-left valign-top"><p class="tableblock">transparency (alpha-levels); lossless; compressed; reasonably easy to write a loader</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">no web-support</p></td></tr><tr><td class="tableblock halign-left valign-top"><p class="tableblock">format for the graphics card</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">very fast to load (data direct from file to GPU)</p></td><td class="tableblock halign-left valign-top"><p class="tableblock">no web-support</p></td></tr></tbody></table></section><section id="_more_on_file_formats"><h2>More on file formats</h2><div class="ulist"><ul><li><p>Some formats may be better for PC-only, or Web-only</p></li><li><p>Different file formats for:</p><div class="ulist"><ul><li><p>asset interchange (what your artists work on; what you keep; what you pass from tool to tool)</p></li><li><p>asset packing (for loading into a game)</p><div class="ulist"><ul><li><p>e.g. <a href="https://github.com/KhronosGroup/glTF">gltf</a> for 3D (OpenGL)</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_loading_sprites"><h2>Loading Sprites</h2><div class="ulist"><ul><li><p>SDL2 has a simple image loader built-in (<code>SDL_LoadBMP</code>)</p><div class="ulist"><ul><li><p>which loads 24-bit bitmaps into an <code>SDL_Surface</code></p></li></ul></div></li><li><p>We usually want to use other/better image formats</p></li><li><p>SDL2 has a support library <a href="https://www.libsdl.org/projects/SDL_image/">SDL_image</a> that can load more formats</p><div class="ulist"><ul><li><p>as of 2016-11-09 a (very active) work-in-progress conan package</p><div class="ulist"><ul><li><p><a href="https://github.com/lasote/conan-sdl2_image" class="bare">https://github.com/lasote/conan-sdl2_image</a></p></li><li><p><a href="https://github.com/lasote/conan-sdl2_image/pull/2">track the pull request</a></p></li></ul></div></li></ul></div></li></ul></div></section><section id="_sprite_files_meta_data"><h2>Sprite files - meta-data</h2><div class="ulist"><ul><li><p>json</p></li><li><p>xml (e.g. taml)</p></li><li><p>custom</p></li><li><p>&#8230;&#8203;</p></li></ul></div></section><section id="_sprite_files_meta_data_an_example_1"><h2>Sprite files - meta-data - an example 1</h2><div class="listingblock"><div class="content"><pre class="highlight"><code>p1_duck = 365 98 69 71
+p1_front = 0 196 66 92
+p1_hurt = 438 0 69 92
+p1_jump = 438 93 67 94
+p1_stand = 67 196 66 92
+p1_walk01 = 0 0 72 97
+p1_walk02 = 73 0 72 97
+p1_walk03 = 146 0 72 97
+p1_walk04 = 0 98 72 97
+p1_walk05 = 73 98 72 97
+p1_walk06 = 146 98 72 97
+p1_walk07 = 219 0 72 97
+p1_walk08 = 292 0 72 97
+p1_walk09 = 219 98 72 97
+p1_walk10 = 365 0 72 97
+p1_walk11 = 292 98 72 97</code></pre></div></div></section><section id="_sprite_files_meta_data_an_example_2"><h2>Sprite files - meta-data - an example 2</h2><div class="listingblock"><div class="content"><pre class="highlight"><code>{"frames": {
+
+"Symbol 2 instance 10000":
+{
+	"frame": {"x":0,"y":0,"w":67,"h":92},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":5,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10001":
+{
+	"frame": {"x":67,"y":0,"w":66,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":4,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10002":
+{
+	"frame": {"x":133,"y":0,"w":67,"h":92},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":3,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10003":
+{
+	"frame": {"x":0,"y":93,"w":67,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":1,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10004":
+{
+	"frame": {"x":67,"y":93,"w":66,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":0,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10005":
+{
+	"frame": {"x":133,"y":93,"w":71,"h":92},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10006":
+{
+	"frame": {"x":0,"y":186,"w":71,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":0,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10007":
+{
+	"frame": {"x":71,"y":186,"w":71,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10008":
+{
+	"frame": {"x":142,"y":186,"w":70,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":3,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10009":
+{
+	"frame": {"x":0,"y":279,"w":71,"h":93},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":4,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+},
+"Symbol 2 instance 10010":
+{
+	"frame": {"x":71,"y":279,"w":67,"h":92},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":5,"w":73,"h":97},
+	"sourceSize": {"w":73,"h":97}
+}},
+"meta": {
+	"app": "Adobe Flash CS6",
+	"version": "12.0.2.529",
+	"image": "p1_walk.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512},
+	"scale": "1"
+}
+}</code></pre></div></div></section></section>
+<section id="_texture_animation"><h2>Texture Animation</h2><div class="ulist"><ul><li><p>If we&#8217;re using OpenGL (or DirectX) we can still do sprite animation</p></li><li><p>It is straightforward with texture</p></li><li><p>Each image is a texture</p></li><li><p>the pixel coordinates become UV coordinates</p></li><li><p>SDL&#8217;s 2D renderer (usually) uses OpenGL - just like this</p></li></ul></div></section>
+<section id="_video_textures"><h2>Video Textures</h2><div class="ulist"><ul><li><p>We can also use video as a source for textures</p></li><li><p>Pros? Cons?</p></li></ul></div></section>
+<section id="_recommended_reading"><h2>Recommended Reading</h2><div class="ulist"><ul><li><p><a href="http://paulbourke.net/dataformats/" class="bare">http://paulbourke.net/dataformats/</a></p><div class="ulist"><ul><li><p><a href="http://paulbourke.net/dataformats/tga/" class="bare">http://paulbourke.net/dataformats/tga/</a></p></li><li><p><a href="http://paulbourke.net/dataformats/gif/" class="bare">http://paulbourke.net/dataformats/gif/</a></p></li><li><p><a href="http://paulbourke.net/dataformats/bmp/" class="bare">http://paulbourke.net/dataformats/bmp/</a></p></li></ul></div></li><li><p><a href="https://github.com/nothings/stb" class="bare">https://github.com/nothings/stb</a></p><div class="ulist"><ul><li><p><a href="https://github.com/nothings/stb/blob/master/stb_image.h" class="bare">https://github.com/nothings/stb/blob/master/stb_image.h</a></p></li></ul></div></li><li><p><a href="https://www.libsdl.org/projects/SDL_image/" class="bare">https://www.libsdl.org/projects/SDL_image/</a></p><div class="ulist"><ul><li><p><a href="https://github.com/lasote/conan-sdl2_image" class="bare">https://github.com/lasote/conan-sdl2_image</a></p></li></ul></div></li></ul></div></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: false,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'slide',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 960,
+  height: 700,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
