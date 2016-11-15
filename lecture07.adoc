@@ -248,6 +248,9 @@ include::assets/kenny/platformerPack/Player/p1_walk/p1_walk.json[]
 
 == Recommended Reading
 
+* https://www.caveofprogramming.com/guest-posts/animating-using-sprite-sheets.html
+* https://www.youtube.com/watch?v=sr4X1yTmyCw
+* http://www.gamefromscratch.com/post/2015/10/26/SFML-CPP-Tutorial-Spritesheets-and-Animation.aspx
 * http://paulbourke.net/dataformats/
   ** http://paulbourke.net/dataformats/tga/
   ** http://paulbourke.net/dataformats/gif/
