@@ -1,0 +1,125 @@
+= On Screen Text
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Render text on screen
+* Control:
+  ** where the text shows
+  ** the font
+  ** the detail in the font
+* Change the text on demand
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window, change its size, including fullscreen
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Compensate for real-time in your Game Loop
+* Have a sprite class to encapsulate sprite data
+* Have a container to store multiple sprites
+* Be able to update and render multiple sprites
+
+== Activity summary
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== On-screen text output
+
+* Text is represented by a series of glyphs (symbols)
+* Glyphs are generated from a font
+* A font is a particular size, weight and style of a typeface.
+* A typeface (aka font-family) is a set of fonts that share common design features
+* !!!
+* the words "font" and "typeface" are frequently confused
+
+=== On-screen text output file formats
+
+* Fonts are usually described in some format of vector format
+  ** rather than a raster format
+* TrueType is the most common format (.ttf files)
+  ** the content of .ttf files is protected by copyright
+  ** you should be careful distributing .ttf files in your game
+  ** there are a variety of openly licensed .ttf files/formats
+    *** e.g. the Hack typeface - http://sourcefoundry.org/hack/
+
+=== On-screen text output in practice
+
+* In games, text is usually rendered to the screen via a texture or sprite
+  ** with SDL2 this is reasonably easy
+* the SDL2_ttf library provides useful functions
+  ** the `TTF_OpenFont()` function loads a font from a `.ttf` file
+  ** the `TTF_RenderText_Solid()` function generates an `SDL_Surface` from a font, a string, and a colour
+  ** this `SDL_Surface` can be converted to an `SDL_Texture` with `SDL_CreateTextureFromSurface()`
+  ** an `SDL_Surface` can then be rendered using `SDL_RenderCopy()`, just like a sprite
+
+== 1. Choose/Find a library source on conan.io
+
+* There are a number of sources for SDL2_ttf on conan.io
+. Choose one
+. Add it to your `conanfile.txt`
+. (re)run conan to install the library
+
+== 2. Test that the library is working
+
+. `#include` the library in your code to check you can include it
+. add lines of code that use the library (initialisation?) to check it links
+. build your program, and check it runs
+
+== 3. Choose/Find a font file (`.ttf)
+
+* You'll need a font file to generate a font
+. Choose/find one that you have license to use
+
+== 4. Load the font from the file
+
+. Where should you put the file?
+  ** how do you make it so that it gets copied to your binary folder
+  ** HINT: like other assets
+  ** HINT: cmake supports this
+. Using the docs, load the file to a `TTF_Font *`
+
+== 5. Turn the font into an SDL_Surface
+
+. Using the docs, Turn the font into an SDL_Surface
+  ** what can you control?
+
+== 6. Load the surface into a texture
+
+. Load the surface into a texture
+  ** you've already been doing this
+
+== 7. Show the text on-screen
+
+. Show the text on-screen
+  ** you've already been doing this
+
+== 8. Change the text on a key press
+
+. What stages will you need to repeat?
+. What aspects do you need to be careful about?
+  ** HINT: memory management - both CPU and GPU side
+
+== 9. Manage the texture well
+
+* There are some hints for how the texture should be handled
+. Read the docs on https://wiki.libsdl.org/SDL_CreateTextureFromSurface[SDL_CreateTextureFromSurface] and follow the links
+. What kind of texture access should you use?
+
+== 10. Show two bits of text on screen at once
+
+. Show two bits of text on screen at once
+
+== 11. Make one of the bits of text show your current frame render time
+
+. Make one of the bits of text show your current frame render time
+  ** i.e. how long the last frame took to render
