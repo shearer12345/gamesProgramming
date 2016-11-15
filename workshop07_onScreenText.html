@@ -5,7 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
-<title>Games Programming Introduction</title>
+<meta name="author" content="John Shearer">
+<title>On Screen Text</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,210 +421,97 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Games Programming Introduction</h1>
+<h1>On Screen Text</h1>
+<div class="details">
+<span id="author" class="author">John Shearer</span><br>
+</div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/space-invaders.png" alt="space invaders">
-</div>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="_what_is_this_module_about">What is this module about?</h2>
+<h2 id="_where_we_want_to_get_to">Where we want to get to</h2>
 <div class="sectionbody">
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/Chuckie_Egg_on_BBC_Micro.jpg" alt="Chuckie Egg on BBC Micro">
-</div>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>grounding in the development of games</p>
-<div class="ulist">
-<ul>
-<li>
-<p>from the software (programming) perspective</p>
+<p>Render text on screen</p>
 </li>
 <li>
-<p>working with other devices/interfaces</p>
+<p>Control:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>where the text shows</p>
+</li>
+<li>
+<p>the font</p>
+</li>
+<li>
+<p>the detail in the font</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Change the text on demand</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_teaching_style">Teaching Style</h2>
+<h2 id="_where_you_should_already_be">Where you should already be</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Practice-led</p>
+<p>Have a working build system, that uses SDL</p>
+</li>
+<li>
+<p>Create a window, change its size, including fullscreen</p>
+</li>
+<li>
+<p>Have a program that draws a sprite on the screen</p>
 <div class="ulist">
 <ul>
 <li>
-<p>lectures will introduce concepts, techniques, things to think about</p>
+<p>with a size and position that you can control/change</p>
 </li>
 <li>
-<p>effective learning will require lots of programming engagement</p>
+<p>sprite position and size independent of window resolution</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Ask questions, query norms</p>
+<p>Compensate for real-time in your Game Loop</p>
 </li>
 <li>
-<p>Discuss with each other</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Constructive Critique</p>
-</li>
-</ul>
-</div>
+<p>Have a sprite class to encapsulate sprite data</p>
 </li>
 <li>
-<p>Critique my code too</p>
+<p>Have a container to store multiple sprites</p>
+</li>
+<li>
+<p>Be able to update and render multiple sprites</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_scope">Scope</h2>
+<h2 id="_activity_summary">Activity summary</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>we&#8217;ll work on 2D games exclusively</p>
+<p>We&#8217;ll be adding stuff to <code>main.cpp</code> to do more interesting things</p>
+</li>
+<li>
+<p>You could continue with your existing code (take a snapshot/commit)</p>
 <div class="ulist">
 <ul>
 <li>
-<p>but this content also applies to 3D</p>
-</li>
-<li>
-<p>3D requires ideas/tools not covered yet</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>building COMPLETE games</p>
-</li>
-<li>
-<p>not AAA titles!!</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/forzaHorizons3.jpg" alt="forzaHorizons3">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_disassembling_a_game">Disassembling a Game</h2>
-<div class="sectionbody">
-<div class="videoblock stretch">
-<div class="title">Chuckie Egg</div>
-<div class="content">
-<iframe src="https://www.youtube.com/embed/J3RgzDaNTac?rel=0&amp;autoplay=1&amp;loop=1&amp;playlist=J3RgzDaNTac" frameborder="0" allowfullscreen></iframe>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_assignments">Assignments</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Single, 100% assignment</p>
-</li>
-<li>
-<p>Build a complete game that demonstrates both:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Games Programming capabilities (i.e. high quality code)</p>
-</li>
-<li>
-<p>Specific Games Programming techniques we&#8217;ve covered in class</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Space for personal expression and portfolio</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_workshops">Workshops</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Sequences of exercises/tutorials</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Developing the skills you&#8217;ll integrate together the your assignment</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>You can (should) start the assignment soon</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_module_overview">Module Overview</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Embedded through out</p>
-<div class="ulist">
-<ul>
-<li>
-<p>C++, libraries, engines and other languages</p>
-</li>
-<li>
-<p>Modern C++</p>
-</li>
-<li>
-<p>Efficiency</p>
-</li>
-<li>
-<p>Good Programming Practice</p>
-</li>
-<li>
-<p>Software Engineering Best Practices, e.g.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Versioning</p>
-</li>
-<li>
-<p>Reading Documentation</p>
-</li>
-</ul>
-</div>
+<p>or start a fresh project</p>
 </li>
 </ul>
 </div>
@@ -633,410 +521,127 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_c_and_c">C and C++</h2>
+<h2 id="_on_screen_text_output">On-screen text output</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Why are we looking using C++ for building games</p>
+<p>Text is represented by a series of glyphs (symbols)</p>
 </li>
 <li>
-<p>Relationship of C and C++</p>
+<p>Glyphs are generated from a font</p>
+</li>
+<li>
+<p>A font is a particular size, weight and style of a typeface.</p>
+</li>
+<li>
+<p>A typeface (aka font-family) is a set of fonts that share common design features</p>
+</li>
+<li>
+<p>!!!</p>
+</li>
+<li>
+<p>the words "font" and "typeface" are frequently confused</p>
 </li>
 </ul>
 </div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/cpp.png" alt="cpp">
+<div class="sect2">
+<h3 id="_on_screen_text_output_file_formats">On-screen text output file formats</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Fonts are usually described in some format of vector format</p>
+<div class="ulist">
+<ul>
+<li>
+<p>rather than a raster format</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>TrueType is the most common format (.ttf files)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the content of .ttf files is protected by copyright</p>
+</li>
+<li>
+<p>you should be careful distributing .ttf files in your game</p>
+</li>
+<li>
+<p>there are a variety of openly licensed .ttf files/formats</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. the Hack typeface - <a href="http://sourcefoundry.org/hack/" class="bare">http://sourcefoundry.org/hack/</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_on_screen_text_output_in_practice">On-screen text output in practice</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>In games, text is usually rendered to the screen via a texture or sprite</p>
+<div class="ulist">
+<ul>
+<li>
+<p>with SDL2 this is reasonably easy</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>the SDL2_ttf library provides useful functions</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the <code>TTF_OpenFont()</code> function loads a font from a <code>.ttf</code> file</p>
+</li>
+<li>
+<p>the <code>TTF_RenderText_Solid()</code> function generates an <code>SDL_Surface</code> from a font, a string, and a colour</p>
+</li>
+<li>
+<p>this <code>SDL_Surface</code> can be converted to an <code>SDL_Texture</code> with <code>SDL_CreateTextureFromSurface()</code></p>
+</li>
+<li>
+<p>an <code>SDL_Surface</code> can then be rendered using <code>SDL_RenderCopy()</code>, just like a sprite</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_external_libraries">External Libraries</h2>
+<h2 id="_1_choose_find_a_library_source_on_conan_io">1. Choose/Find a library source on conan.io</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>why we need them</p>
+<p>There are a number of sources for SDL2_ttf on conan.io</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Choose one</p>
 </li>
 <li>
-<p>what they can provide - selecting/locating</p>
+<p>Add it to your <code>conanfile.txt</code></p>
 </li>
 <li>
-<p>"installing"</p>
+<p>(re)run conan to install the library</p>
 </li>
-<li>
-<p>using from C++</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/Ogg_vorbis_libs_and_application_dia.svg.png" alt="Ogg vorbis libs and application dia.svg">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_build_systems">Build Systems</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>why to use</p>
-</li>
-<li>
-<p>a quick list</p>
-</li>
-<li>
-<p>what we&#8217;ll use</p>
-</li>
-</ul>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="assets/cmake.jpg" alt="cmake" height="200">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="assets/conan_small.png" alt="conan small" height="200">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cross_platform">Cross-platform</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>libraries</p>
-<div class="ulist">
-<ul>
-<li>
-<p>those we&#8217;re using</p>
-</li>
-<li>
-<p>alternatives to look at (but NOT use))</p>
-</li>
-<li>
-<p>doing by hand (platform-specific)</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>concerns</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_windows_strong_not_ms_windows_strong">Windows (<strong>not MS Windows</strong> &#8230;&#8203;)</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>creating</p>
-</li>
-<li>
-<p>(re)sizing</p>
-</li>
-<li>
-<p>moving</p>
-</li>
-<li>
-<p>fullscreen</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_logging">Logging</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>why</p>
-<div class="ulist">
-<ul>
-<li>
-<p>vs <code>printf</code> or <code>cout</code></p>
-</li>
-<li>
-<p>why start with logging</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>how</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_getting_strong_anything_strong_on_screen">Getting <strong>anything</strong> on-screen</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>issues (flicker, tearing, judder)</p>
-</li>
-<li>
-<p>techniques</p>
-</li>
-<li>
-<p>swap intervals / vsync</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/Tearing_(simulated).jpg" alt="Tearing (simulated)">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_time_and_time_budgets">Time and Time Budgets</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>issues related to time</p>
-<div class="ulist">
-<ul>
-<li>
-<p>fps, deadlines</p>
-</li>
-<li>
-<p>latency, jitter</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>measuring time</p>
-</li>
-<li>
-<p>"hard real-time"</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/game-loop-timeline.png" alt="game loop timeline">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_representing_the_world">Representing the World</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>"Models"</p>
-</li>
-<li>
-<p>Game State</p>
-</li>
-<li>
-<p>Scene Graphs</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/base_3d_model__creature_by_tlund.jpg" alt="base 3d model  creature by tlund">
-</div>
-<div class="title">Figure 1. not just this kind of model</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_simulation">Simulation</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Movement and basic physics</p>
-</li>
-<li>
-<p>Fix your timestep</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/simulationCar.jpg" alt="simulationCar">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_collisions">Collisions</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Collision detection</p>
-</li>
-<li>
-<p>Collision response</p>
-</li>
-<li>
-<p>Efficiency</p>
-</li>
-<li>
-<p>Spatial Partitioning</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/Billiards_balls.jpg" alt="Billiards balls">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_handling_input">Handling input</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>keyboard</p>
-</li>
-<li>
-<p>mouse</p>
-</li>
-<li>
-<p>gamepad</p>
-</li>
-<li>
-<p>joystick</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/Xbox-360-S-Controller.png" alt="Xbox 360 S Controller">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sprites">Sprites</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>loading</p>
-</li>
-<li>
-<p>displaying</p>
-</li>
-<li>
-<p>moving</p>
-</li>
-<li>
-<p>animating</p>
-</li>
-</ul>
-</div>
-<div class="imageblock stretch">
-<div class="content">
-<img src="assets/kenny/platformerPack/Player/p1_front.png" alt="p1 front">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_on_screen_text">On-screen Text</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>fonts</p>
-</li>
-<li>
-<p>menus</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_sound_audio">Sound/Audio</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>loading</p>
-</li>
-<li>
-<p>playing</p>
-</li>
-<li>
-<p>concerns</p>
-</li>
-<li>
-<p>sound effects</p>
-</li>
-<li>
-<p>streaming</p>
-</li>
-<li>
-<p>DSP and spatialisation (3D)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_stretch_content">Stretch content</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>multi-threading / parallism</p>
-</li>
-<li>
-<p>Determinism (briefly)</p>
-</li>
-<li>
-<p>Interpolation</p>
-</li>
-<li>
-<p>Networking and multiplayer games</p>
-</li>
-<li>
-<p>File formats, serialisation, and compression</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_discussion_game_design">Discussion - Game Design</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>What did you design in Game Design last year?</p>
-<div class="ulist">
-<ul>
-<li>
-<p>how complex was this?</p>
-</li>
-</ul>
+</ol>
 </div>
 </li>
 </ul>
@@ -1044,71 +649,226 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_assembling_a_toolset">Assembling a toolset</h2>
+<h2 id="_2_test_that_the_library_is_working">2. Test that the library is working</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>#include</code> the library in your code to check you can include it</p>
+</li>
+<li>
+<p>add lines of code that use the library (initialisation?) to check it links</p>
+</li>
+<li>
+<p>build your program, and check it runs</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_choose_find_a_font_file_ttf">3. Choose/Find a font file (`.ttf)</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>C++ (required)</p>
-</li>
+<p>You&#8217;ll need a font file to generate a font</p>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>SDL2 (required)</p>
+<p>Choose/find one that you have license to use</p>
 </li>
-<li>
-<p>Conan.io (required)</p>
-</li>
-<li>
-<p>git (recommended)</p>
+</ol>
+</div>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_recommended_reading_resources">Recommended Reading/Resources</h2>
+<h2 id="_4_load_the_font_from_the_file">4. Load the font from the file</h2>
 <div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Where should you put the file?</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Game engine architecture - Jason Gregory 2014 (physical copies in the library)</p>
+<p>how do you make it so that it gets copied to your binary folder</p>
 </li>
 <li>
-<p>Game programming patterns - Robert Nystrom c2014</p>
-<div class="ulist">
-<ul>
+<p>HINT: like other assets</p>
+</li>
 <li>
-<p>free online @ <a href="http://gameprogrammingpatterns.com/contents.html" class="bare">http://gameprogrammingpatterns.com/contents.html</a> (also printed copies in the library)</p>
+<p>HINT: cmake supports this</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>SDL game development - Shaun Mitchell 2013 (ebook through library)</p>
+<p>Using the docs, load the file to a <code>TTF_Font *</code></p>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Check reading list on Blackboard for complete list</p>
+</ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_blogs_etc">Blogs etc</h2>
+<h2 id="_5_turn_the_font_into_an_sdl_surface">5. Turn the font into an SDL_Surface</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Using the docs, Turn the font into an SDL_Surface</p>
+<div class="ulist">
+<ul>
+<li>
+<p>what can you control?</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_6_load_the_surface_into_a_texture">6. Load the surface into a texture</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Load the surface into a texture</p>
+<div class="ulist">
+<ul>
+<li>
+<p>you&#8217;ve already been doing this</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_7_show_the_text_on_screen">7. Show the text on-screen</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Show the text on-screen</p>
+<div class="ulist">
+<ul>
+<li>
+<p>you&#8217;ve already been doing this</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_8_change_the_text_on_a_key_press">8. Change the text on a key press</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>What stages will you need to repeat?</p>
+</li>
+<li>
+<p>What aspects do you need to be careful about?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>HINT: memory management - both CPU and GPU side</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_9_manage_the_texture_well">9. Manage the texture well</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="http://ithare.com/">ITHare</a> <a href="http://ithare.com/feed/">RSS feed</a></p>
+<p>There are some hints for how the texture should be handled</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Read the docs on <a href="https://wiki.libsdl.org/SDL_CreateTextureFromSurface">SDL_CreateTextureFromSurface</a> and follow the links</p>
+</li>
+<li>
+<p>What kind of texture access should you use?</p>
+</li>
+</ol>
+</div>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_10_show_two_bits_of_text_on_screen_at_once">10. Show two bits of text on screen at once</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Show two bits of text on screen at once</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_11_make_one_of_the_bits_of_text_show_your_current_frame_render_time">11. Make one of the bits of text show your current frame render time</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make one of the bits of text show your current frame render time</p>
+<div class="ulist">
+<ul>
+<li>
+<p>i.e. how long the last frame took to render</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-10-10 15:18:09 BST
+Last updated 2016-11-15 09:05:52 GMT
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
