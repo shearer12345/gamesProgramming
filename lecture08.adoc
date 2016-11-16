@@ -1,4 +1,4 @@
-= Scene Management (to release)
+= Scene Management
 :imagesdir: assets
 :revealjs_history: true
 :examplesdir: examples
@@ -7,5 +7,503 @@ include::links.adoc[]
 
 == Overview
 
+* Scene Management
+  ** from a VERY bad implementation
+  ** to something (a little) better
+* Focus on programming aspects and modern {cpp}
+  ** {cpp}11 / {cpp}14?? / {cpp}17?? / {cpp}20??
+  ** memory management
+    *** allocations / deallocations
+
+== A scene
+
+* Our scene will consist of a number of visual (and non-visible) entities
+* Significantly different entities may be in different classes
+  ** possibly with some kind of inheritance model
+  ** or possible with a composition model
+* Here we'll consider a scene that only contains instances of a single class
+
+== A (minimal, *incomplete*) Sprite Class
+
+[source, cpp]
+.Sprite.h
+----
+#ifndef Sprite_h
+#define Sprite_h
+#include "common.h"
+
+class Sprite
+{
+public:
+    SDL_Rect rectangle;
+    Sprite(int x, int y, int w, int h);
+    Sprite(const Sprite& sprite);
+    ~Sprite();
+};
+#endif /* end of include guard:  */
+----
+
+=== A (minimal, incomplete) Sprite Class
+
+[source, cpp]
+.Sprite.cpp
+----
+#include "Sprite.h"
+Sprite::Sprite(int x, int y, int w, int h) {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Constructed (%p)", this);
+    rectangle.x = x;
+    rectangle.y = y;
+    rectangle.w = w;
+    rectangle.h = h;
+}
+Sprite::Sprite(const Sprite& sprite) : rectangle(sprite.rectangle) {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Constructed (%p) - Copied from (%p)", this, sprite);
+}
+Sprite::~Sprite() {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Destructed  (%p)", this);
+}
+----
+
+=== A (minimal, incomplete) Sprite Class
+
+WARNING: we've put log messages in the constructor/deconstructor - this is very heavy!!
+
+NOTE: we *should* at least, use a much lower priority level (for normal usage) - so only take the hit if we want it (i.e. in extreme situations).
+
+NOTE: additionally, our debugger *could* show us all allocations/deallocations if we ask it too. This approach is *NOT RECOMMENDED PRACTICE* - just good for illustration.
+
+== A single sprite, stored in a global
+
+[source, cpp]
+.main.cpp (global)
+----
+Sprite sr(0,0, 200, 86);
+----
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_RenderCopy(ren, tex, NULL, &sr.rectangle);
+----
+
+=== A single sprite, stored in a global (visual output)
+
+image::spriteClass/single.png[caption="Sprite: ", title="A single sprite, stored in a global", height=300]
+
+=== A single sprite, stored in a global (console output)
+
+* One Sprite Instance Constructed, then Destructed on exit
+
+[source, bash]
+----
+INFO: Sprite Constructed (0x6032e0)
+SDL initialised OK!
+SDL CreatedWindow OK!
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x6032e0)
+----
+
+=== A single sprite, stored in a global (concerns/issues?)
+
+* Any concerns/issues/alternatives?
+[%step]
+  ** Global variables are *generally* bad practice
+  ** but, frequently, we need some
+[%step]
+    *** especially useful in the midst of development
+    *** you can do something better after
+  ** You'll likely create classes for major components - e.g. "Game"
+[%step]
+    *** many global variables will jump into that class
+
+=== Shared class variables
+
+* You can have a shared class variable for those which you *don't* want multiple instances off
+  ** `static`
+  ** You could also have that class as a "singleton" (frequently, in games, not recommmended practice)
+
+WARNING: `static` has at least 3 *different* meanings in {cpp} (see <<Recommended Reading>>)
+
+
+== A pair of sprites
+
+[source, cpp]
+.main.cpp (global)
+----
+Sprite sr1(0,0, 200, 86);
+Sprite sr2(200,200, 200, 86);
+----
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_RenderCopy(ren, tex, NULL, &sr1.rectangle);
+    SDL_RenderCopy(ren, tex, NULL, &sr2.rectangle);
+----
+
+=== A pair of sprites (visual output)
+
+image::spriteClass/pair.png[caption="Sprite: a pair of sprites", height=300]
+
+=== A pair of sprites (console output)
+
+* Two Sprite Instances Constructed, then Destructed on exit
+
+[source, bash]
+----
+INFO: Sprite Constructed (0x6032e0)
+INFO: Sprite Constructed (0x6032f0)
+SDL initialised OK!
+SDL CreatedWindow OK!
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x6032f0)
+INFO: Sprite Destructed  (0x6032e0)
+----
+
+
+=== A pair of sprites (concerns/issues?)
+
+* What are the issues with this approach?
+[%step]
+  ** What happens if we want 3 sprites? or 4? or 10? or 100?
+  ** What happens if we want to add or remove sprites at run-time?
+  ** What techniques do you know that could help with this?
+
+== Two sprites, stored in global std::vector (very bad version)
+
+[source, cpp]
+.main.cpp (global)
+----
+std::vector<Sprite> spriteList;
+----
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(Sprite(0,0, 200, 86));
+  spriteList.push_back(Sprite(200,200, 200, 86));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto sprite : spriteList)
+    {
+      SDL_RenderCopy(ren, tex, NULL, &sprite.rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (very bad version) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (very bad version) (console output 1)
+
+* Two Sprite Instances Constructed dynamically (badly)
+* iterated during rendering (badly) then Destructed on exit
+
+[source, bash]
+----
+INFO: Sprite Constructed (0x7ffcf07cb920)
+INFO: Sprite Constructed (0x15b6b70) - Copied from (0x7ffcf07cb920)
+INFO: Sprite Destructed  (0x7ffcf07cb920)
+INFO: Sprite Constructed (0x7ffcf07cb930)
+INFO: Sprite Constructed (0x15fdd60) - Copied from (0x7ffcf07cb930)
+INFO: Sprite Constructed (0x15fdd50) - Copied from (0x15b6b70)
+INFO: Sprite Destructed  (0x15b6b70)
+INFO: Sprite Destructed  (0x7ffcf07cb930)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (very bad version) (console output 2)
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd50)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd60)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Rendering sprites ...
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd50)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd60)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+...
+SDL Exiting!
+INFO: Sprite Destructed  (0x15fdd50)
+INFO: Sprite Destructed  (0x15fdd60)
+----
+
+=== Two sprites, stored in global std::vector (very bad version) (what's wrong)
+
+* What's wrong with this? What's going on?
+[%step]
+  . Extra Constructor and Destructor calls while filling the std::vector
+  . Constructor and Destructor calls while rendering
+
+
+== Two sprites, stored in global std::vector (better iteration)
+
+* make the iterator a reference, rather than a copy
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto& sprite : spriteList)
+    {
+      SDL_RenderCopy(ren, tex, NULL, &sprite.rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (better iteration) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (better iteration) (console output 1)
+
+* Two Sprite Instances Constructed dynamically (badly)
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x7ffef391b940)
+INFO: Sprite Constructed (0x1265240) - Copied from (0x7ffef391b940)
+INFO: Sprite Destructed  (0x7ffef391b940)
+INFO: Sprite Constructed (0x7ffef391b950)
+INFO: Sprite Constructed (0x1229010) - Copied from (0x7ffef391b950)
+INFO: Sprite Constructed (0x1229000) - Copied from (0x1265240)
+INFO: Sprite Destructed  (0x1265240)
+INFO: Sprite Destructed  (0x7ffef391b950)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (better iteration) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)
+----
+
+
+== Two sprites, stored in global std::vector (better allocation)
+
+* emplace_back create instances just for the vector
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.emplace_back(0,0, 200, 86);
+  spriteList.emplace_back(200,200, 200, 86);
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+=== Two sprites, stored in global std::vector (better allocation) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (better allocation) (console output 1)
+
+* Dynamic allocation, only copies when resizing the vector
+
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x21da1b0)
+INFO: Sprite Constructed (0x21c96a0)
+INFO: Sprite Constructed (0x21c9690) - Copied from (0x21da1b0)
+INFO: Sprite Destructed  (0x21da1b0)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (better allocation) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)
+----
+
+
+
+== Two sprites, stored in global std::vector (single allocation (ptr))
+
+* use a vector of pointers
+
+[source, cpp]
+.main.cpp (global)
+----
+std::vector<Sprite*> spriteList;
+----
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(new Sprite(0,0, 200, 86)); //could also be emplace_back
+  spriteList.push_back(new Sprite(200,200, 200, 86));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) 2
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto spritePtr : spriteList) //will be a pointer to a Sprite
+    {
+      SDL_RenderCopy(ren, tex, NULL, &spritePtr->rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (console output 1)
+
+* Dynamic allocation, only pointers are copied
+
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0xe54170)
+INFO: Sprite Constructed (0xe9af60)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)
+----
+
+=== Two sprites, stored in global std::vector (single allocation (ptr)) (concerns?)
+
+* Any problems with using pointers?
+[%step]
+  ** unclear who owns them
+  ** leading to incorrect deallocation or missing deallocation
+    *** *BAD* things
+
+
+
+== Two sprites, stored in global std::vector (single allocation (unique_ptr))
+
+* use a vector of unique_ptr
+
+[source, cpp]
+.main.cpp (global)
+----
+std::vector<unique_ptr<Sprite>> spriteList;
+----
+
+[source, cpp]
+.main.cpp (main, after SDL is initialised)
+----
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(std::unique_ptr<Sprite>(new Sprite(0,0, 200, 86)));
+  spriteList.push_back(std::unique_ptr<Sprite>(new Sprite(200,200, 200, 86)));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");
+----
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) 2
+
+[source, cpp]
+.main.cpp (render)
+----
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto const& sprite : spriteList) //unique_ptr can't be copied, so use reference
+    {
+    	SDL_RenderCopy(ren, tex, NULL, &sprite->rectangle);
+    }
+----
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) (visual output)
+
+image::spriteClass/pair.png[caption="A pair of sprites", height=300]
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) (console output 1)
+
+* Dynamic allocation, only unique_ptrs are copied
+
+[source, bash]
+----
+SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x1164950)
+INFO: Sprite Constructed (0x11a12a0)
+INFO: Sprites added
+----
+
+=== Two sprites, stored in global std::vector (single allocation (unique_ptr)) (console output 2)
+
+* Iteration during rendering doesn't allocate new sprites
+
+[source, bash]
+----
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1164950)
+INFO: Sprite Destructed  (0x11a12a0)
+----
+
+== More on unique_ptr with standard containers
+
+* http://eli.thegreenplace.net/2012/06/20/c11-using-unique_ptr-with-standard-library-containers
+
 
 == Recommended Reading
+
+* http://eli.thegreenplace.net/2012/06/20/c11-using-unique_ptr-with-standard-library-containers
+* http://stackoverflow.com/questions/15235526/the-static-keyword-and-its-various-uses-in-c
+* http://www.cprogramming.com/tutorial/statickeyword.html
+* http://en.cppreference.com/w/cpp/language/static
+* http://en.cppreference.com/w/cpp/memory/shared_ptr
+* http://en.cppreference.com/w/cpp/memory/unique_ptr
+* https://isocpp.org/blog/2013/02/no-really-moving-a-return-value-is-easy-stackoverflow
