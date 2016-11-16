@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Scene Management (to release)</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Scene Management</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.css" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/black.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
 tex2jax: {
   inlineMath: [["\\(", "\\)"]],
   displayMath: [["\\[", "\\]"]],
@@ -9,8 +9,176 @@ asciimath2jax: {
   ignoreClass: "nostem|noasciimath"
 },
 TeX: { equationNumbers: { autoNumber: "none" } }
-});</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section class="title"><h1>Scene Management (to release)</h1></section><section id="_overview"><h2>Overview</h2></section>
-<section id="_recommended_reading"><h2>Recommended Reading</h2></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+});</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.4.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section class="title"><h1>Scene Management</h1></section><section id="_overview"><h2>Overview</h2><div class="ulist"><ul><li><p>Scene Management</p><div class="ulist"><ul><li><p>from a VERY bad implementation</p></li><li><p>to something (a little) better</p></li></ul></div></li><li><p>Focus on programming aspects and modern C++</p><div class="ulist"><ul><li><p>C++11 / C++14?? / C++17?? / C++20??</p></li><li><p>memory management</p><div class="ulist"><ul><li><p>allocations / deallocations</p></li></ul></div></li></ul></div></li></ul></div></section>
+<section id="_a_scene"><h2>A scene</h2><div class="ulist"><ul><li><p>Our scene will consist of a number of visual (and non-visible) entities</p></li><li><p>Significantly different entities may be in different classes</p><div class="ulist"><ul><li><p>possibly with some kind of inheritance model</p></li><li><p>or possible with a composition model</p></li></ul></div></li><li><p>Here we&#8217;ll consider a scene that only contains instances of a single class</p></li></ul></div></section>
+<section><section id="_a_minimal_strong_incomplete_strong_sprite_class"><h2>A (minimal, <strong>incomplete</strong>) Sprite Class</h2><div class="listingblock"><div class="title">Sprite.h</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">#ifndef Sprite_h
+#define Sprite_h
+#include "common.h"
+
+class Sprite
+{
+public:
+    SDL_Rect rectangle;
+    Sprite(int x, int y, int w, int h);
+    Sprite(const Sprite&amp; sprite);
+    ~Sprite();
+};
+#endif /* end of include guard:  */</code></pre></div></div></section><section id="_a_minimal_incomplete_sprite_class"><h2>A (minimal, incomplete) Sprite Class</h2><div class="listingblock"><div class="title">Sprite.cpp</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">#include "Sprite.h"
+Sprite::Sprite(int x, int y, int w, int h) {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Constructed (%p)", this);
+    rectangle.x = x;
+    rectangle.y = y;
+    rectangle.w = w;
+    rectangle.h = h;
+}
+Sprite::Sprite(const Sprite&amp; sprite) : rectangle(sprite.rectangle) {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Constructed (%p) - Copied from (%p)", this, sprite);
+}
+Sprite::~Sprite() {
+    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprite Destructed  (%p)", this);
+}</code></pre></div></div></section><section id="_a_minimal_incomplete_sprite_class_2"><h2>A (minimal, incomplete) Sprite Class</h2><div class="admonitionblock warning"><table><tr><td class="icon"><i class="fa fa-warning" title="Warning"></i></td><td class="content">we&#8217;ve put log messages in the constructor/deconstructor - this is very heavy!!</td></tr></table></div>
+<div class="admonitionblock note"><table><tr><td class="icon"><i class="fa fa-info-circle" title="Note"></i></td><td class="content">we <strong>should</strong> at least, use a much lower priority level (for normal usage) - so only take the hit if we want it (i.e. in extreme situations).</td></tr></table></div>
+<div class="admonitionblock note"><table><tr><td class="icon"><i class="fa fa-info-circle" title="Note"></i></td><td class="content">additionally, our debugger <strong>could</strong> show us all allocations/deallocations if we ask it too. This approach is <strong>NOT RECOMMENDED PRACTICE</strong> - just good for illustration.</td></tr></table></div></section></section>
+<section><section id="_a_single_sprite_stored_in_a_global"><h2>A single sprite, stored in a global</h2><div class="listingblock"><div class="title">main.cpp (global)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">Sprite sr(0,0, 200, 86);</code></pre></div></div><div class="listingblock"><div class="title">main.cpp (render)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">    SDL_RenderCopy(ren, tex, NULL, &amp;sr.rectangle);</code></pre></div></div></section><section id="_a_single_sprite_stored_in_a_global_visual_output"><h2>A single sprite, stored in a global (visual output)</h2><div class="imageblock" style=""><img src="assets/spriteClass/single.png" alt="single" height="300"></div><div class="title">Sprite: A single sprite, stored in a global</div></section><section id="_a_single_sprite_stored_in_a_global_console_output"><h2>A single sprite, stored in a global (console output)</h2><div class="ulist"><ul><li><p>One Sprite Instance Constructed, then Destructed on exit</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Sprite Constructed (0x6032e0)
+SDL initialised OK!
+SDL CreatedWindow OK!
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x6032e0)</code></pre></div></div></section><section id="_a_single_sprite_stored_in_a_global_concerns_issues"><h2>A single sprite, stored in a global (concerns/issues?)</h2><div class="ulist"><ul><li><p>Any concerns/issues/alternatives?</p><div class="ulist"><ul><li class="fragment"><p>Global variables are <strong>generally</strong> bad practice</p></li><li class="fragment"><p>but, frequently, we need some</p><div class="ulist"><ul><li class="fragment"><p>especially useful in the midst of development</p></li><li class="fragment"><p>you can do something better after</p></li></ul></div></li><li class="fragment"><p>You&#8217;ll likely create classes for major components - e.g. "Game"</p><div class="ulist"><ul><li class="fragment"><p>many global variables will jump into that class</p></li></ul></div></li></ul></div></li></ul></div></section><section id="_shared_class_variables"><h2>Shared class variables</h2><div class="ulist"><ul><li><p>You can have a shared class variable for those which you <strong>don&#8217;t</strong> want multiple instances off</p><div class="ulist"><ul><li><p><code>static</code></p></li><li><p>You could also have that class as a "singleton" (frequently, in games, not recommmended practice)</p></li></ul></div></li></ul></div>
+<div class="admonitionblock warning"><table><tr><td class="icon"><i class="fa fa-warning" title="Warning"></i></td><td class="content"><code>static</code> has at least 3 <strong>different</strong> meanings in C++ (see <a href="#_recommended_reading">Recommended Reading</a>)</td></tr></table></div></section></section>
+<section><section id="_a_pair_of_sprites"><h2>A pair of sprites</h2><div class="listingblock"><div class="title">main.cpp (global)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">Sprite sr1(0,0, 200, 86);
+Sprite sr2(200,200, 200, 86);</code></pre></div></div><div class="listingblock"><div class="title">main.cpp (render)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">    SDL_RenderCopy(ren, tex, NULL, &amp;sr1.rectangle);
+    SDL_RenderCopy(ren, tex, NULL, &amp;sr2.rectangle);</code></pre></div></div></section><section id="_a_pair_of_sprites_visual_output"><h2>A pair of sprites (visual output)</h2><div class="imageblock" style=""><img src="assets/spriteClass/pair.png" alt="pair" height="300"></div></section><section id="_a_pair_of_sprites_console_output"><h2>A pair of sprites (console output)</h2><div class="ulist"><ul><li><p>Two Sprite Instances Constructed, then Destructed on exit</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Sprite Constructed (0x6032e0)
+INFO: Sprite Constructed (0x6032f0)
+SDL initialised OK!
+SDL CreatedWindow OK!
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x6032f0)
+INFO: Sprite Destructed  (0x6032e0)</code></pre></div></div></section><section id="_a_pair_of_sprites_concerns_issues"><h2>A pair of sprites (concerns/issues?)</h2><div class="ulist"><ul><li><p>What are the issues with this approach?</p><div class="ulist"><ul><li class="fragment"><p>What happens if we want 3 sprites? or 4? or 10? or 100?</p></li><li class="fragment"><p>What happens if we want to add or remove sprites at run-time?</p></li><li class="fragment"><p>What techniques do you know that could help with this?</p></li></ul></div></li></ul></div></section></section>
+<section><section id="_two_sprites_stored_in_global_std_vector_very_bad_version"><h2>Two sprites, stored in global std::vector (very bad version)</h2><div class="listingblock"><div class="title">main.cpp (global)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">std::vector&lt;Sprite&gt; spriteList;</code></pre></div></div><div class="listingblock"><div class="title">main.cpp (main, after SDL is initialised)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(Sprite(0,0, 200, 86));
+  spriteList.push_back(Sprite(200,200, 200, 86));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");</code></pre></div></div><div class="listingblock"><div class="title">main.cpp (render)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto sprite : spriteList)
+    {
+      SDL_RenderCopy(ren, tex, NULL, &amp;sprite.rectangle);
+    }</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_very_bad_version_visual_output"><h2>Two sprites, stored in global std::vector (very bad version) (visual output)</h2><div class="imageblock" style=""><img src="assets/spriteClass/pair.png" alt="pair" height="300"></div></section><section id="_two_sprites_stored_in_global_std_vector_very_bad_version_console_output_1"><h2>Two sprites, stored in global std::vector (very bad version) (console output 1)</h2><div class="ulist"><ul><li><p>Two Sprite Instances Constructed dynamically (badly)</p></li><li><p>iterated during rendering (badly) then Destructed on exit</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Sprite Constructed (0x7ffcf07cb920)
+INFO: Sprite Constructed (0x15b6b70) - Copied from (0x7ffcf07cb920)
+INFO: Sprite Destructed  (0x7ffcf07cb920)
+INFO: Sprite Constructed (0x7ffcf07cb930)
+INFO: Sprite Constructed (0x15fdd60) - Copied from (0x7ffcf07cb930)
+INFO: Sprite Constructed (0x15fdd50) - Copied from (0x15b6b70)
+INFO: Sprite Destructed  (0x15b6b70)
+INFO: Sprite Destructed  (0x7ffcf07cb930)
+INFO: Sprites added</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_very_bad_version_console_output_2"><h2>Two sprites, stored in global std::vector (very bad version) (console output 2)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Rendering sprites ...
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd50)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd60)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Rendering sprites ...
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd50)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+INFO: Sprite Constructed (0x7ffcf07cb8b0) - Copied from (0x15fdd60)
+INFO: Sprite Destructed  (0x7ffcf07cb8b0)
+...
+SDL Exiting!
+INFO: Sprite Destructed  (0x15fdd50)
+INFO: Sprite Destructed  (0x15fdd60)</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_very_bad_version_what_s_wrong"><h2>Two sprites, stored in global std::vector (very bad version) (what&#8217;s wrong)</h2><div class="ulist"><ul><li><p>What&#8217;s wrong with this? What&#8217;s going on?</p><div class="olist arabic"><ol class="arabic"><li class="fragment"><p>Extra Constructor and Destructor calls while filling the std::vector</p></li><li class="fragment"><p>Constructor and Destructor calls while rendering</p></li></ol></div></li></ul></div></section></section>
+<section><section id="_two_sprites_stored_in_global_std_vector_better_iteration"><h2>Two sprites, stored in global std::vector (better iteration)</h2><div class="ulist"><ul><li><p>make the iterator a reference, rather than a copy</p></li></ul></div><div class="listingblock"><div class="title">main.cpp (render)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto&amp; sprite : spriteList)
+    {
+      SDL_RenderCopy(ren, tex, NULL, &amp;sprite.rectangle);
+    }</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_better_iteration_visual_output"><h2>Two sprites, stored in global std::vector (better iteration) (visual output)</h2><div class="imageblock" style=""><img src="assets/spriteClass/pair.png" alt="pair" height="300"></div></section><section id="_two_sprites_stored_in_global_std_vector_better_iteration_console_output_1"><h2>Two sprites, stored in global std::vector (better iteration) (console output 1)</h2><div class="ulist"><ul><li><p>Two Sprite Instances Constructed dynamically (badly)</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x7ffef391b940)
+INFO: Sprite Constructed (0x1265240) - Copied from (0x7ffef391b940)
+INFO: Sprite Destructed  (0x7ffef391b940)
+INFO: Sprite Constructed (0x7ffef391b950)
+INFO: Sprite Constructed (0x1229010) - Copied from (0x7ffef391b950)
+INFO: Sprite Constructed (0x1229000) - Copied from (0x1265240)
+INFO: Sprite Destructed  (0x1265240)
+INFO: Sprite Destructed  (0x7ffef391b950)
+INFO: Sprites added</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_better_iteration_console_output_2"><h2>Two sprites, stored in global std::vector (better iteration) (console output 2)</h2><div class="ulist"><ul><li><p>Iteration during rendering doesn&#8217;t allocate new sprites</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)</code></pre></div></div></section></section>
+<section><section id="_two_sprites_stored_in_global_std_vector_better_allocation"><h2>Two sprites, stored in global std::vector (better allocation)</h2><div class="ulist"><ul><li><p>emplace_back create instances just for the vector</p></li></ul></div><div class="listingblock"><div class="title">main.cpp (main, after SDL is initialised)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.emplace_back(0,0, 200, 86);
+  spriteList.emplace_back(200,200, 200, 86);
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_better_allocation_visual_output"><h2>Two sprites, stored in global std::vector (better allocation) (visual output)</h2><div class="imageblock" style=""><img src="assets/spriteClass/pair.png" alt="pair" height="300"></div></section><section id="_two_sprites_stored_in_global_std_vector_better_allocation_console_output_1"><h2>Two sprites, stored in global std::vector (better allocation) (console output 1)</h2><div class="ulist"><ul><li><p>Dynamic allocation, only copies when resizing the vector</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x21da1b0)
+INFO: Sprite Constructed (0x21c96a0)
+INFO: Sprite Constructed (0x21c9690) - Copied from (0x21da1b0)
+INFO: Sprite Destructed  (0x21da1b0)
+INFO: Sprites added</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_better_allocation_console_output_2"><h2>Two sprites, stored in global std::vector (better allocation) (console output 2)</h2><div class="ulist"><ul><li><p>Iteration during rendering doesn&#8217;t allocate new sprites</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)</code></pre></div></div></section></section>
+<section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_ptr"><h2>Two sprites, stored in global std::vector (single allocation (ptr))</h2><div class="ulist"><ul><li><p>use a vector of pointers</p></li></ul></div><div class="listingblock"><div class="title">main.cpp (global)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">std::vector&lt;Sprite*&gt; spriteList;</code></pre></div></div><div class="listingblock"><div class="title">main.cpp (main, after SDL is initialised)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(new Sprite(0,0, 200, 86)); //could also be emplace_back
+  spriteList.push_back(new Sprite(200,200, 200, 86));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_ptr_2"><h2>Two sprites, stored in global std::vector (single allocation (ptr)) 2</h2><div class="listingblock"><div class="title">main.cpp (render)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto spritePtr : spriteList) //will be a pointer to a Sprite
+    {
+      SDL_RenderCopy(ren, tex, NULL, &amp;spritePtr-&gt;rectangle);
+    }</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_ptr_visual_output"><h2>Two sprites, stored in global std::vector (single allocation (ptr)) (visual output)</h2><div class="imageblock" style=""><img src="assets/spriteClass/pair.png" alt="pair" height="300"></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_ptr_console_output_1"><h2>Two sprites, stored in global std::vector (single allocation (ptr)) (console output 1)</h2><div class="ulist"><ul><li><p>Dynamic allocation, only pointers are copied</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0xe54170)
+INFO: Sprite Constructed (0xe9af60)
+INFO: Sprites added</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_ptr_console_output_2"><h2>Two sprites, stored in global std::vector (single allocation (ptr)) (console output 2)</h2><div class="ulist"><ul><li><p>Iteration during rendering doesn&#8217;t allocate new sprites</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1229000)
+INFO: Sprite Destructed  (0x1229010)</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_ptr_concerns"><h2>Two sprites, stored in global std::vector (single allocation (ptr)) (concerns?)</h2><div class="ulist"><ul><li><p>Any problems with using pointers?</p><div class="ulist"><ul><li class="fragment"><p>unclear who owns them</p></li><li class="fragment"><p>leading to incorrect deallocation or missing deallocation</p><div class="ulist"><ul><li><p><strong>BAD</strong> things</p></li></ul></div></li></ul></div></li></ul></div></section></section>
+<section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_unique_ptr"><h2>Two sprites, stored in global std::vector (single allocation (unique_ptr))</h2><div class="ulist"><ul><li><p>use a vector of unique_ptr</p></li></ul></div><div class="listingblock"><div class="title">main.cpp (global)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">std::vector&lt;unique_ptr&lt;Sprite&gt;&gt; spriteList;</code></pre></div></div><div class="listingblock"><div class="title">main.cpp (main, after SDL is initialised)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Adding sprites ...");
+  spriteList.push_back(std::unique_ptr&lt;Sprite&gt;(new Sprite(0,0, 200, 86)));
+  spriteList.push_back(std::unique_ptr&lt;Sprite&gt;(new Sprite(200,200, 200, 86)));
+  SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Sprites added");</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_unique_ptr_2"><h2>Two sprites, stored in global std::vector (single allocation (unique_ptr)) 2</h2><div class="listingblock"><div class="title">main.cpp (render)</div><div class="content"><pre class="highlight"><code class="cpp language-cpp">    SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Rendering sprites ...");
+    for (auto const&amp; sprite : spriteList) //unique_ptr can't be copied, so use reference
+    {
+    	SDL_RenderCopy(ren, tex, NULL, &amp;sprite-&gt;rectangle);
+    }</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_unique_ptr_visual_output"><h2>Two sprites, stored in global std::vector (single allocation (unique_ptr)) (visual output)</h2><div class="imageblock" style=""><img src="assets/spriteClass/pair.png" alt="pair" height="300"></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_unique_ptr_console_output_1"><h2>Two sprites, stored in global std::vector (single allocation (unique_ptr)) (console output 1)</h2><div class="ulist"><ul><li><p>Dynamic allocation, only unique_ptrs are copied</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">SDL initialised OK!
+SDL CreatedWindow OK!
+INFO: Adding sprites ...
+INFO: Sprite Constructed (0x1164950)
+INFO: Sprite Constructed (0x11a12a0)
+INFO: Sprites added</code></pre></div></div></section><section id="_two_sprites_stored_in_global_std_vector_single_allocation_unique_ptr_console_output_2"><h2>Two sprites, stored in global std::vector (single allocation (unique_ptr)) (console output 2)</h2><div class="ulist"><ul><li><p>Iteration during rendering doesn&#8217;t allocate new sprites</p></li></ul></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code class="bash language-bash">INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+INFO: Rendering sprites ...
+
+SDL Exiting!
+INFO: Sprite Destructed  (0x1164950)
+INFO: Sprite Destructed  (0x11a12a0)</code></pre></div></div></section></section>
+<section id="_more_on_unique_ptr_with_standard_containers"><h2>More on unique_ptr with standard containers</h2><div class="ulist"><ul><li><p><a href="http://eli.thegreenplace.net/2012/06/20/c11-using-unique_ptr-with-standard-library-containers" class="bare">http://eli.thegreenplace.net/2012/06/20/c11-using-unique_ptr-with-standard-library-containers</a></p></li></ul></div></section>
+<section id="_recommended_reading"><h2>Recommended Reading</h2><div class="ulist"><ul><li><p><a href="http://eli.thegreenplace.net/2012/06/20/c11-using-unique_ptr-with-standard-library-containers" class="bare">http://eli.thegreenplace.net/2012/06/20/c11-using-unique_ptr-with-standard-library-containers</a></p></li><li><p><a href="http://stackoverflow.com/questions/15235526/the-static-keyword-and-its-various-uses-in-c" class="bare">http://stackoverflow.com/questions/15235526/the-static-keyword-and-its-various-uses-in-c</a></p></li><li><p><a href="http://www.cprogramming.com/tutorial/statickeyword.html" class="bare">http://www.cprogramming.com/tutorial/statickeyword.html</a></p></li><li><p><a href="http://en.cppreference.com/w/cpp/language/static" class="bare">http://en.cppreference.com/w/cpp/language/static</a></p></li><li><p><a href="http://en.cppreference.com/w/cpp/memory/shared_ptr" class="bare">http://en.cppreference.com/w/cpp/memory/shared_ptr</a></p></li><li><p><a href="http://en.cppreference.com/w/cpp/memory/unique_ptr" class="bare">http://en.cppreference.com/w/cpp/memory/unique_ptr</a></p></li><li><p><a href="https://isocpp.org/blog/2013/02/no-really-moving-a-return-value-is-easy-stackoverflow" class="bare">https://isocpp.org/blog/2013/02/no-really-moving-a-return-value-is-easy-stackoverflow</a></p></li></ul></div></section></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
   controls: true,
