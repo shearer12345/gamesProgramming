@@ -8,7 +8,7 @@ import time
 
 from threading import Thread
 
-fileSuffix = '.asciidoc'
+fileSuffix = '.adoc'
 clearTuple = ('.html')
 
 
