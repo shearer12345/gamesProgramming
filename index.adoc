@@ -39,4 +39,5 @@ NOTE: workshops on next slide
 | link:workshop05_useTheForceLuke.html[5: Use The Force, Luke]
 | link:workshop06_runSpriteRun.html[6: Run Sprite! Run!]
 | link:workshop07_onScreenText.html[7: On Screen Text]
+| link:workshop08_sceneManagement.html[8: Scene Management]
 |
