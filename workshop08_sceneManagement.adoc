@@ -1,0 +1,100 @@
+= Scene Management
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+== Where we want to get to
+
+* Have all our sprites in some kind of collection
+* Be able to render our sprites from that collection
+* Be able to add/remove sprites from that collection
+* Make sure that sprites are deallocated appropriately
+* Make sure we aren't allocating/deallocating when we don't need to
+* Make other ways of "indexing"/finding out sprites
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window, change its size, including fullscreen
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Compensate for real-time in your Game Loop
+* Have a *sprite class* to encapsulate sprite data
+* Have a container to store multiple sprites
+* Be able to update and render multiple sprites
+
+== Activity summary
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+== Use a container to store your sprites
+
+* Make your code use a standard container to store your sprites
+  ** this was in a previous week's workshop, so you may already have this
+* Which kind of container would make most sense?
+  ** What do you need from the container?
+
+== Render the container of sprites
+
+* Make your code render the sprites that are in the collection
+
+== Make sprites update
+
+* Make your code (continue to) update your sprites position
+  ** i.e. they should move automatically, according to a velocity
+  ** if your code is presently dependent on "key-repeat" now it a *VERY GOOD* time to remove this dependency
+    *** a sprite that initially has upwards velocity should move upwards automatically, without any key-presses
+
+== Add a new sprite to the container on a key-press
+
+* Make your code add a new sprite to the container on a key-press
+  ** with a random velocity
+
+== Remove a sprite on a key-press
+
+. Remove your first-created sprite on a key-press
+. Remove the last-created sprite on a key-press
+. Remove a random sprite on a key-press
+. Manage the case of when there are no sprites left
+  ** i.e. if you just keeping hitting the remove sprite key
+
+== Make sure that sprites are deallocated appropriately
+
+. Add logging to the sprite class to log when the sprite is deallocated
+. Check that when you remove a sprite a sprite is deallocated
+. Check that when your program exits all the sprites are deallocated
+
+== Make sure we aren't allocating/deallocating when we don't need to
+
+. Add logging to the sprite class to log when the sprite is allocated or copied
+  ** see lecture notes
+. Make sure that at initialisation time, only the required number of allocations occur
+  ** copies are *ok*
+. Try to eliminate the copying at initialisation time (within a sensible limit)
+. Make sure that during your game loop, only the required number of allocations occur
+  ** ideally *zero*, except when you create new sprites
+
+ ** What is a copy constructor? And how/when is it called?
+
+== Think about other ways of "indexing"/finding out sprites
+
+* Finding sprites in our container is presently quite hard
+* Perhaps we want to be able to find a sprite by a name (std::string)
+  ** There are a number of ways of doing this
+  . Discuss with a friend or demonstrator about two different ways you can come up with
+
+== Make other ways of "indexing"/finding out sprites
+
+* Which standard container would be helpful here?
+ ** try the cheatsheet at http://homepages.e3.net.nz/~djm/cppcontainers.html
+ ** what are the advantages/disadvantages
+* How is this container declared?
+* How are elements added to this container
+* How do your iterate elements in this container?
+. Modify your code to use your chosen container instead of std::vector
