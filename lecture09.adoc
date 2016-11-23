@@ -218,6 +218,12 @@ TIP: You can choose where your origin is. Where makes most sense to you?
 
 TIP: You can choose which way is positive - e.g. does the y-value increase as you go *DOWN* the Window, or increase as you go *UP* the window
 
+== Coordinates for our sprites
+
+* SDL's draw functions use a position (top-left) and a height and width
+  ** these may not be the most useful/natural for us
+* We may want to make our sprite *interface* talk about sprite *centers*, and translate that when we draw
+
 == Debug Draw
 
 TIP: Collision detection can be difficult to debug. Have a mode where you render the collision bounds can be really helpful.
