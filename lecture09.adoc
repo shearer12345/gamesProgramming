@@ -1,4 +1,4 @@
-= Collision Detection (to release)
+= Collision Detection
 :imagesdir: assets
 :revealjs_history: true
 :examplesdir: examples
@@ -8,4 +8,229 @@ include::links.adoc[]
 == Overview
 
 
+== What is Collision Detection?
+
+* Which objects are occupying the same space, partially or fully, at the same time?
+  ** or will in the future?
+
+image::British-pool-table-pocket.jpg[height=300]
+
+== Challenges in Collision Detection 1
+
+* Is there a collision between A and B?
+* Where was the collision?
+* When was the collision? (or will be?)
+
+=== Challenges in Collision Detection 2
+
+* Computational cost
+  ** Which objects can collide with each other?
+  ** How many collision tests do we need to do?
+  ** How expensive are collision tests?
+
+=== Challenges in Collision Detection 3
+
+* When do run collision detection?
+  ** discrete vs. continuous collision detection
+* Accuracy of collision detection
+  ** Small objects
+  ** Fast objects
+  ** Complex objects (lots of polygons)
+
+== A problem with simulation rate and collision
+
+image::fastObjects.png[height=300]
+
+=== A problem with simulation rate and collision 2
+
+* set a minimum size for objects
+* set a maximum speed for objects
+* consider time in collision detection
+  ** do continuous collision detection
+
+== Collision objects
+
+* Collisions between objects of arbitrarily complex geometry is expensive
+  ** use simpler geometry for objects
+  ** at least until we know we need something better
+  ** i.e. cheat, at least some of the time
+
+=== Make it *work*, then make it *fast*
+
+IMPORTANT: Make you program *work* first. Then make if *fast*
+
+TIP: Ideally, we'd profile our code to see which parts use lots of time and use that for guidance. Your IDE may be able to help you with this.
+
+=== What types of (simple) geometry are there?
+
+[%step]
+* Point
+* Line / Plane
+* Circle / Sphere
+* Rectangle / Cuboid (AKA: Boxes)
+  ** Axis-Aligned
+  ** non-Axis-Aligned
+* Triangle / ???
+* Convex Polygon / Convex Polyhedron
+* Concave Polygon / Concave Polyhedron
+
+=== What types of geometry are easy to collide with what other types?
+
+[%step]
+* Circle-Circle / Sphere-Sphere
+* Circle-Line / Sphere-Plane
+* Axis-Aligned-Box vs Axis-Aligned-Box
+* non-Axis-Aligned vs non-Axis-Aligned
+* Convex polygon / Convex polyhedron
+* Concave polygon / Concave polyhedron
+
+=== Convex polygon vs. Concave polyhedron
+
+
+image::1083px-Convex_polygon_illustration1.png[height=200]
+
+image::1024px-non-Convex_polygon_illustration2.png[height=200]
+
+=== What types of geometry are easy to collide with what other types?
+
+
+|===
+|         | Point | Line | Circle | AAB | Box | Convex | Concave
+
+| Point   | ???   | - |- |- |- |- |-
+
+| Line    | ???   | ???  |-|-|-|-|-
+
+| Circle  | ???   | ???  |  ???   |-|-|-|-
+
+| AAB     | ???   | ???  |  ???   | ??? |-|-|-
+
+| Box     | ???   | ???  |  ???   | ???  | ??? |-|-
+
+| Convex  | ???   | ???  |  ???   |  ??? |  ??? |  ??? |-
+
+| Concave | ???   | ???  |  ???   |  ??? |  ??? |  ??? |  ???
+
+|===
+
+=== What types of geometry are easy to collide with what other types?
+
+
+|===
+|         | Point | Line | Circle | AAB | Box | Convex | Concave
+
+| Point   | :-)   | - |- |- |- |- |-
+
+| Line    | :-)   | :-)  |-|-|-|-|-
+
+| Circle  | :-)   | :-)  |  :-)   |-|-|-|-
+
+| AAB     | :-)   | :-)  |  :-)   | :-) |-|-|-
+
+| Box     | OK    | OK   |  :-(   | OK  | OK  |-|-
+
+| Convex  | OK    | OK   |  :-(   |  :-( |  :-( |  :-( |-
+
+| Concave | :-(   | :-(  |  HARD |  HARD |  HARD |  HARD |  HARD
+
+|===
+
+
+
+== Circle-Circle / Sphere-Sphere
+
+* Distance between centers is less than the sum of the radii
+
+=== Distance between centers
+
+* Distance between two points
+* Square-root of the sum of the squares (Pythagoras, again)
+
+=== Sum of the radii
+
+* Radius A plus Radius B
+
+== Circle-Line / Sphere-Plane
+
+* For axis-aligned line/plane, non collision if:
+  ** ???
+
+=== Circle-Line / Sphere-Plane 2
+
+* For axis-aligned line/plane, non collision if:
+  ** Circle center + radius < axisValue
+  ** Circle center - radius > axisValue
+
+=== Circle-Line / Sphere-Plane 3
+
+* Generically, use dot-product
+ ** look up "Circle-Line" intersection
+
+== Axis-Aligned-Box vs Axis-Aligned-Box
+
+* For each box, for each axis, have a minimum and a maximum value
+  ** AKA an interval
+* non-collision on ANY axis => non-collision
+* test for each axis (X, Y, Z):
+  ** ???
+
+=== Test for each axis (X, Y, Z)
+
+* All of A is lower than B
+* -- or --
+* All of B is lower than A
+
+=== Test for each axis (X, Y, Z) 2
+
+* All of A is lower than B
+  ** => Amax < Bmin
+* -- or --
+* All of B is lower than A
+  ** => Bmax < Amin
+
+== Collision resolution
+
+* What to do when we find a Collision
+* Various options, including:
+  .. calculate next positions, for collisions apply forces
+  .. calculate next positions, for collisions change velocities
+    ** physically (real-world) unrealistic
+  .. calculate next positions, for collisions change positions
+    ** *very* physically (real-world) unrealistic
+  .. store present position, calculate next positions, for collisions revert to stored
+
+=== Collision non-resolution
+
+* Many "collisions" don't result in physical changes, but game logic changes. e.g.
+  ** pick ups
+  ** deaths
+  ** hits (bullets hit things and disappear)
+
+== Coordinate System
+
+WARNING: SDL's draw functions (e.g. `SDL_RenderCopy`, `SDL_RenderFillRect`) work in *Window Coordinates*
+
+TIP: You *DON'T* want to. You *WANT* to work in something independent of the resolution, and less discrete. i.e. some floating point system.
+
+TIP: You'll need (WANT) to convert from your coordinate system to Window coordinates (remember linear transformations and matrices ...).
+
+TIP: You can choose where your origin is. Where makes most sense to you?
+
+TIP: You can choose which way is positive - e.g. does the y-value increase as you go *DOWN* the Window, or increase as you go *UP* the window
+
+== Coordinates for our sprites
+
+* SDL's draw functions use a position (top-left) and a height and width
+  ** these may not be the most useful/natural for us
+* We may want to make our sprite *interface* talk about sprite *centers*, and translate that when we draw
+
+== Debug Draw
+
+TIP: Collision detection can be difficult to debug. Have a mode where you render the collision bounds can be really helpful.
+
 == Recommended Reading
+
+* http://headerphile.blogspot.co.uk/2014/04/part-5-game-programming-in-sdl2.html
+* http://lazyfoo.net/tutorials/SDL/27_collision_detection/index.php
+* http://www.sdltutorials.com/sdl-per-pixel-collision
+*
