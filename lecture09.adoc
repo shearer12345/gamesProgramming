@@ -243,6 +243,7 @@ TIP: Collision detection can be difficult to debug. Have a mode where you render
 * https://www.toptal.com/game/video-game-physics-part-iii-constrained-rigid-body-simulation
 * http://www.3dcpptutorials.sk/index.php?id=35
 * http://www.gamasutra.com/view/feature/131598/advanced_collision_detection_.php
+* http://www.wildbunny.co.uk/blog/2011/03/25/speculative-contacts-an-continuous-collision-engine-approach-part-1/
 * http://www.randygaul.net/2013/03/27/game-physics-engine-part-1-impulse-resolution/
 * http://chrishecker.com/images/e/e7/Gdmphys3.pdf
 * http://www.cs.cmu.edu/~baraff/sigcourse/notesd2.pdf
