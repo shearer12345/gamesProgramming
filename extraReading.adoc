@@ -1,0 +1,9 @@
+== Extra Reading
+
+=== Optimization
+
+* http://www.wildbunny.co.uk/blog/2014/04/09/hacking-the-monolithic-entity-system/[Update "unimportant" things less often]
+
+=== General Programming
+
+* http://www.wildbunny.co.uk/blog/2012/11/01/10-steps-to-becoming-a-better-programmer/[10 Steps to becoming a better programmer]

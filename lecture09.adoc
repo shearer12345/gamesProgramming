@@ -233,4 +233,17 @@ TIP: Collision detection can be difficult to debug. Have a mode where you render
 * http://headerphile.blogspot.co.uk/2014/04/part-5-game-programming-in-sdl2.html
 * http://lazyfoo.net/tutorials/SDL/27_collision_detection/index.php
 * http://www.sdltutorials.com/sdl-per-pixel-collision
-*
+* http://www.miguelcasillas.com/?mcportfolio=collision-detection-c
+* http://www.euclideanspace.com/threed/animation/collisiondetect/
+* http://www.euclideanspace.com/physics/dynamics/collision/index.htm
+* https://studiofreya.com/3d-math-and-physics/simple-aabb-vs-aabb-collision-detection/
+* http://nehe.gamedev.net/tutorial/collision_detection/17005/
+* https://www.toptal.com/game/video-game-physics-part-i-an-introduction-to-rigid-body-dynamics
+* https://www.toptal.com/game/video-game-physics-part-ii-collision-detection-for-solid-objects
+* https://www.toptal.com/game/video-game-physics-part-iii-constrained-rigid-body-simulation
+* http://www.3dcpptutorials.sk/index.php?id=35
+* http://www.gamasutra.com/view/feature/131598/advanced_collision_detection_.php
+* http://www.wildbunny.co.uk/blog/2011/03/25/speculative-contacts-an-continuous-collision-engine-approach-part-1/
+* http://www.randygaul.net/2013/03/27/game-physics-engine-part-1-impulse-resolution/
+* http://chrishecker.com/images/e/e7/Gdmphys3.pdf
+* http://www.cs.cmu.edu/~baraff/sigcourse/notesd2.pdf
