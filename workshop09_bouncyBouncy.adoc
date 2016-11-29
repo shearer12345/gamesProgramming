@@ -1,0 +1,134 @@
+= Bouncy Bouncy
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+:!numbered:
+
+== Where we want to get to
+
+* Detect when sprites hit arbitrarily defined walls
+  ** make them bounce
+* Detect when sprites hit each other
+  ** make them bounce
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window, change its size, including fullscreen
+* Have a program that draws a sprite on the screen
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Compensate for real-time in your Game Loop
+* Have a *sprite class* to encapsulate sprite data
+* Have a container to store multiple sprites
+* Be able to update and render multiple sprites
+
+== Activity summary
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+:numbered:
+== Detect when sprites hit arbitrarily defined walls
+
+* You know the top-left coordinate of each Sprite
+  ** https://wiki.libsdl.org/SDL_Rect[`SDL_Rect`]
+* You know the height and width of each Sprite
+. Define an imaginary wall towards the top (you don't need to render it)
+  ** make it in from the top of the screen
+  ** you should be using your own coordinate system
+    *** *not* screen coordinates
+. Make a sprite that moves upwards initially, automatically
+. Write code to detect the collision
+  ** Just a breakpoint will be enough
+  ** You could make the Sprite change (image/colour), or the game exit
+    *** whatever works
+  ** Make sure this still works when you fullscreen your game
+    *** and when you resize your app
+
+=== Left wall
+
+. Define an imaginary wall towards the left of the screen
+. Make a sprite that moves leftwards initially, automatically
+. Write code to detect the collision
+
+=== Bottom wall
+
+. Define an imaginary wall towards the bottom of the screen
+. Make a sprite that moves downwards initially, automatically
+. Write code to detect the collision
+
+=== Right wall
+
+. Define an imaginary wall towards the right of the screen
+. Make a sprite that moves rightwards initially, automatically
+. Write code to detect the collision
+
+== Make Sprites bounce of the walls
+
+* A simple way of doing wall collision response is to
+  ** Reverse the velocity on the axis of collision
+  ** i.e. if you hit the top wall, invert the y-component of the velocity
+. Make your sprite reverse velocity when it hits each wall
+  ** Make sure it inverts correctly
+. Test with your sprite initially going:
+  ** up
+  ** down
+  ** left
+  ** right
+. Test with your sprite initially going diagonally:
+  ** also when you fullscreen and resize your app
+
+== Add multiple sprites to test more
+
+. Add multiple sprites to your scene
+  ** each going different initial directions
+. Do collision detection with walls, for all your sprites
+  ** this should encourage you to generalise your code
+  ** NOTE: sprites don't need to detect collisions with each other
+. Test with the following sprite counts - you may want *smaller* sprites
+  ** 2
+  ** 4
+  ** 8
+  ** 16
+  ** 64
+  ** 256
+  ** 1,024
+  ** 16,384
+
+== Detect when sprites hit each other
+
+* You know the bounds of each sprite (treat it as a AABB)
+. Write code to detect collision between a pair of sprites
+  ** have just 2 sprites in your world
+  ** keep the wall collisions and response
+  ** you have a choice about whether this function exists on the Sprite class, or separately
+. Test with sprites moving towards each other from all 4 directions
+
+=== Make Sprites bounce off each other
+
+* You can use the same "reverse velocity in direction of collision" technique between sprites
+. Write code for this
+. Test with two sprites
+
+=== Add multiple sprites to test more
+
+. Add multiple sprites to your scene
+  ** each going different initial directions
+. Do collision detection with walls, for all your sprites
+. Do collision detection between all sprites
+. Test with the following sprite counts - you may want *smaller* sprites
+  ** 2
+  ** 4
+  ** 8
+  ** 16
+  ** 64
+  ** 256
+  ** 1,024
+  ** 16,384
+. What issues to you notice?

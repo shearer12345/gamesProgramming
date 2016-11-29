@@ -40,4 +40,6 @@ NOTE: workshops on next slide
 | link:workshop06_runSpriteRun.html[6: Run Sprite! Run!]
 | link:workshop07_onScreenText.html[7: On Screen Text]
 | link:workshop08_sceneManagement.html[8: Scene Management]
+| link:workshop09_bouncyBouncy.html[9: Bouncy Bouncy]
 |
+|===
