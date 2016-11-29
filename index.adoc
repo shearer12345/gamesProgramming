@@ -21,7 +21,7 @@ shearer12345
 | link:lecture09.html[9: Collision Detection]
 | link:lecture10.html[10: On-screen Text]
 | link:lecture11.html[11: Sound]
-| link:lecture12.html[12: Multi-player and Networking]
+| link:lecture12.html[12: Multi-player/Network]
 | link:lecture13.html[13: Serialization]
 |
 |===
