@@ -24,9 +24,8 @@ include::links.adoc[]
 * symbols
   ** `@`, `$`, `£`, `/`
 
-== What do we need to represent (independent of rendering)
+== More challenging ones characters??
 
-* more challenging ones??
 [.step]
 * non-ASCII letters
   ** `é`, `ω`
