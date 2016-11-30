@@ -1,11 +1,199 @@
-= On-screen text (to release)
+= On-screen text
 :imagesdir: assets
 :revealjs_history: true
 :examplesdir: examples
 :source-highlighter: highlightjs
 include::links.adoc[]
 
-== Overview
+== On-screen text
 
+* Text is represented by a series of glyphs (symbols)
+* Glyphs are generated from a font
+* A font is a particular size, weight and style of a typeface.
+* A typeface (aka font-family) is a set of fonts that share common design features
+* !!!
+* the words "font" and "typeface" are frequently confused
+
+== What do we need to represent (independent of rendering)
+
+[.step]
+* letters
+  ** `A`, `a`, `Q`, `I`
+* numbers
+  ** `1`, `2`, `0`
+* symbols
+  ** `@`, `$`, `£`, `/`
+
+== What do we need to represent (independent of rendering)
+
+* more challenging ones??
+[.step]
+* non-ASCII letters
+  ** `é`, `ω`
+* non-ASCII numbers
+  ** `¼`, `³`
+* non-ASCII symbols
+  ** `€`,
+
+== Other Characters
+
+[.step]
+* http://www.w3schools.com/charsets/ref_utf_math.asp[Mathematical Operators]
+  ** `∑`, `∞`
+* http://www.w3schools.com/charsets/ref_utf_geometric.asp[Geometric Shapes]
+  ** `▶`, `◎`
+* http://www.w3schools.com/charsets/ref_utf_symbols.asp[Miscellaneous Symbols]
+  ** `☂`, `☎`, `☺`, `☃`
+
+
+== Character encoding
+
+* http://www.asciitable.com/[ASCII]
+* Unicode (Universal Coded Character Set)
+  ** *UTF-8* - **USE THIS**
+  ** UTF-16
+  ** UTF-32
+
+NOTE: Unicode is a character set. UTF-8 is an encoding of that character set.
+
+=== Detecting/setting file encoding
+
+* http://softwareengineering.stackexchange.com/questions/187169/how-to-detect-the-encoding-of-a-file[In general, the file header will provide the encoding]
+* *BUT*, file writing can do whatever they like
+  ** so the encoding may not be set
+  ** or may be set incorrectly
+* You can (with tools) convert files from one encoding to another
+  ** sometimes with loss
+
+=== ASCII Table
+
+image::ASCII-Table-wide.svg[]
+
+=== UTF-8
+
+* You should encode all your strings with UTF-8
+* Your editor (probably) already supports UTF-8
+
+image::Utf8webgrowth.svg[link=https://en.wikipedia.org/wiki/File:Utf8webgrowth.svg]
+
+=== UTF-8
+
+|===
+| Number bytes | Bits for code point | First code point | Last code point | Byte 1 | Byte 2 | Byte 3 | Byte 4
+| 1 | 7 | U+0000 | U+007F | 0xxxxxxx | | |
+| 2 | 11 | U+0080 | U+07FF | 110xxxxx | 10xxxxxx | |
+| 3 | 16 | U+0800 | U+FFFF | 1110xxxx | 10xxxxxx | 10xxxxxx |
+| 4 | 21 | U+10000 | U+10FFFF | 11110xxx | 10xxxxxx | 10xxxxxx | 10xxxxxx
+
+|===
+source:: https://en.wikipedia.org/wiki/UTF-8#Description
+
+* http://www.utf8-chartable.de/[UTF-8 table]
+
+== How do we represent text in code
+
+. `char *` - only default option in C
+. http://www.cplusplus.com/reference/string/string/[`std::string`] - {cpp}
+
+=== How well does {cpp} support Unicode??
+
+* http://stackoverflow.com/questions/17103925/how-well-is-unicode-supported-in-c11[Pretty badly]
+ ** for you, now, it *definitely* doesn't matter
+ ** there are other libraries to support
+
+=== Tools supporting Unicode
+
+* http://utfcpp.sourceforge.net/
+* http://en.cppreference.com/w/cpp/locale/codecvt
+* http://site.icu-project.org/
+* https://bitbucket.org/knight666/utf8rewind
+* http://doc.qt.io/qt-5/unicode.html
+
+== Other challenges with text rendering
+
+* proportional spacing - not all letters are the same width
+* matching screen resolution
+  ** what about text closer, further
+  ** what about text in a 3D world?
+* typefaces are mostly copyrighted!!
+
+== Good on-screen text turns out to be pretty hard
+
+[quote, Wikibooks, https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Text_Rendering_01]
+____
+It is very likely that at one point you will want to draw text with OpenGL. It may seem like a very basic functionality of any drawing API, but you will not find any function in OpenGL that deals with text. There are good reasons for that: text is much more complicated than you think. If you are American and use a fixed-width font, then life is simple. You don't have more than 128 possible characters to think about, and they are all the same size. If you have a proportional-width font, things are already getting more difficult. If you are European, then 256 characters might be just enough for one language, but it is already impossible to represent all European languages with that. If you include the rest of the world, then you need more than 65536 (16-bit) characters, and text might need to be rendered from right to left or from top to bottom, and you might have to use other techniques than just drawing characters next to each other on the screen to produce something intelligible. Related to text rendering, you might also want to render mathematical equations, Feynman diagrams, chess board diagrams or sheet music. I hope you are convinced now that text rendering is a very high-level function that has no place in a low-level graphics API such as OpenGL.
+____
+
+
+== Font file formats
+
+* Fonts are usually described in some format of vector format
+  ** rather than a raster format
+* TrueType is the most common format (.ttf files)
+  ** the content of .ttf files is protected by copyright
+  ** you should be careful distributing .ttf files in your game
+  ** there are a variety of openly licensed .ttf files/formats
+    *** e.g. the Hack typeface - http://sourcefoundry.org/hack/
+
+
+== On-screen text output in practice
+
+* In games, text is usually rendered to the screen via a texture or texture atlas
+* There are various libraries that support this
+  ** for you, now, it may not be worth using any of them
+  ** just use a preset font atlas, and write your own code
+
+=== On-screen text output in practice
+
+. Somehow have (create) a font atlas (texture) with your set of needed characters at various resolutions
+. When you render text, draw a sequence of sprites (rectangles), each indexing into the font atlas
+
+
+== Library support
+
+* SDL2_ttf
+  ** not working with Conan.io right now. You *could* add it yourself
+  ** suggest using a Font atlas approach
+* https://github.com/nothings/stb/blob/master/stb_truetype.h[stb_truetype]
+  ** header only
+  ** lower level
+
+=== SDL2_ttf
+
+* the SDL2_ttf library provides useful functions
+  ** the `TTF_OpenFont()` function loads a font from a `.ttf` file
+  ** the `TTF_RenderText_Solid()` function generates an `SDL_Surface` from a font, a string, and a colour
+  ** this `SDL_Surface` can be converted to an `SDL_Texture` with `SDL_CreateTextureFromSurface()`
+  ** an `SDL_Surface` can then be rendered using `SDL_RenderCopy()`, just like a sprite
+* http://headerphile.blogspot.co.uk/2014/07/sdl2-part-10-text-rendering.html[manual set up instructions (there are other sources)]
+
+=== stb_truetype - examples
+
+* https://github.com/justinmeiners/stb-truetype-example/blob/master/source/main.c
+* http://forums.libsdl.org/viewtopic.php?t=8531&sid=88d6880777f5c6ce70d08c4339ce2e9f
+* http://eatenbyagrue.org/using_stb_truetype_with_sdl.html
+
+== State of the Art
+
+.Green, C., 2007. Improved alpha-tested magnification for vector textures and special effects. In ACM SIGGRAPH 2007 courses (pp. 9-18). ACM.
+image::improvedAlphaTestedMagnificationForVectorTextureAndSpecialEffects.png[]
+
+* http://wdobbie.com/post/gpu-text-rendering-with-vector-textures/[GPU text rendering with vector textures, 2016]
+  ** http://wdobbie.com/pdf/[webGL demo]
 
 == Recommended Reading
+
+* http://utf8everywhere.org/
+* http://utfcpp.sourceforge.net/
+* https://www.reddit.com/r/cpp/comments/2zv2qo/best_approach_to_utf8_support_as_of_march_2015/
+*  https://en.m.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Text_Rendering_01
+* http://jausoft.com/blog/2011/04/01/resolution-independent-gpu-accelerated-curve-font-rendering/
+* http://ramisantina.com/blog/2011/04/gpu-based-resolution-independent-font-curve-rendering-initial-release/
+* http://www.valvesoftware.com/publications/2007/SIGGRAPH2007_AlphaTestedMagnification.pdf
+* https://www.eventbrite.com/engineering/its-2015-and-drawing-text-is-still-hard-webgl-threejs/
+* http://stackoverflow.com/questions/15554485/opengl-text-rendering-methods-and-trade-offs
+* http://stackoverflow.com/questions/5262951/what-is-state-of-the-art-for-text-rendering-in-opengl-as-of-version-4-1
+* http://wdobbie.com/post/gpu-text-rendering-with-vector-textures/
+* https://github.com/behdad/glyphy
+* https://vimeo.com/21810192
+* https://www.youtube.com/watch?v=KdNxR5V7prk
