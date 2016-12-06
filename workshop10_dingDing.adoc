@@ -1,0 +1,105 @@
+= Ding Ding
+John Shearer
+:imagesdir: assets
+:revealjs_history: true
+:source-highlighter: highlightjs
+
+include::links.adoc[]
+
+:!numbered:
+
+== Where we want to get to
+
+* Load and play background music
+* Play sound effects
+
+== Where you should already be
+
+* Have a working build system, that uses SDL
+* Create a window, change its size, including fullscreen
+* Have a program that draws a sprite on the screen [not required]
+  ** with a size and position that you can control/change
+  ** sprite position and size independent of window resolution
+* Compensate for real-time in your Game Loop [not required]
+* Have a *sprite class* to encapsulate sprite data [not required]
+* Have a container to store multiple sprites [not required]
+* Be able to update and render multiple sprites [not required]
+
+== Activity summary
+
+* We'll be adding stuff to `main.cpp` to do more interesting things
+* You could continue with your existing code (take a snapshot/commit)
+  ** or start a fresh project
+
+=== SDL2 audio and SDL2_mixer
+
+* The standard SDL2 library has some audio support built in
+  ** This is low-level
+* SDL2_mixer provides a higher level, mixer access to audio
+  ** with some more facilities
+* *DON'T* use both together
+  ** http://jcatki.no-ip.org:8080/SDL2_mixer/SDL2_mixer.html#SEC5
+
+:numbered:
+
+== Select and include SDL2_mixer
+
+. Search on http://conan.io for packages for the SDL2_mixer library
+. Add this to your `conanfile.txt`
+. Update your build system
+  ** probably just re-run your automation script
+
+== Look at the documentation for SDL2_mixer
+
+. Where is the documentation
+. What are the main `functions` you need
+. Do you need to initialise the library?#
+. What distinction does it make between "music" and "sound effects"?
+
+== Include SDL2_mixer
+
+. Include the appropriate header in your program
+  ** confirm your program still compiles
+. Initialise SDL2_mixer if you need to
+
+== Load and play background music
+
+. Find a test music file
+  ** start with a `.wav` file
+  ** make sure you're allowed to use it
+. Load the file in your program
+. Make the music play
+. Remember to clean up appropriately when your program exits
+
+=== Add play/pause to music
+
+. Add a key-binding to pause the music
+  ** make sure your music is long enough to test
+  ** and/or put the music on "loop"
+
+=== Control volume of music
+
+. Make the music start at 50% volume
+. Add two key-bindings to increase and decrease the volume
+  ** what do you need to be careful about
+
+== Play sound effects
+
+. Find some test sound effects
+. Load a sound effect into your program
+. Add a key-binding to play your sound effect
+  ** What happens if you press the key multiple times in quick succession
+
+=== play multiple sound effects
+
+. Add key-bindings to play other sound effects
+
+== Stretch - Sound effects to in-game events
+
+. Make your game play sound effects on *any* in-game collision
+  ** this *could* be useful for debug
+
+== Stretch - Add panning
+
+* The mixer supports panning
+. Make you audio pan from left and right, and back again, and repeat
