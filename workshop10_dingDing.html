@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5">
 <meta name="author" content="John Shearer">
-<title>Bouncy Bouncy</title>
+<title>Ding Ding</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -421,7 +421,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Bouncy Bouncy</h1>
+<h1>Ding Ding</h1>
 <div class="details">
 <span id="author" class="author">John Shearer</span><br>
 </div>
@@ -433,24 +433,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Detect when sprites hit arbitrarily defined walls</p>
-<div class="ulist">
-<ul>
-<li>
-<p>make them bounce</p>
-</li>
-</ul>
-</div>
+<p>Load and play background music</p>
 </li>
 <li>
-<p>Detect when sprites hit each other</p>
-<div class="ulist">
-<ul>
-<li>
-<p>make them bounce</p>
-</li>
-</ul>
-</div>
+<p>Play sound effects</p>
 </li>
 </ul>
 </div>
@@ -468,7 +454,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Create a window, change its size, including fullscreen</p>
 </li>
 <li>
-<p>Have a program that draws a sprite on the screen</p>
+<p>Have a program that draws a sprite on the screen [not required]</p>
 <div class="ulist">
 <ul>
 <li>
@@ -481,16 +467,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </li>
 <li>
-<p>Compensate for real-time in your Game Loop</p>
+<p>Compensate for real-time in your Game Loop [not required]</p>
 </li>
 <li>
-<p>Have a <strong>sprite class</strong> to encapsulate sprite data</p>
+<p>Have a <strong>sprite class</strong> to encapsulate sprite data [not required]</p>
 </li>
 <li>
-<p>Have a container to store multiple sprites</p>
+<p>Have a container to store multiple sprites [not required]</p>
 </li>
 <li>
-<p>Be able to update and render multiple sprites</p>
+<p>Be able to update and render multiple sprites [not required]</p>
 </li>
 </ul>
 </div>
@@ -516,251 +502,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_detect_when_sprites_hit_arbitrarily_defined_walls">1. Detect when sprites hit arbitrarily defined walls</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>You know the top-left coordinate of each Sprite</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://wiki.libsdl.org/SDL_Rect"><code>SDL_Rect</code></a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>You know the height and width of each Sprite</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Define an imaginary wall towards the top (you don&#8217;t need to render it)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>make it in from the top of the screen</p>
-</li>
-<li>
-<p>you should be using your own coordinate system</p>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>not</strong> screen coordinates</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Make a sprite that moves upwards initially, automatically</p>
-</li>
-<li>
-<p>Write code to detect the collision</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Just a breakpoint will be enough</p>
-</li>
-<li>
-<p>You could make the Sprite change (image/colour), or the game exit</p>
-<div class="ulist">
-<ul>
-<li>
-<p>whatever works</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Make sure this still works when you fullscreen your game</p>
-<div class="ulist">
-<ul>
-<li>
-<p>and when you resize your app</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-</li>
-</ul>
-</div>
 <div class="sect2">
-<h3 id="_left_wall">1.1. Left wall</h3>
-<div class="olist arabic">
-<ol class="arabic">
+<h3 id="_sdl2_audio_and_sdl2_mixer">SDL2 audio and SDL2_mixer</h3>
+<div class="ulist">
+<ul>
 <li>
-<p>Define an imaginary wall towards the left of the screen</p>
-</li>
+<p>The standard SDL2 library has some audio support built in</p>
+<div class="ulist">
+<ul>
 <li>
-<p>Make a sprite that moves leftwards initially, automatically</p>
+<p>This is low-level</p>
 </li>
-<li>
-<p>Write code to detect the collision</p>
-</li>
-</ol>
+</ul>
 </div>
+</li>
+<li>
+<p>SDL2_mixer provides a higher level, mixer access to audio</p>
+<div class="ulist">
+<ul>
+<li>
+<p>with some more facilities</p>
+</li>
+</ul>
 </div>
-<div class="sect2">
-<h3 id="_bottom_wall">1.2. Bottom wall</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Define an imaginary wall towards the bottom of the screen</p>
 </li>
 <li>
-<p>Make a sprite that moves downwards initially, automatically</p>
-</li>
+<p><strong>DON&#8217;T</strong> use both together</p>
+<div class="ulist">
+<ul>
 <li>
-<p>Write code to detect the collision</p>
+<p><a href="http://jcatki.no-ip.org:8080/SDL2_mixer/SDL2_mixer.html#SEC5" class="bare">http://jcatki.no-ip.org:8080/SDL2_mixer/SDL2_mixer.html#SEC5</a></p>
 </li>
-</ol>
+</ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_right_wall">1.3. Right wall</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Define an imaginary wall towards the right of the screen</p>
 </li>
-<li>
-<p>Make a sprite that moves rightwards initially, automatically</p>
-</li>
-<li>
-<p>Write code to detect the collision</p>
-</li>
-</ol>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_make_sprites_bounce_of_the_walls">2. Make Sprites bounce of the walls</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>A simple way of doing wall collision response is to</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Reverse the velocity on the axis of collision</p>
-</li>
-<li>
-<p>i.e. if you hit the top wall, invert the y-component of the velocity</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make your sprite reverse velocity when it hits each wall</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Make sure it inverts correctly</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Test with your sprite initially going:</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>up</p>
-</li>
-<li>
-<p>down</p>
-</li>
-<li>
-<p>left</p>
-</li>
-<li>
-<p>right</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Test with your sprite initially going diagonally:</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>also when you fullscreen and resize your app</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_add_multiple_sprites_to_test_more">3. Add multiple sprites to test more</h2>
+<h2 id="_select_and_include_sdl2_mixer">1. Select and include SDL2_mixer</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add multiple sprites to your scene</p>
+<p>Search on <a href="http://conan.io" class="bare">http://conan.io</a> for packages for the SDL2_mixer library</p>
+</li>
+<li>
+<p>Add this to your <code>conanfile.txt</code></p>
+</li>
+<li>
+<p>Update your build system</p>
 <div class="ulist">
 <ul>
 <li>
-<p>each going different initial directions</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Do collision detection with walls, for all your sprites</p>
-<div class="ulist">
-<ul>
-<li>
-<p>this should encourage you to generalise your code</p>
-</li>
-<li>
-<p>NOTE: sprites don&#8217;t need to detect collisions with each other</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Test with the following sprite counts - you may want <strong>smaller</strong> sprites</p>
-<div class="ulist">
-<ul>
-<li>
-<p>2</p>
-</li>
-<li>
-<p>4</p>
-</li>
-<li>
-<p>8</p>
-</li>
-<li>
-<p>16</p>
-</li>
-<li>
-<p>64</p>
-</li>
-<li>
-<p>256</p>
-</li>
-<li>
-<p>1,024</p>
-</li>
-<li>
-<p>16,384</p>
+<p>probably just re-run your automation script</p>
 </li>
 </ul>
 </div>
@@ -770,121 +567,196 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="_detect_when_sprites_hit_each_other">4. Detect when sprites hit each other</h2>
+<h2 id="_look_at_the_documentation_for_sdl2_mixer">2. Look at the documentation for SDL2_mixer</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Where is the documentation</p>
+</li>
+<li>
+<p>What are the main <code>functions</code> you need</p>
+</li>
+<li>
+<p>Do you need to initialise the library?#</p>
+</li>
+<li>
+<p>What distinction does it make between "music" and "sound effects"?</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_include_sdl2_mixer">3. Include SDL2_mixer</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Include the appropriate header in your program</p>
+<div class="ulist">
+<ul>
+<li>
+<p>confirm your program still compiles</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Initialise SDL2_mixer if you need to</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_load_and_play_background_music">4. Load and play background music</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find a test music file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>start with a <code>.wav</code> file</p>
+</li>
+<li>
+<p>make sure you&#8217;re allowed to use it</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Load the file in your program</p>
+</li>
+<li>
+<p>Make the music play</p>
+</li>
+<li>
+<p>Remember to clean up appropriately when your program exits</p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_add_play_pause_to_music">4.1. Add play/pause to music</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a key-binding to pause the music</p>
+<div class="ulist">
+<ul>
+<li>
+<p>make sure your music is long enough to test</p>
+</li>
+<li>
+<p>and/or put the music on "loop"</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_control_volume_of_music">4.2. Control volume of music</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make the music start at 50% volume</p>
+</li>
+<li>
+<p>Add two key-bindings to increase and decrease the volume</p>
+<div class="ulist">
+<ul>
+<li>
+<p>what do you need to be careful about</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_play_sound_effects">5. Play sound effects</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find some test sound effects</p>
+</li>
+<li>
+<p>Load a sound effect into your program</p>
+</li>
+<li>
+<p>Add a key-binding to play your sound effect</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What happens if you press the key multiple times in quick succession</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_play_multiple_sound_effects">5.1. play multiple sound effects</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add key-bindings to play other sound effects</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stretch_sound_effects_to_in_game_events">6. Stretch - Sound effects to in-game events</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make your game play sound effects on <strong>any</strong> in-game collision</p>
+<div class="ulist">
+<ul>
+<li>
+<p>this <strong>could</strong> be useful for debug</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_stretch_add_panning">7. Stretch - Add panning</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>You know the bounds of each sprite (treat it as a AABB)</p>
+<p>The mixer supports panning</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Write code to detect collision between a pair of sprites</p>
-<div class="ulist">
-<ul>
-<li>
-<p>have just 2 sprites in your world</p>
-</li>
-<li>
-<p>keep the wall collisions and response</p>
-</li>
-<li>
-<p>you have a choice about whether this function exists on the Sprite class, or separately</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Test with sprites moving towards each other from all 4 directions</p>
+<p>Make you audio pan from left and right, and back again, and repeat</p>
 </li>
 </ol>
 </div>
 </li>
 </ul>
-</div>
-<div class="sect2">
-<h3 id="_make_sprites_bounce_off_each_other">4.1. Make Sprites bounce off each other</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>You can use the same "reverse velocity in direction of collision" technique between sprites</p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Write code for this</p>
-</li>
-<li>
-<p>Test with two sprites</p>
-</li>
-</ol>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_add_multiple_sprites_to_test_more_2">4.2. Add multiple sprites to test more</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Add multiple sprites to your scene</p>
-<div class="ulist">
-<ul>
-<li>
-<p>each going different initial directions</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Do collision detection with walls, for all your sprites</p>
-</li>
-<li>
-<p>Do collision detection between all sprites</p>
-</li>
-<li>
-<p>Test with the following sprite counts - you may want <strong>smaller</strong> sprites</p>
-<div class="ulist">
-<ul>
-<li>
-<p>2</p>
-</li>
-<li>
-<p>4</p>
-</li>
-<li>
-<p>8</p>
-</li>
-<li>
-<p>16</p>
-</li>
-<li>
-<p>64</p>
-</li>
-<li>
-<p>256</p>
-</li>
-<li>
-<p>1,024</p>
-</li>
-<li>
-<p>16,384</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>What issues to you notice?</p>
-</li>
-</ol>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-11-29 09:13:31 GMT
+Last updated 2016-12-06 09:17:53 GMT
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
