@@ -1,4 +1,4 @@
-= Sound (to release)
+= Sound
 :imagesdir: assets
 :revealjs_history: true
 :examplesdir: examples
