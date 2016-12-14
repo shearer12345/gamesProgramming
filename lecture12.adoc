@@ -1,5 +1,5 @@
 = Multi-player and Networking
-:imagesdir: assets
+:imagesdir: assets/networking
 :revealjs_history: true
 :examplesdir: examples
 :source-highlighter: highlightjs
